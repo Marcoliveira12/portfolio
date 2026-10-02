@@ -1,4 +1,4 @@
-# Portfólio — Marco [Sobrenome]
+# Portfólio — Marco Machado
 
 Site pessoal para reunir projetos, formação e contato. Feito em HTML, CSS e JavaScript puros, publicado no GitHub Pages.
 
