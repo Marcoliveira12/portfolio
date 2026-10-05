@@ -1,4 +1,4 @@
-# Portfólio — Marco Machado
+# Portfólio de Marco Machado
 
 Site pessoal para reunir projetos, formação e contato. Feito em HTML, CSS e JavaScript puros, publicado no GitHub Pages.
 
@@ -20,12 +20,12 @@ Site pessoal para reunir projetos, formação e contato. Feito em HTML, CSS e Ja
 
 Uma tarefa só está pronta quando:
 
-- [ ] Funciona no desktop e no celular
-- [ ] Não gera erro no console do navegador
-- [ ] O código foi lido e pode ser explicado
-- [ ] Está commitado com mensagem clara
-- [ ] Está publicado no GitHub
+- Funciona no celular, no tablet e no desktop
+- Não gera erro no console do navegador
+- O código foi lido e pode ser explicado
+- Está commitado com mensagem clara
+- Está publicado no GitHub
 
 ## Status
 
-🚧 Em desenvolvimento — Sprint 0 concluída, Sprint 1 em andamento.
+🚧 Em desenvolvimento: HTML da página inicial pronto, visual (CSS) em andamento.
