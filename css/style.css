@@ -637,3 +637,163 @@ body > footer p:first-child {
     font-weight: 600;
     color: #E6EDF3;
 }
+
+
+/*  TABLET: de 1023px para baixo       */
+
+@media (max-width: 1023px) {
+
+    /*respiro vertical menor nas seções*/
+    main > section {
+        padding: 64px 32px;
+    }
+
+    #inicio {
+        padding-top: 96px;
+        padding-bottom: 96px;
+    }
+
+    #inicio h1 {
+        font-size: 44px;
+    }
+
+    /*projetos vira uma coluna só*/
+    #projetos {
+        grid-template-columns: 1fr;
+        row-gap: 32px;
+    }
+
+    #projetos > h2,
+    #projetos > p,
+    #projetos > div {
+        grid-column: auto;
+    }
+
+    #projetos > aside {
+        grid-column: auto;
+        grid-row: auto;
+        position: static;
+    }
+
+    /*sobre, experiência, formação e contato viram uma coluna*/
+    #sobre {
+        grid-template-columns: 1fr;
+        row-gap: 32px;
+    }
+
+    #experiencia article {
+        grid-template-columns: 1fr;
+        row-gap: 24px;
+    }
+
+    /*logos lado a lado, data embaixo ocupando a linha toda*/
+    #experiencia article > div:first-child {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 16px 50px;
+    }
+
+    #experiencia article > div:first-child p {
+        flex-basis: 100%;
+        text-align: center;
+    }
+
+    #formacao > div {
+        grid-template-columns: 1fr;
+        row-gap: 8px;
+    }
+
+    #contato {
+        grid-template-columns: 1fr;
+        row-gap: 32px;
+        margin: 64px 32px;
+    }
+
+    /*cabeçalho e rodapé acompanham o padding das seções*/
+    body > header {
+        padding: 16px 32px;
+    }
+
+    body > footer {
+        padding: 32px 32px;
+    }
+}
+
+
+
+/*  CELULAR: de 599px para baixo       */
+
+@media (max-width: 599px) {
+
+    main > section {
+        padding: 48px 20px;
+    }
+
+    #inicio {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    #inicio h1 {
+        font-size: 34px;
+        
+    }
+
+    #inicio h1 + p {
+        font-size: 17px;
+
+    }
+
+    /*botões do topo, um embaixo do outro*/
+    #inicio > div > div {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    /*cabeçalho quebra em linhas em vez de espremer*/
+    body > header {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 16px;
+        padding: 16px 20px;
+    }
+
+    body > header nav ul {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    /*github e linkedin centralizados na própria linha*/
+    body > header > div {
+        flex-basis: 100%;
+        justify-content: center;
+        gap: 0px 50px;
+    }
+
+    /*listas pequenas viram uma coluna*/
+    #formacao li {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    #contato li {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    #contato {
+        margin: 48px 20px;
+        padding: 32px 24px;
+    }
+
+    /*rodapé empilhado*/
+    body > footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 32px 20px;
+    }
+}
