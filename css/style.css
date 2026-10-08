@@ -222,6 +222,12 @@ main > section {
     padding: 96px max(32px, calc((100% - 1040px) / 2));
 }
 
+/*faixas alternadas: tom um pouco mais claro que o fundo*/
+#projetos,
+#experiencia {
+    background-color: #0F141C;
+}
+
 /*topo*/
 #inicio {
     padding-top: 128px;
@@ -321,49 +327,36 @@ main > section {
     margin-bottom: 24px;
 }
 
-#projetos article header {
-    display: grid;
-    grid-template-columns: 40px 1fr;
-    column-gap: 12px;
-    align-items: center;
-}
-
-#projetos article header img {
-    grid-row: 1 / 3;
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
 #projetos article header p {
-    line-height: 1.4;
-}
-
-#projetos article header p:first-of-type {
-    font-size: 14px;
-    font-weight: 600;
-    color: #E6EDF3;
-}
-
-#projetos article header p:last-of-type {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.4;
     color: #8B96A5;
 }
 
 #projetos article h3 {
-    grid-column: 1 / -1;
     font-size: 22px;
     font-weight: 600;
-    margin-top: 20px;
+    margin-top: 6px;
 }
 
-#projetos article > img {
-    width: 100%;
+/*moldura em volta do print do projeto*/
+#projetos article figure {
+    margin: 16px 0 0 0;
+    padding: 16px;
+    background-color: #0F141C;
     border: 1px solid #30363D;
-    border-radius: 8px;
-    margin-top: 16px;
+    border-radius: 10px;
+}
+
+#projetos article figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
 #projetos article > p {
@@ -390,7 +383,11 @@ main > section {
 
 #sobre h2 {
     grid-column: 1 / -1;
-    margin-bottom: 32px;
+    margin-bottom: 12px;
+}
+
+#sobre h2 + p {
+    grid-column: 1 / -1;
 }
 
 #sobre dl {
@@ -455,8 +452,8 @@ main > section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+    justify-content: center;
+    gap: 40px;
 }
 
 #experiencia img {
@@ -465,12 +462,6 @@ main > section {
     max-width: 160px;
     max-height: 72px;
     object-fit: contain;
-}
-
-#experiencia article > div:first-child p {
-    font-family: jetbrains, ui-monospace, monospace;
-    font-size: 13px;
-    color: #8B96A5;
 }
 
 #experiencia h3 {
@@ -486,6 +477,17 @@ main > section {
 
 #experiencia article > div:last-child p:last-of-type {
     margin-bottom: 0;
+}
+
+/*seletor mais específico que o de cima, para ganhar dele*/
+#experiencia article > div:last-child > p:first-child {
+    font-family: jetbrains, ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8B96A5;
+    max-width: none;
+    margin-bottom: 6px;
 }
 
 #experiencia ul {
@@ -549,41 +551,55 @@ main > section {
 
 #formacao li {
     display: grid;
-    grid-template-columns: 1fr auto auto;
-    align-items: baseline;
-    gap: 32px;
+    grid-template-columns: 1fr auto;
+    column-gap: 32px;
+    row-gap: 4px;
     border-bottom: 1px solid #30363D;
-    padding: 14px 0;
+    padding: 16px 0;
 }
 
+/*o p vem depois do h3 no HTML, mas aparece em cima*/
 #formacao li h3 {
+    grid-row: 2;
     font-size: 16px;
     font-weight: 600;
 }
 
-#formacao li p,
-#formacao li a {
-    font-size: 14px;
+#formacao li p {
+    grid-row: 1;
+    font-family: jetbrains, ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8B96A5;
 }
 
-#formacao li p {
-    color: #8B96A5;
+/*certificado na coluna da direita, ocupando as duas linhas*/
+#formacao li a {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: center;
+    font-size: 14px;
 }
 
 /*contato*/
 #contato {
+    background-color: #0F141C;
+}
+
+/*cartão*/
+#contato > div {
     display: grid;
     grid-template-columns: 1fr 1.1fr;
     column-gap: 64px;
     background-color: #161B22;
     border: 1px solid #30363D;
     border-radius: 16px;
-    margin: 96px max(32px, calc((100% - 1040px) / 2));
     padding: 48px;
 }
 
 /*bolinhas de janela, feitas só pelo CSS*/
-#contato > div::before {
+#contato > div > div::before {
     content: "● ● ●";
     display: block;
     font-size: 10px;
@@ -596,7 +612,7 @@ main > section {
     margin-bottom: 16px;
 }
 
-#contato > div p:last-child {
+#contato > div > div p:last-child {
     max-width: 45ch;
 }
 
@@ -686,18 +702,13 @@ body > footer p:first-child {
         row-gap: 24px;
     }
 
-    /*logos lado a lado, data embaixo ocupando a linha toda*/
+    /*logos lado a lado, alinhados à esquerda com o texto*/
     #experiencia article > div:first-child {
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
-        gap: 16px 50px;
-    }
-
-    #experiencia article > div:first-child p {
-        flex-basis: 100%;
-        text-align: center;
+        gap: 16px 32px;
     }
 
     #formacao > div {
@@ -705,14 +716,15 @@ body > footer p:first-child {
         row-gap: 8px;
     }
 
-    #contato {
+    #contato > div {
         grid-template-columns: 1fr;
         row-gap: 32px;
-        margin: 64px 32px;
     }
 
     /*cabeçalho e rodapé acompanham o padding das seções*/
+    /*header só fica fixo no topo no desktop*/
     body > header {
+        position: static;
         padding: 16px 32px;
     }
 
@@ -753,24 +765,40 @@ body > footer p:first-child {
         gap: 16px;
     }
 
-    /*cabeçalho quebra em linhas em vez de espremer*/
+    /*cabeçalho em duas linhas: nome e redes em cima, menu embaixo*/
     body > header {
         flex-wrap: wrap;
-        justify-content: flex-start;
+        justify-content: space-between;
+        align-items: center;
+        row-gap: 12px;
+        padding: 14px 20px;
+    }
+
+    body > header > a {
+        order: 1;
+    }
+
+    body > header > div {
+        order: 2;
         gap: 16px;
-        padding: 16px 20px;
+    }
+
+    body > header nav {
+        order: 3;
+        flex-basis: 100%;
+        border-top: 1px solid #30363D;
+        padding-top: 12px;
     }
 
     body > header nav ul {
+        justify-content: space-between;
         flex-wrap: wrap;
-        gap: 16px;
+        gap: 8px 12px;
+        font-size: 13px;
     }
 
-    /*github e linkedin centralizados na própria linha*/
-    body > header > div {
-        flex-basis: 100%;
-        justify-content: center;
-        gap: 0px 50px;
+    #projetos article figure {
+        padding: 10px;
     }
 
     /*listas pequenas viram uma coluna*/
@@ -779,13 +807,19 @@ body > footer p:first-child {
         gap: 4px;
     }
 
+    /*certificado desce para baixo do nome do curso*/
+    #formacao li a {
+        grid-column: 1;
+        grid-row: 3;
+        justify-self: start;
+    }
+
     #contato li {
         grid-template-columns: 1fr;
         gap: 4px;
     }
 
-    #contato {
-        margin: 48px 20px;
+    #contato > div {
         padding: 32px 24px;
     }
 
