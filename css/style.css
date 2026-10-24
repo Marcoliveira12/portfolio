@@ -99,8 +99,7 @@ a:hover {
 }
 
 /*rótulo(título) pequeno no inicio de cada seção (PROJETOS, SOBRE MIM...)*/
-main h2,
-#inicio > div > p:first-child {
+main h2, .inicio-rotulo {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 13px;
     font-weight: 500;
@@ -256,13 +255,13 @@ main > section {
     margin-bottom: 24px;
 }
 
-#inicio h1 + p {
+.inicio-apresentacao {
     font-size: 19px;
     max-width: 60ch;
     margin-bottom: 40px;
 }
 
-#inicio > div > div {
+.inicio-botoes {
     display: flex;
     align-items: center;
     gap: 24px;
