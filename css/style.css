@@ -175,7 +175,7 @@ main h2 + p {
 }
 
 /*cabeçalho(nome, menu e redes*/
-body > header {
+.cabecalho {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -190,7 +190,7 @@ body > header {
 }
 
 /*Marco Antonio*/
-body > header > a {
+.cabecalho-nome {
     font-size: 15px;
     font-weight: 600;
     color: #E6EDF3;
@@ -198,30 +198,30 @@ body > header > a {
 }
 
 /*menu: Projetos, Sobre espaçamento*/
-body > header nav ul {
+.menu ul {
     display: flex;
     gap: 28px;
 }
 
 /*menu: Projetos, Sobre... cinza e sem sublinhado*/
-body > header nav a {
+.menu a {
     color: #8B96A5;
     text-decoration: none;
 }
 
 /*menu: Projetos, Sobre... hover*/
-body > header nav a:hover {
+.menu a:hover {
     color: #E6EDF3;
 }
 
 /*GitHub e Linkedin espaçamento*/
-body > header > div {
+.cabecalho-redes {
     display: flex;
     gap: 20px;
 }
 
 /*GitHub e Linkedin links*/
-body > header > div a {
+.cabecalho-redes a {
     text-decoration: none;
 }
 
@@ -768,7 +768,7 @@ main > section {
 
     /*cabeçalho e rodapé acompanham o padding das seções*/
     /*header só fica fixo no topo no desktop*/
-    body > header {
+    .cabecalho {
         position: static;
         padding: 16px 32px;
     }
@@ -811,7 +811,7 @@ main > section {
     }
 
     /*cabeçalho em duas linhas: nome e redes em cima, menu embaixo*/
-    body > header {
+    .cabecalho {
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
@@ -819,23 +819,23 @@ main > section {
         padding: 14px 20px;
     }
 
-    body > header > a {
+   .cabecalho-nome {
         order: 1;
     }
 
-    body > header > div {
+    .cabecalho-redes {
         order: 2;
         gap: 16px;
     }
 
-    body > header nav {
+    .menu {
         order: 3;
         flex-basis: 100%;
         border-top: 1px solid #30363D;
         padding-top: 12px;
     }
 
-    body > header nav ul {
+    .menu ul {
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 8px 12px;
