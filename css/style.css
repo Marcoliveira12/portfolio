@@ -120,9 +120,7 @@ main h2 + p {
 }
 
 /*cards(caixas) nas seções projetos e sobre mim*/
-#projetos aside,
-#projetos article,
-#sobre dl {
+.cartao {
     background-color: #161B22;
     border: 1px solid #30363D;
     border-radius:12px;
@@ -279,12 +277,12 @@ main > section {
 /*título, frase e posts na coluna da direita*/
 #projetos > h2,
 #projetos > p,
-#projetos > div {
+#projetos > .feed {
     grid-column: 2;
 }
 
 /*cartão de perfil na coluna da esquerda*/
-#projetos > aside {
+.perfil {
     grid-column: 1;
     grid-row: 1 / 4;
     position: sticky;
@@ -292,7 +290,7 @@ main > section {
 }
 
 /*foto do cartão de perfil*/
-#projetos aside img {
+.perfil img {
     width: 64px;
     height: 64px;
     object-fit: cover;
@@ -301,26 +299,26 @@ main > section {
 }
 
 /*textos do cartão de perfil*/
-#projetos aside p {
+.perfil p {
     font-size: 14px;
     color: #8B96A5;
 }
 
 /*nome no cartão de perfil (Marco Antônio Machado)*/
-#projetos aside p:first-of-type {
+.perfil .perfil-nome {
     font-size: 16px;
     font-weight: 600;
     color: #E6EDF3;
 }
 
 /*descrição no cartão de perfil (Projetos pessoais, acadêmicos e de curso)*/
-#projetos aside p:last-of-type {
+.perfil .perfil-descricao {
     color: #C9D1D9;
     margin-top: 12px;
 }
 
 /*contador do cartão*/
-#projetos aside ul {
+.perfil ul {
     display: flex;
     gap: 32px;
     border-top: 1px solid #30363D;
@@ -329,7 +327,7 @@ main > section {
 }
 
 /*palavras do contador (PROJETOS e EM ANDAMENTO)*/
-#projetos aside li {
+.perfil li {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 11px;
     letter-spacing: 0.1em;
@@ -338,7 +336,7 @@ main > section {
 }
 
 /*números do contador*/
-#projetos aside li span {
+.perfil li span {
     display: block;
     font-family: inter, system-ui, sans-serif;
     font-size: 20px;
@@ -348,12 +346,12 @@ main > section {
 }
 
 /*espaço entre um post de projeto e outro*/
-#projetos article {
+.post {
     margin-bottom: 24px;
 }
 
 /*rótulo do post (tipo, ano e status do projeto)*/
-#projetos article header p {
+.post header p {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 12px;
     letter-spacing: 0.08em;
@@ -362,15 +360,15 @@ main > section {
     color: #8B96A5;
 }
 
-/*nome do projeto no post*/
-#projetos article h3 {
+/*nome/titulo do projeto no post*/
+.post h3 {
     font-size: 22px;
     font-weight: 600;
     margin-top: 6px;
 }
 
 /*moldura em volta do print do projeto*/
-#projetos article figure {
+.post figure {
     margin: 16px 0 0 0;
     padding: 16px;
     background-color: #0F141C;
@@ -379,7 +377,7 @@ main > section {
 }
 
 /*print do projeto dentro da moldura (cantos arredondados e sombra)*/
-#projetos article figure img {
+.post img {
     display: block;
     width: 100%;
     height: auto;
@@ -388,12 +386,12 @@ main > section {
 }
 
 /*descrição do projeto abaixo do print*/
-#projetos article > p {
+.post-descricao {
     margin-top: 12px;
 }
 
 /*links do post (Ver código e Visitar site)*/
-#projetos article footer {
+.post footer {
     display: flex;
     justify-content: flex-end;
     gap: 20px;
