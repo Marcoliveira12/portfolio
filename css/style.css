@@ -98,7 +98,7 @@ a:hover {
     border-radius: 2px;
 }
 
-/*rótulo pequeno de cada seção (PROJETOS, SOBRE MIM...)*/
+/*rótulo(título) pequeno no inicio de cada seção (PROJETOS, SOBRE MIM...)*/
 main h2,
 #inicio > div > p:first-child {
     font-family: jetbrains, ui-monospace, monospace;
@@ -110,7 +110,7 @@ main h2,
     margin-bottom: 12px;
 }
 
-/*título grande logo abaixo do rótulo*/
+/*título(<p>) grande logo abaixo do rótulo(titulo) de cada seção*/
 main h2 + p {
     font-size: 32px;
     font-weight: 700;
@@ -120,17 +120,17 @@ main h2 + p {
     margin-bottom: 40px;
 }
 
-/*cards*/
+/*cards(caixas) nas seções projetos e sobre mim*/
 #projetos aside,
 #projetos article,
 #sobre dl {
     background-color: #161B22;
     border: 1px solid #30363D;
-    border-radius: 12px;
+    border-radius:12px;
     padding: 24px;
 }
 
-/*etiquetas*/
+/*etiquetas de habilidades(linguagens de programação na seção sobre mim e skills aprendidas no estágio na seção experiência*/
 #sobre dd li,
 #experiencia li {
     font-family: jetbrains, ui-monospace, monospace;
@@ -141,7 +141,7 @@ main h2 + p {
     padding: 4px 10px;
 }
 
-/*botões*/
+/*botões(ver projetos e baixar curriculo)*/
 .botao {
     display: inline-block;
     font-size: 15px;
@@ -155,23 +155,26 @@ main h2 + p {
     transition: background-color 0.2s;
 }
 
+/*hover de ver projetos*/
 .botao:hover {
     color: #0D1117;
     background-color: #A5D6FF;
 }
 
+/*botão baixar curriculo*/
 .botao-secundario {
     color: #E6EDF3;
     background-color: transparent;
     border-color: #6E7681;
 }
 
+/*hover de baixar curriculo*/
 .botao-secundario:hover {
     color: #E6EDF3;
     background-color: #161B22;
 }
 
-/*cabeçalho*/
+/*cabeçalho(nome, menu e redes*/
 body > header {
     display: flex;
     align-items: center;
@@ -186,6 +189,7 @@ body > header {
     padding: 16px max(32px, calc((100% - 1040px) / 2));
 }
 
+/*Marco Antonio*/
 body > header > a {
     font-size: 15px;
     font-weight: 600;
@@ -193,46 +197,57 @@ body > header > a {
     text-decoration: none;
 }
 
+/*menu: Projetos, Sobre espaçamento*/
 body > header nav ul {
     display: flex;
     gap: 28px;
 }
 
+/*menu: Projetos, Sobre... cinza e sem sublinhado*/
 body > header nav a {
     color: #8B96A5;
     text-decoration: none;
 }
 
+/*menu: Projetos, Sobre... hover*/
 body > header nav a:hover {
     color: #E6EDF3;
 }
 
+/*GitHub e Linkedin espaçamento*/
 body > header > div {
     display: flex;
     gap: 20px;
 }
 
+/*GitHub e Linkedin links*/
 body > header > div a {
     text-decoration: none;
 }
 
-/*seções*/
+
+/*borda e padding de todas as seções*/
 main > section {
     border-bottom: 1px solid #30363D;
     padding: 96px max(32px, calc((100% - 1040px) / 2));
 }
 
-/*faixas alternadas: tom um pouco mais claro que o fundo*/
+/*backgound alternado entre as seções*/
 #projetos,
 #experiencia {
     background-color: #0F141C;
 }
 
+
+
 /*topo*/
+/*padding, título, parágrafo e espaçamento dos botões da seção inicio*/
+
 #inicio {
     padding-top: 128px;
     padding-bottom: 128px;
 }
+
 
 #inicio h1 {
     font-size: 56px;
@@ -254,6 +269,7 @@ main > section {
 }
 
 /*projetos*/
+/*seção projetos dividida em duas colunas (cartão de perfil à esquerda e posts à direita)*/
 #projetos {
     display: grid;
     grid-template-columns: 240px 1fr;
@@ -261,12 +277,14 @@ main > section {
     align-items: start;
 }
 
+/*título, frase e posts na coluna da direita*/
 #projetos > h2,
 #projetos > p,
 #projetos > div {
     grid-column: 2;
 }
 
+/*cartão de perfil na coluna da esquerda*/
 #projetos > aside {
     grid-column: 1;
     grid-row: 1 / 4;
@@ -274,6 +292,7 @@ main > section {
     top: 96px;
 }
 
+/*foto do cartão de perfil*/
 #projetos aside img {
     width: 64px;
     height: 64px;
@@ -282,22 +301,26 @@ main > section {
     margin-bottom: 16px;
 }
 
+/*textos do cartão de perfil*/
 #projetos aside p {
     font-size: 14px;
     color: #8B96A5;
 }
 
+/*nome no cartão de perfil (Marco Antônio Machado)*/
 #projetos aside p:first-of-type {
     font-size: 16px;
     font-weight: 600;
     color: #E6EDF3;
 }
 
+/*descrição no cartão de perfil (Projetos pessoais, acadêmicos e de curso)*/
 #projetos aside p:last-of-type {
     color: #C9D1D9;
     margin-top: 12px;
 }
 
+/*contador do cartão*/
 #projetos aside ul {
     display: flex;
     gap: 32px;
@@ -306,6 +329,7 @@ main > section {
     padding-top: 16px;
 }
 
+/*palavras do contador (PROJETOS e EM ANDAMENTO)*/
 #projetos aside li {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 11px;
@@ -314,6 +338,7 @@ main > section {
     color: #8B96A5;
 }
 
+/*números do contador*/
 #projetos aside li span {
     display: block;
     font-family: inter, system-ui, sans-serif;
@@ -323,10 +348,12 @@ main > section {
     color: #E6EDF3;
 }
 
+/*espaço entre um post de projeto e outro*/
 #projetos article {
     margin-bottom: 24px;
 }
 
+/*rótulo do post (tipo, ano e status do projeto)*/
 #projetos article header p {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 12px;
@@ -336,6 +363,7 @@ main > section {
     color: #8B96A5;
 }
 
+/*nome do projeto no post*/
 #projetos article h3 {
     font-size: 22px;
     font-weight: 600;
@@ -351,6 +379,7 @@ main > section {
     border-radius: 10px;
 }
 
+/*print do projeto dentro da moldura (cantos arredondados e sombra)*/
 #projetos article figure img {
     display: block;
     width: 100%;
@@ -359,10 +388,12 @@ main > section {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
+/*descrição do projeto abaixo do print*/
 #projetos article > p {
     margin-top: 12px;
 }
 
+/*links do post (Ver código e Visitar site)*/
 #projetos article footer {
     display: flex;
     justify-content: flex-end;
@@ -374,6 +405,8 @@ main > section {
 }
 
 /*sobre mim*/
+
+/*seção sobre mim dividida em duas colunas*/
 #sobre {
     display: grid;
     grid-template-columns: 300px 1fr;
@@ -381,6 +414,7 @@ main > section {
     align-items: stretch;
 }
 
+/*título e "Prazer, Marco." ocupando a largura toda, em cima das colunas*/
 #sobre h2 {
     grid-column: 1 / -1;
     margin-bottom: 12px;
@@ -390,6 +424,7 @@ main > section {
     grid-column: 1 / -1;
 }
 
+/*cartão ficha (Local, Formação e Habilidades): rótulos, valores, linhas divisórias e etiquetas*/
 #sobre dl {
     display: flex;
     flex-direction: column;
@@ -426,6 +461,7 @@ main > section {
     margin-top: 8px;
 }
 
+/*três parágrafos sobre mim, com largura confortável de leitura*/
 #sobre > div p {
     max-width: 65ch;
     margin-bottom: 20px;
@@ -435,12 +471,15 @@ main > section {
     margin-bottom: 0;
 }
 
+
 /*experiência*/
+/*linha embaixo de "Trajetória profissional."*/
 #experiencia h2 + p {
     border-bottom: 1px solid #30363D;
     padding-bottom: 24px;
 }
 
+/*estágio dividido em duas colunas (logos à esquerda e texto à direita)*/
 #experiencia article {
     display: grid;
     grid-template-columns: 160px 1fr;
@@ -448,6 +487,7 @@ main > section {
     align-items: stretch;
 }
 
+/*logos da Agência Fruta e da Beauty Fair */
 #experiencia article > div:first-child {
     display: flex;
     flex-direction: column;
@@ -464,6 +504,7 @@ main > section {
     object-fit: contain;
 }
 
+/*textos do estágio: rótulo com a data, nome da empresa e parágrafos*/
 #experiencia h3 {
     font-size: 22px;
     font-weight: 600;
@@ -479,7 +520,6 @@ main > section {
     margin-bottom: 0;
 }
 
-/*seletor mais específico que o de cima, para ganhar dele*/
 #experiencia article > div:last-child > p:first-child {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 12px;
@@ -490,6 +530,7 @@ main > section {
     margin-bottom: 6px;
 }
 
+/*etiquetas das competências lado a lado*/
 #experiencia ul {
     display: flex;
     flex-wrap: wrap;
@@ -497,7 +538,9 @@ main > section {
     margin-top: 20px;
 }
 
+
 /*formação*/
+/*graduação: logo do CESUPA ao lado do curso e da instituição*/
 #formacao article {
     display: flex;
     align-items: center;
@@ -533,6 +576,7 @@ main > section {
     color: #8B96A5;
 }
 
+/*cursos em duas colunas (rótulo "CURSOS" à esquerda e lista à direita)*/
 #formacao > div {
     display: grid;
     grid-template-columns: 140px 1fr;
@@ -549,6 +593,7 @@ main > section {
     padding-top: 14px;
 }
 
+/*cada curso: plataforma em cima, nome embaixo e certificado à direita, centralizado*/
 #formacao li {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -558,7 +603,6 @@ main > section {
     padding: 16px 0;
 }
 
-/*o p vem depois do h3 no HTML, mas aparece em cima*/
 #formacao li h3 {
     grid-row: 2;
     font-size: 16px;
@@ -574,7 +618,6 @@ main > section {
     color: #8B96A5;
 }
 
-/*certificado na coluna da direita, ocupando as duas linhas*/
 #formacao li a {
     grid-column: 2;
     grid-row: 1 / 3;
@@ -583,11 +626,11 @@ main > section {
 }
 
 /*contato*/
+/*cartão de contato em duas colunas (texto à esquerda e lista à direita)*/
 #contato {
     background-color: #0F141C;
 }
 
-/*cartão*/
 #contato > div {
     display: grid;
     grid-template-columns: 1fr 1.1fr;
@@ -598,7 +641,7 @@ main > section {
     padding: 48px;
 }
 
-/*bolinhas de janela, feitas só pelo CSS*/
+/*bolinhas de janela*/
 #contato > div > div::before {
     content: "● ● ●";
     display: block;
@@ -608,6 +651,7 @@ main > section {
     margin-bottom: 20px;
 }
 
+/*"Vamos conversar." e o texto do convite*/
 #contato h2 + p {
     margin-bottom: 16px;
 }
@@ -616,6 +660,7 @@ main > section {
     max-width: 45ch;
 }
 
+/*lista de contatos: rótulo à esquerda e link à direita*/
 #contato li {
     display: grid;
     grid-template-columns: 96px 1fr;
