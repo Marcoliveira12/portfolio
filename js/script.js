@@ -1,2 +1,2 @@
-const elementoAno = document.querySelector('.Ano-atual');
+const elementoAno = document.querySelector('.ano-atual');
 elementoAno.textContent = new Date().getFullYear();
