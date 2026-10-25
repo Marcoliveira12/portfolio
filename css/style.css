@@ -629,8 +629,8 @@ main > section {
 
 .contato-cartao {
     display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    column-gap: 64px;
+    grid-template-columns: 1fr 1.4fr;
+    column-gap: 48px;
     background-color: #161B22;
     border: 1px solid #30363D;
     border-radius: 16px;
@@ -659,7 +659,7 @@ main > section {
 /*lista de contatos: rótulo à esquerda e link à direita*/
 #contato li {
     display: grid;
-    grid-template-columns: 96px 1fr;
+    grid-template-columns: 88px 1fr;
     align-items: baseline;
     gap: 16px;
     border-bottom: 1px solid #30363D;
