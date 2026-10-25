@@ -30,16 +30,52 @@ function copiarEmail() {
 
 botaoCopiarEmail.addEventListener('click', copiarEmail);
 
+
+//animações
+
 //seções aparecendo de acordo com o scroll do usuário
 const secoesRevelar = document.querySelectorAll('.revelar');
 
-const observadorSecoes = new IntersectionObserver((entradas) => {
-    entradas.forEach((entrada) => {
-        if (!entrada.isIntersecting) return;
+const observadorSecoes = new IntersectionObserver(function (entradas) {
+    for (let i = 0; i < entradas.length; i++) {
+        const entrada = entradas[i];
 
-        entrada.target.classList.add('visivel');
-        observadorSecoes.unobserve(entrada.target);
-    });
+        if (entrada.isIntersecting) {
+            entrada.target.classList.add('visivel');
+            observadorSecoes.unobserve(entrada.target);
+        }
+    }
 }, { threshold: 0, rootMargin: '0px 0px -15% 0px' });
 
-secoesRevelar.forEach((secao) => observadorSecoes.observe(secao));
+for (let i = 0; i < secoesRevelar.length; i++) {
+    observadorSecoes.observe(secoesRevelar[i]);
+}
+
+//menu destacando o link da seção que está na tela
+const secoesMenu = document.querySelectorAll('main section[id]');
+const linksMenu = document.querySelectorAll('.menu a');
+
+const observadorMenu = new IntersectionObserver(function (entradas) {
+    for (let i = 0; i < entradas.length; i++) {
+        const entrada = entradas[i];
+
+        if (entrada.isIntersecting) {
+            for (let j = 0; j < linksMenu.length; j++) {
+                linksMenu[j].classList.remove('ativo');
+                linksMenu[j].removeAttribute('aria-current');
+            }
+
+            const linkAtivo = document.querySelector(`.menu a[href="#${entrada.target.id}"]`);
+
+            if (linkAtivo) {
+                linkAtivo.classList.add('ativo');
+                linkAtivo.setAttribute('aria-current', 'true');
+            }
+        }
+    }
+}, { rootMargin: '-50% 0px -50% 0px' });
+
+for (let i = 0; i < secoesMenu.length; i++) {
+    observadorMenu.observe(secoesMenu[i]);
+}
+secoesMenu.forEach((secao) => observadorMenu.observe(secao));
