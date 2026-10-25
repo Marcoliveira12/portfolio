@@ -736,6 +736,17 @@ main > section {
     color: #E6EDF3;
 }
 
+/*                    animações               */
+/*seções começam invisíveis (só com JavaScript ligado)*/
+.js .revelar {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
+
+/*seção visível (classe colocada pelo JavaScript)*/
+.js .revelar.visivel {
+    opacity: 1;
+}
 
 /*  TABLET: de 1023px para baixo       */
 
@@ -911,5 +922,20 @@ main > section {
         align-items: flex-start;
         gap: 16px;
         padding: 32px 20px;
+    }
+}
+
+/*  MOVIMENTO: só para quem não pediu menos movimento  */
+
+@media (prefers-reduced-motion: no-preference) {
+
+    /*seções sobem um pouco enquanto aparecem*/
+    .js .revelar {
+        transform: translateY(24px);
+        transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+
+    .js .revelar.visivel {
+        transform: none;
     }
 }
