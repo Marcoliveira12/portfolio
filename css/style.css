@@ -210,6 +210,11 @@ main h2 + p {
     color: #E6EDF3;
 }
 
+/*menu: link da seção que está na tela*/
+.menu a.ativo {
+    color: #7CC4FF;
+}
+
 /*GitHub e Linkedin espaçamento*/
 .cabecalho-redes {
     display: flex;
