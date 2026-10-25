@@ -678,6 +678,47 @@ main > section {
     overflow-wrap: anywhere;
 }
 
+/*e-mail, botão copiar e aviso lado a lado*/
+.contato-email {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+}
+
+/*botão copiar e-mail*/
+.contato-copiar {
+    font-family: jetbrains, ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #7CC4FF;
+    background-color: transparent;
+    border: 1px solid #30363D;
+    border-radius: 6px;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+/*hover do botão copiar*/
+.contato-copiar:hover {
+    background-color: #132235;
+    border-color: #7CC4FF;
+}
+
+/*aviso de e-mail copiado: começa invisível*/
+#contato .contato-aviso {
+    color: #7EE787;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+/*aviso visível (classe colocada pelo JavaScript)*/
+#contato .contato-aviso.visivel {
+    opacity: 1;
+}
+
 /*rodapé*/
 .rodape {
     display: flex;
