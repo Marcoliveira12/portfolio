@@ -7,14 +7,22 @@ elementoAno.textContent = new Date().getFullYear();
 const botaoCopiarEmail = document.querySelector('.contato-copiar');
 const avisoEmailCopiado = document.querySelector('.contato-aviso');
 
+let timerAvisoEmail;
+
 function copiarEmail() {
     navigator.clipboard.writeText('marcoantoniomachado1010@gmail.com');
+
+    clearTimeout(timerAvisoEmail);
 
     avisoEmailCopiado.textContent = 'E-mail copiado!';
     avisoEmailCopiado.classList.add('visivel');
 
-    setTimeout(function () {
+    timerAvisoEmail = setTimeout(function () {
         avisoEmailCopiado.classList.remove('visivel');
+
+        timerAvisoEmail = setTimeout(function () {
+            avisoEmailCopiado.textContent = '';
+        }, 150);
     }, 2000);
 }
 
