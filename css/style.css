@@ -803,10 +803,8 @@ main > section {
         row-gap: 32px;
     }
 
-    /*cabeçalho e rodapé acompanham o padding das seções*/
-    /*header só fica fixo no topo no desktop*/
+    /*cabeçalho acompanha o padding das seções*/
     .cabecalho {
-        position: static;
         padding: 16px 32px;
     }
 
@@ -823,6 +821,7 @@ main > section {
 
     main > section {
         padding: 48px 20px;
+        scroll-margin-top: 50px;
     }
 
     #inicio {
@@ -854,6 +853,7 @@ main > section {
         align-items: center;
         row-gap: 12px;
         padding: 14px 20px;
+        top: -50px;
     }
 
     .cabecalho-nome {
