@@ -128,8 +128,7 @@ main h2 + p {
 }
 
 /*etiquetas de habilidades(linguagens de programação na seção sobre mim e skills aprendidas no estágio na seção experiência*/
-#sobre dd li,
-#experiencia li {
+.etiquetas li {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 12px;
     color: #7CC4FF;
@@ -451,7 +450,7 @@ main > section {
     padding-bottom: 0;
 }
 
-#sobre dd ul {
+#sobre .etiquetas {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -485,7 +484,7 @@ main > section {
 }
 
 /*logos da Agência Fruta e da Beauty Fair */
-#experiencia article > div:first-child {
+.experiencia-logos {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -508,16 +507,16 @@ main > section {
     margin-bottom: 16px;
 }
 
-#experiencia article > div:last-child p {
+.experiencia-texto p {
     max-width: 65ch;
     margin-bottom: 16px;
 }
 
-#experiencia article > div:last-child p:last-of-type {
+.experiencia-texto p:last-of-type {
     margin-bottom: 0;
 }
 
-#experiencia article > div:last-child > p:first-child {
+.experiencia-texto .experiencia-periodo {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 12px;
     letter-spacing: 0.08em;
@@ -528,7 +527,7 @@ main > section {
 }
 
 /*etiquetas das competências lado a lado*/
-#experiencia ul {
+#experiencia .etiquetas {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -554,7 +553,7 @@ main > section {
     border-radius: 15%;
 }
 
-#formacao article p:first-child {
+.graduacao-periodo {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 12px;
     letter-spacing: 0.08em;
@@ -568,20 +567,20 @@ main > section {
     margin: 4px 0;
 }
 
-#formacao article p:last-child {
+.graduacao-instituicao {
     font-size: 15px;
     color: #8B96A5;
 }
 
 /*cursos em duas colunas (rótulo "CURSOS" à esquerda e lista à direita)*/
-#formacao > div {
+.cursos {
     display: grid;
     grid-template-columns: 140px 1fr;
     column-gap: 24px;
     padding-top: 24px;
 }
 
-#formacao > div > p {
+.cursos-rotulo {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 12px;
     letter-spacing: 0.08em;
@@ -628,7 +627,7 @@ main > section {
     background-color: #0F141C;
 }
 
-#contato > div {
+.contato-cartao {
     display: grid;
     grid-template-columns: 1fr 1.1fr;
     column-gap: 64px;
@@ -639,7 +638,7 @@ main > section {
 }
 
 /*bolinhas de janela*/
-#contato > div > div::before {
+.contato-texto::before {
     content: "● ● ●";
     display: block;
     font-size: 10px;
@@ -653,7 +652,7 @@ main > section {
     margin-bottom: 16px;
 }
 
-#contato > div > div p:last-child {
+.contato-convite {
     max-width: 45ch;
 }
 
@@ -723,11 +722,11 @@ main > section {
 
     #projetos > h2,
     #projetos > p,
-    #projetos > div {
+    #projetos > .feed {
         grid-column: auto;
     }
 
-    #projetos > aside {
+    .perfil {
         grid-column: auto;
         grid-row: auto;
         position: static;
@@ -744,8 +743,8 @@ main > section {
         row-gap: 24px;
     }
 
-    /*logos lado a lado, alinhados à esquerda com o texto*/
-    #experiencia article > div:first-child {
+    /*logos da bf e fruta, alinhados à esquerda com o texto*/
+    .experiencia-logos {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: flex-start;
@@ -753,12 +752,12 @@ main > section {
         gap: 16px 32px;
     }
 
-    #formacao > div {
+    .cursos {
         grid-template-columns: 1fr;
         row-gap: 8px;
     }
 
-    #contato > div {
+    .contato-cartao {
         grid-template-columns: 1fr;
         row-gap: 32px;
     }
@@ -795,13 +794,13 @@ main > section {
         
     }
 
-    #inicio h1 + p {
+    .inicio-apresentacao {
         font-size: 17px;
 
     }
 
     /*botões do topo, um embaixo do outro*/
-    #inicio > div > div {
+    .inicio-botoes {
         flex-direction: column;
         align-items: stretch;
         gap: 16px;
@@ -816,7 +815,7 @@ main > section {
         padding: 14px 20px;
     }
 
-   .cabecalho-nome {
+    .cabecalho-nome {
         order: 1;
     }
 
@@ -839,7 +838,7 @@ main > section {
         font-size: 13px;
     }
 
-    #projetos article figure {
+    .post figure {
         padding: 10px;
     }
 
@@ -861,7 +860,7 @@ main > section {
         gap: 4px;
     }
 
-    #contato > div {
+    .contato-cartao {
         padding: 32px 24px;
     }
 
