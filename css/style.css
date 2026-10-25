@@ -140,7 +140,7 @@ main h2 + p {
 /*botões(ver projetos e baixar curriculo)*/
 .botao {
     display: inline-block;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
     text-decoration: none;
     color: #0D1117;
@@ -530,7 +530,7 @@ main > section {
 #experiencia .etiquetas {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
     margin-top: 20px;
 }
 
