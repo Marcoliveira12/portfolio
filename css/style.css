@@ -170,6 +170,90 @@ main h2 + p {
     background-color: #161B22;
 }
 
+/*botão entrar em contato*/
+.botao-terciario {
+    color: #7CC4FF;
+    background-color: #132235;
+    border-color: #132235;
+}
+
+/*hover de entrar em contato*/
+.botao-terciario:hover {
+    color: #A5D6FF;
+    background-color: #1A3350;
+    border-color: #1A3350;
+}
+
+/*botão com borda (copiar e-mail)*/
+.botao-pequeno {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: jetbrains, ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #7CC4FF;
+    background-color: transparent;
+    border: 1px solid #30363D;
+    border-radius: 6px;
+    padding: 4px 10px;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+/*hover do botão pequeno (a cor fixa vence o a:hover)*/
+.botao-pequeno:hover {
+    color: #7CC4FF;
+    background-color: #132235;
+    border-color: #7CC4FF;
+}
+
+/*botão fantasma sem borda (redes do cabeçalho e voltar ao topo)*/
+.botao-fantasma {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inter, system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #7CC4FF;
+    background-color: transparent;
+    border-radius: 6px;
+    padding: 6px 10px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/*hover do botão fantasma*/
+.botao-fantasma:hover {
+    background-color: #132235;
+    color: #A5D6FF;
+}
+
+/*logo do GitHub e do LinkedIn: o arquivo vira máscara e pega a cor do texto*/
+.logo-rede {
+    width: 16px;
+    height: 16px;
+    background-color: currentColor;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+}
+
+.logo-github {
+    -webkit-mask-image: url(../img/logo-github.svg);
+    mask-image: url(../img/logo-github.svg);
+}
+
+.logo-linkedin {
+    -webkit-mask-image: url(../img/logo-linkedin.png);
+    mask-image: url(../img/logo-linkedin.png);
+}
+
 /*cabeçalho(nome, menu e redes*/
 .cabecalho {
     display: flex;
@@ -691,25 +775,11 @@ main > section {
     gap: 8px 12px;
 }
 
-/*botão copiar e-mail*/
+/*botão copiar e-mail (visual vem do .botao-pequeno, só que menor)*/
 .contato-copiar {
-    font-family: jetbrains, ui-monospace, monospace;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #7CC4FF;
-    background-color: transparent;
-    border: 1px solid #30363D;
-    border-radius: 6px;
-    padding: 4px 10px;
+    font-size: 11px;
+    padding: 2px 8px;
     cursor: pointer;
-    transition: background-color 0.2s, border-color 0.2s;
-}
-
-/*hover do botão copiar*/
-.contato-copiar:hover {
-    background-color: #132235;
-    border-color: #7CC4FF;
 }
 
 /*aviso de e-mail copiado: começa invisível*/
@@ -869,7 +939,7 @@ main > section {
         align-items: center;
         row-gap: 12px;
         padding: 14px 20px;
-        top: -50px;
+        top: -96px;
     }
 
     .cabecalho-nome {
@@ -878,6 +948,7 @@ main > section {
 
     .cabecalho-redes {
         order: 2;
+        flex-basis: 100%;
         gap: 16px;
     }
 

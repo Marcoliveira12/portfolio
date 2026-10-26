@@ -78,4 +78,3 @@ const observadorMenu = new IntersectionObserver(function (entradas) {
 for (let i = 0; i < secoesMenu.length; i++) {
     observadorMenu.observe(secoesMenu[i]);
 }
-secoesMenu.forEach((secao) => observadorMenu.observe(secao));
