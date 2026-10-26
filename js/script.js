@@ -99,6 +99,17 @@ function montarPosts(lista) {
             carregamento = ' loading="lazy"';
         }
 
+        //cor da bolinha do status
+        let classeStatus = '';
+
+        if (projeto.status === 'Concluído') {
+            classeStatus = 'post-status-concluido';
+        }
+
+        if (projeto.status === 'Em desenvolvimento') {
+            classeStatus = 'post-status-andamento';
+        }
+
         //links só aparecem se existirem
         let links = '';
 
@@ -110,18 +121,18 @@ function montarPosts(lista) {
             links += `<a href="${projeto.site}" target="_blank" rel="noopener">Visitar site</a>`;
         }
 
-        //sem links, o post fica sem rodapé
-        let rodape = '';
+        //sem links, o rodapé fica só com as etiquetas
+        let blocoLinks = '';
 
         if (links !== '') {
-            rodape = `<footer>${links}</footer>`;
+            blocoLinks = `<div class="post-links">${links}</div>`;
         }
 
         html += `
             <article class="post cartao">
                 <header>
                     <p>${projeto.tipo} · ${projeto.ano}</p>
-                    <h3>${projeto.titulo} <span class="post-status">${projeto.status}</span></h3>
+                    <h3>${projeto.titulo} <span class="post-status ${classeStatus}">${projeto.status}</span></h3>
                 </header>
 
                 <figure>
@@ -133,9 +144,10 @@ function montarPosts(lista) {
 
                 <p class="post-descricao">${projeto.descricao}</p>
 
-                <ul class="etiquetas post-tecnologias">${tecnologias}</ul>
-
-                ${rodape}
+                <footer>
+                    <ul class="etiquetas post-tecnologias">${tecnologias}</ul>
+                    ${blocoLinks}
+                </footer>
             </article>
         `;
     }

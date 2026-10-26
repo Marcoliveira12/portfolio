@@ -127,14 +127,15 @@ main h2 + p {
     padding: 24px;
 }
 
-/*etiquetas de habilidades(linguagens de programação na seção sobre mim e skills aprendidas no estágio na seção experiência*/
+/*etiquetas cinza com borda (tecnologias dos posts, habilidades do sobre mim e competências da experiência)*/
 .etiquetas li {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 12px;
-    color: #7CC4FF;
-    background-color: #132235;
+    color: #8B96A5;
+    background-color: transparent;
+    border: 1px solid #30363D;
     border-radius: 6px;
-    padding: 4px 10px;
+    padding: 3px 9px;
 }
 
 /*botões(ver projetos e baixar curriculo)*/
@@ -478,16 +479,32 @@ main > section {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
-/*etiqueta do status ao lado do título (Em desenvolvimento, Concluído)*/
+/*status ao lado do título, com bolinha antes do texto*/
 .post-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 12px;
     font-weight: 400;
-    line-height: 1.6;
-    color: #7CC4FF;
-    background-color: #132235;
-    border-radius: 6px;
-    padding: 4px 10px;
+}
+
+/*bolinha com a mesma cor do texto*/
+.post-status::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: currentColor;
+}
+
+/*verde para concluído e amarelo para em desenvolvimento*/
+.post-status-concluido {
+    color: #7EE787;
+}
+
+.post-status-andamento {
+    color: #E3B341;
 }
 
 /*descrição do projeto abaixo do print*/
@@ -495,23 +512,30 @@ main > section {
     margin-top: 12px;
 }
 
-/*etiquetas das tecnologias abaixo da descrição*/
+/*etiquetas das tecnologias no rodapé do post, à esquerda*/
 .post-tecnologias {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: 12px;
 }
 
-/*links do post (Ver código e Visitar site)*/
+/*rodapé do post: etiquetas à esquerda e links à direita (no celular os links descem se não couberem)*/
 .post footer {
     display: flex;
-    justify-content: flex-end;
-    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
     font-size: 14px;
     border-top: 1px solid #30363D;
     margin-top: 20px;
     padding-top: 16px;
+}
+
+/*links do post (Ver código e Visitar site)*/
+.post-links {
+    display: flex;
+    gap: 20px;
 }
 
 /*sobre mim*/
