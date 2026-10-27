@@ -903,10 +903,52 @@ main > section {
         grid-column: auto;
     }
 
+    /*cartão de perfil compacto: foto à esquerda, nome e descrição curta à direita, contador embaixo*/
     .perfil {
         grid-column: auto;
         grid-row: auto;
         position: static;
+        display: grid;
+        grid-template-columns: 48px 1fr;
+        column-gap: 16px;
+        align-items: center;
+        padding: 16px 20px;
+    }
+
+    .perfil img {
+        grid-row: 1 / 3;
+        width: 48px;
+        height: 48px;
+        margin-bottom: 0;
+    }
+
+    /*descrição longa some da tela, mas o leitor de tela ainda lê*/
+    .perfil .perfil-descricao {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    /*contador numa linha só, ocupando a largura toda*/
+    .perfil ul {
+        grid-column: 1 / -1;
+        flex-wrap: wrap;
+        gap: 4px 16px;
+        margin-top: 12px;
+        padding-top: 12px;
+    }
+
+    /*número ao lado da palavra (03 projetos)*/
+    .perfil li span {
+        display: inline;
+        font-size: 14px;
+        margin-right: 4px;
     }
 
     /*sobre, experiência, formação e contato viram uma coluna*/
@@ -1063,5 +1105,69 @@ main > section {
 
     .js .revelar.visivel {
         transform: none;
+    }
+}
+
+/*  Filtro de projetos: desativado até ter uns 6 projetos. O JavaScript está em js/filtro-projetos.js  */
+
+/*filtros na coluna da direita*/
+#projetos > .filtros {
+    grid-column: 2;
+}
+
+/*filtros por tecnologia: escondidos sem JavaScript*/
+.filtros,
+.filtro-resultado {
+    display: none;
+}
+
+/*botões do filtro lado a lado, quebrando linha quando não cabem*/
+.js .filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/*botão do filtro (mesmo visual do botão fantasma, com 44px de altura para o toque)*/
+.filtro {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-family: inter, system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #7CC4FF;
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/*hover do botão do filtro*/
+.filtro:hover {
+    background-color: #132235;
+    color: #A5D6FF;
+}
+
+/*filtro ativo com a cor de destaque*/
+.filtro.ativo {
+    background-color: #7CC4FF;
+    color: #0D1117;
+}
+
+/*texto "Mostrando X de Y projetos"*/
+.js .filtro-resultado {
+    display: block;
+    font-size: 14px;
+    color: #8B96A5;
+    margin: 12px 0 24px 0;
+}
+
+@media (max-width: 1023px) {
+
+    #projetos > .filtros {
+        grid-column: auto;
     }
 }
