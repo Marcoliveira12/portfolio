@@ -132,23 +132,38 @@ main h2 + p {
     margin-bottom: 40px;
 }
 
-/*cards(caixas) nas seções projetos e sobre mim*/
+/*cards(caixas) nas seções projetos e sobre mim (o .perfil troca o relative por sticky)*/
 .cartao {
+    position: relative;
     background-color: #161B22;
     border: 1px solid #30363D;
     border-radius:12px;
     padding: 24px;
 }
 
-/*etiquetas cinza com borda (tecnologias dos posts, habilidades do sobre mim e competências da experiência)*/
+/*sombra maior do hover nos cartões, escondida até o mouse passar (só a opacidade anima)*/
+.cartao::after,
+.contato-cartao::after {
+    content: "";
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+    border-radius: inherit;
+    box-shadow: 0 16px 32px #00000073;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/*etiquetas azuis sem borda (habilidades do sobre mim e competências da experiência)*/
 .etiquetas li {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 12px;
-    color: #C9D1D9;
-    background-color: transparent;
-    border: 1px solid #30363D;
+    color: #7CC4FF;
+    background-color: #132235;
     border-radius: 6px;
-    padding: 3px 9px;
+    padding: 4px 10px;
 }
 
 /*botões(ver projetos e baixar curriculo)*/
@@ -472,22 +487,7 @@ main > section {
 
 /*espaço entre um post de projeto e outro*/
 .post {
-    position: relative;
     margin-bottom: 24px;
-}
-
-/*sombra maior do hover, escondida até o mouse passar (só a opacidade anima)*/
-.post::after {
-    content: "";
-    position: absolute;
-    top: -1px;
-    right: -1px;
-    bottom: -1px;
-    left: -1px;
-    border-radius: 12px;
-    box-shadow: 0 16px 32px #00000073;
-    opacity: 0;
-    pointer-events: none;
 }
 
 /*rótulo do post (tipo e ano do projeto)*/
@@ -500,12 +500,8 @@ main > section {
     color: #8B96A5;
 }
 
-/*nome/titulo do projeto no post, com o status ao lado*/
+/*nome/titulo do projeto no post*/
 .post h3 {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 6px 12px;
     font-size: 22px;
     font-weight: 600;
     margin-top: 6px;
@@ -529,53 +525,15 @@ main > section {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
-/*status ao lado do título, com bolinha antes do texto*/
-.post-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: jetbrains, ui-monospace, monospace;
-    font-size: 12px;
-    font-weight: 400;
-}
-
-/*bolinha com a mesma cor do texto*/
-.post-status::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: currentColor;
-}
-
-/*verde para concluído e amarelo para em desenvolvimento*/
-.post-status-concluido {
-    color: #7EE787;
-}
-
-.post-status-andamento {
-    color: #E3B341;
-}
-
 /*descrição do projeto abaixo do print*/
 .post-descricao {
     margin-top: 12px;
 }
 
-/*etiquetas das tecnologias no rodapé do post, à esquerda*/
-.post-tecnologias {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-/*rodapé do post: etiquetas à esquerda e links à direita (no celular os links descem se não couberem)*/
+/*rodapé do post: só os links, encostados à direita*/
 .post footer {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
+    justify-content: flex-end;
     font-size: 14px;
     border-top: 1px solid #30363D;
     margin-top: 20px;
@@ -816,6 +774,7 @@ main > section {
 }
 
 .contato-cartao {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 1.4fr;
     column-gap: 48px;
@@ -918,14 +877,37 @@ main > section {
 
 /*                    animações               */
 /*conteúdo das seções começa invisível (só com JavaScript ligado). A seção fica parada para o menu acertar a parada*/
-.js .revelar > * {
+.js .revelar:not(.visivel) > * {
     opacity: 0;
-    transition: opacity 0.5s ease-out;
 }
 
-/*conteúdo visível (classe colocada pelo JavaScript na seção)*/
+/*conteúdo aparece quando o JavaScript coloca a classe visivel na seção.
+É animação, e não transição, para não brigar com o hover dos cartões depois de terminar*/
 .js .revelar.visivel > * {
-    opacity: 1;
+    animation: revelar-aparecer 0.5s ease-out;
+}
+
+@keyframes revelar-aparecer {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/*mesma animação subindo 24px (usada só no bloco de movimento)*/
+@keyframes revelar-subir {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
 
 /*  TABLET: de 1023px para baixo       */
@@ -964,7 +946,7 @@ main > section {
     .perfil {
         grid-column: auto;
         grid-row: auto;
-        position: static;
+        position: relative;
         display: grid;
         grid-template-columns: 48px 1fr;
         column-gap: 16px;
@@ -1223,13 +1205,12 @@ main > section {
 @media (prefers-reduced-motion: no-preference) {
 
     /*conteúdo das seções sobe um pouco enquanto aparece*/
-    .js .revelar > * {
+    .js .revelar:not(.visivel) > * {
         transform: translateY(24px);
-        transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     }
 
     .js .revelar.visivel > * {
-        transform: none;
+        animation-name: revelar-subir;
     }
 
     /*sublinhado do menu cresce da esquerda para a direita*/
@@ -1257,17 +1238,29 @@ main > section {
     }
 }
 
-/*  MOUSE: hover dos cartões só em aparelhos com mouse  */
+/*  MOUSE: hover dos cartões e das etiquetas só em aparelhos com mouse  */
 
 @media (hover: hover) {
 
-    /*cartão de projeto: borda um pouco mais clara*/
-    .post {
+    /*cartões (projetos, perfil, sobre mim e contato): borda um pouco mais clara*/
+    .cartao,
+    .contato-cartao {
         transition: border-color 0.2s ease-out;
     }
 
-    .post:hover {
+    .cartao:hover,
+    .contato-cartao:hover {
         border-color: #484F58;
+    }
+
+    /*etiquetas: azul mais claro*/
+    .etiquetas li {
+        transition: background-color 0.2s ease-out, color 0.2s ease-out;
+    }
+
+    .etiquetas li:hover {
+        background-color: #1A3350;
+        color: #A5D6FF;
     }
 }
 
@@ -1275,21 +1268,34 @@ main > section {
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
 
-    /*cartão de projeto sobe, cresce um pouco e ganha sombra*/
-    .post {
+    /*cartões sobem, crescem um pouco e ganham sombra*/
+    .cartao,
+    .contato-cartao {
         transition: border-color 0.2s ease-out, transform 0.2s ease-out;
     }
 
-    .post:hover {
+    .cartao:hover,
+    .contato-cartao:hover {
         transform: translateY(-4px) scale(1.02);
     }
 
-    .post::after {
+    .cartao::after,
+    .contato-cartao::after {
         transition: opacity 0.2s ease-out;
     }
 
-    .post:hover::after {
+    .cartao:hover::after,
+    .contato-cartao:hover::after {
         opacity: 1;
+    }
+
+    /*etiquetas sobem 2px, sem crescer*/
+    .etiquetas li {
+        transition: background-color 0.2s ease-out, color 0.2s ease-out, transform 0.2s ease-out;
+    }
+
+    .etiquetas li:hover {
+        transform: translateY(-2px);
     }
 }
 

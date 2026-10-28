@@ -85,29 +85,11 @@ function montarPosts(lista) {
     for (let i = 0; i < lista.length; i++) {
         const projeto = lista[i];
 
-        //etiquetas das tecnologias
-        let tecnologias = '';
-
-        for (let j = 0; j < projeto.tecnologias.length; j++) {
-            tecnologias += `<li>${projeto.tecnologias[j]}</li>`;
-        }
-
         //só o primeiro print carrega na hora, os outros esperam a rolagem
         let carregamento = '';
 
         if (i > 0) {
             carregamento = ' loading="lazy"';
-        }
-
-        //cor da bolinha do status
-        let classeStatus = '';
-
-        if (projeto.status === 'Concluído') {
-            classeStatus = 'post-status-concluido';
-        }
-
-        if (projeto.status === 'Em desenvolvimento') {
-            classeStatus = 'post-status-andamento';
         }
 
         //links só aparecem se existirem
@@ -124,18 +106,18 @@ function montarPosts(lista) {
             links += `<a href="${projeto.site}" target="_blank" rel="noopener">Visitar site${avisoNovaAba}</a>`;
         }
 
-        //sem links, o rodapé fica só com as etiquetas
-        let blocoLinks = '';
+        //o rodapé só existe se o projeto tiver algum link
+        let rodape = '';
 
         if (links !== '') {
-            blocoLinks = `<div class="post-links">${links}</div>`;
+            rodape = `<footer><div class="post-links">${links}</div></footer>`;
         }
 
         html += `
             <article class="post cartao">
                 <header>
                     <p>${projeto.tipo} · ${projeto.ano}</p>
-                    <h3>${projeto.titulo} <span class="post-status ${classeStatus}">${projeto.status}</span></h3>
+                    <h3>${projeto.titulo}</h3>
                 </header>
 
                 <figure>
@@ -147,10 +129,7 @@ function montarPosts(lista) {
 
                 <p class="post-descricao">${projeto.descricao}</p>
 
-                <footer>
-                    <ul class="etiquetas post-tecnologias">${tecnologias}</ul>
-                    ${blocoLinks}
-                </footer>
+                ${rodape}
             </article>
         `;
     }
