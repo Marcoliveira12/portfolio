@@ -312,10 +312,11 @@ main h2 + p {
 }
 
 
-/*borda e padding de todas as seções*/
+/*borda e padding de todas as seções, e espaço para o cabeçalho fixo*/
 main > section {
     border-bottom: 1px solid #30363D;
     padding: 96px max(32px, calc((100% - 1040px) / 2));
+    scroll-margin-top: 68px;
 }
 
 /*backgound alternado entre as seções*/
@@ -812,8 +813,9 @@ main > section {
     color: #8B96A5;
 }
 
+/*links quebram só onde pode (o e-mail quebra depois do @)*/
 #contato li a {
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
 }
 
 /*e-mail, botão copiar e aviso lado a lado*/
@@ -876,9 +878,10 @@ main > section {
 
 @media (max-width: 1023px) {
 
-    /*respiro vertical menor nas seções*/
+    /*respiro vertical menor nas seções e espaço para o cabeçalho fixo (em 800px o nome ocupa duas linhas)*/
     main > section {
         padding: 64px 32px;
+        scroll-margin-top: 82px;
     }
 
     #inicio {
@@ -986,8 +989,52 @@ main > section {
         padding: 16px 32px;
     }
 
+    /*área de toque de 44px: o padding cresce e a margem negativa devolve o espaço*/
+    .menu a {
+        display: inline-block;
+        padding: 12px 4px;
+        margin: -12px -4px;
+    }
+
+    /*botão copiar com 44px de altura para o toque*/
+    .botao-pequeno {
+        padding: 15px 12px;
+    }
+
+    /*links do contato com 44px de altura, sem mudar o espaço entre as linhas*/
+    #contato li a {
+        padding: 9px 0;
+        margin: -9px 0;
+    }
+
     .rodape {
         padding: 32px 32px;
+    }
+}
+
+
+
+/*  TABLET ESTREITO: de 799px para baixo       */
+
+@media (max-width: 799px) {
+
+    /*espaço para o menu preso no topo*/
+    main > section {
+        scroll-margin-top: 54px;
+    }
+
+    /*cabeçalho em duas linhas: nome e redes em cima, menu embaixo (só o menu fica preso no topo)*/
+    .cabecalho {
+        flex-wrap: wrap;
+        row-gap: 12px;
+        top: -62px;
+    }
+
+    .menu {
+        order: 3;
+        flex-basis: 100%;
+        border-top: 1px solid #30363D;
+        padding-top: 12px;
     }
 }
 
@@ -1024,14 +1071,10 @@ main > section {
         gap: 16px;
     }
 
-    /*cabeçalho em duas linhas: nome e redes em cima, menu embaixo*/
+    /*cabeçalho em três linhas: nome, redes e menu (a quebra vem do bloco de 799px)*/
     .cabecalho {
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        row-gap: 12px;
         padding: 14px 20px;
-        top: -96px;
+        top: -106px;
     }
 
     .cabecalho-nome {
@@ -1044,13 +1087,6 @@ main > section {
         gap: 16px;
     }
 
-    .menu {
-        order: 3;
-        flex-basis: 100%;
-        border-top: 1px solid #30363D;
-        padding-top: 12px;
-    }
-
     .menu ul {
         justify-content: space-between;
         flex-wrap: wrap;
@@ -1058,8 +1094,19 @@ main > section {
         font-size: 13px;
     }
 
+    /*GitHub, LinkedIn e voltar ao topo com 44px de altura para o toque*/
+    .botao-fantasma {
+        padding: 11px 10px;
+    }
+
     .post figure {
         padding: 10px;
+    }
+
+    /*ver código e visitar site com 44px de altura, sem mudar o espaçamento*/
+    .post-links a {
+        padding: 11px 0;
+        margin: -11px 0;
     }
 
     /*listas pequenas viram uma coluna*/
@@ -1068,11 +1115,13 @@ main > section {
         gap: 4px;
     }
 
-    /*certificado desce para baixo do nome do curso*/
+    /*certificado desce para baixo do nome do curso, com 44px de altura para o toque*/
     #formacao li a {
         grid-column: 1;
         grid-row: 3;
         justify-self: start;
+        padding: 11px 0;
+        margin: -11px 0;
     }
 
     #contato li {
@@ -1090,6 +1139,21 @@ main > section {
         align-items: flex-start;
         gap: 16px;
         padding: 32px 20px;
+    }
+}
+
+/*  CELULAR PEQUENO: de 356px para baixo o menu ocupa duas linhas  */
+
+@media (max-width: 356px) {
+
+    /*espaço para o menu de duas linhas preso no topo*/
+    main > section {
+        scroll-margin-top: 95px;
+    }
+
+    /*linhas do menu afastadas para as áreas de toque não se encostarem*/
+    .menu ul {
+        row-gap: 24px;
     }
 }
 
