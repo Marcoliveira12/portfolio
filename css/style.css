@@ -299,6 +299,7 @@ main h2 + p {
 
 /*menu: Projetos, Sobre... cinza e sem sublinhado*/
 .menu a {
+    position: relative;
     color: #8B96A5;
     text-decoration: none;
 }
@@ -311,6 +312,26 @@ main h2 + p {
 /*menu: link da seção que está na tela*/
 .menu a.ativo {
     color: #7CC4FF;
+}
+
+/*sublinhado do menu: começa encolhido à esquerda*/
+.menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 2px;
+    background-color: #7CC4FF;
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+/*sublinhado cheio no hover, no foco pelo teclado e no link ativo*/
+.menu a:hover::after,
+.menu a:focus-visible::after,
+.menu a.ativo::after {
+    transform: scaleX(1);
 }
 
 /*GitHub e Linkedin espaçamento*/
@@ -451,7 +472,22 @@ main > section {
 
 /*espaço entre um post de projeto e outro*/
 .post {
+    position: relative;
     margin-bottom: 24px;
+}
+
+/*sombra maior do hover, escondida até o mouse passar (só a opacidade anima)*/
+.post::after {
+    content: "";
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+    border-radius: 12px;
+    box-shadow: 0 16px 32px #00000073;
+    opacity: 0;
+    pointer-events: none;
 }
 
 /*rótulo do post (tipo e ano do projeto)*/
@@ -1014,6 +1050,13 @@ main > section {
         margin: -12px -4px;
     }
 
+    /*sublinhado acompanha o texto, não a área de toque (4px abaixo, igual ao desktop)*/
+    .menu a::after {
+        left: 4px;
+        right: 4px;
+        bottom: 8px;
+    }
+
     /*botão copiar com 44px de altura para o toque*/
     .botao-pequeno {
         padding: 15px 12px;
@@ -1187,6 +1230,66 @@ main > section {
 
     .js .revelar.visivel > * {
         transform: none;
+    }
+
+    /*sublinhado do menu cresce da esquerda para a direita*/
+    .menu a::after {
+        transition: transform 0.2s ease-out;
+    }
+
+    /*botões afundam um pouco no clique (mantém as transições de cor de cada um)*/
+    .botao {
+        transition: background-color 0.2s, transform 0.1s ease-out;
+    }
+
+    .botao-pequeno {
+        transition: background-color 0.2s, border-color 0.2s, transform 0.1s ease-out;
+    }
+
+    .botao-fantasma {
+        transition: background-color 0.2s, color 0.2s, transform 0.1s ease-out;
+    }
+
+    .botao:active,
+    .botao-pequeno:active,
+    .botao-fantasma:active {
+        transform: scale(0.97);
+    }
+}
+
+/*  MOUSE: hover dos cartões só em aparelhos com mouse  */
+
+@media (hover: hover) {
+
+    /*cartão de projeto: borda um pouco mais clara*/
+    .post {
+        transition: border-color 0.2s ease-out;
+    }
+
+    .post:hover {
+        border-color: #484F58;
+    }
+}
+
+/*  MOUSE E MOVIMENTO: só com mouse e para quem não pediu menos movimento  */
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+
+    /*cartão de projeto sobe, cresce um pouco e ganha sombra*/
+    .post {
+        transition: border-color 0.2s ease-out, transform 0.2s ease-out;
+    }
+
+    .post:hover {
+        transform: translateY(-4px) scale(1.02);
+    }
+
+    .post::after {
+        transition: opacity 0.2s ease-out;
+    }
+
+    .post:hover::after {
+        opacity: 1;
     }
 }
 
