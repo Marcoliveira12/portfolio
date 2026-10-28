@@ -98,6 +98,19 @@ a:hover {
     border-radius: 2px;
 }
 
+/*esconde da tela, mas o leitor de tela lê (ex: aviso de link que abre em nova aba)*/
+.visualmente-oculto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 /*rótulo(título) pequeno no inicio de cada seção (PROJETOS, SOBRE MIM...)*/
 main h2, .inicio-rotulo {
     font-family: jetbrains, ui-monospace, monospace;
@@ -813,6 +826,11 @@ main > section {
     color: #8B96A5;
 }
 
+/*aviso de nova aba sem maiúsculas, para o leitor de tela não soletrar*/
+#contato .visualmente-oculto {
+    text-transform: none;
+}
+
 /*links quebram só onde pode (o e-mail quebra depois do @)*/
 #contato li a {
     overflow-wrap: break-word;
@@ -863,14 +881,14 @@ main > section {
 }
 
 /*                    animações               */
-/*seções começam invisíveis (só com JavaScript ligado)*/
-.js .revelar {
+/*conteúdo das seções começa invisível (só com JavaScript ligado). A seção fica parada para o menu acertar a parada*/
+.js .revelar > * {
     opacity: 0;
     transition: opacity 0.5s ease-out;
 }
 
-/*seção visível (classe colocada pelo JavaScript)*/
-.js .revelar.visivel {
+/*conteúdo visível (classe colocada pelo JavaScript na seção)*/
+.js .revelar.visivel > * {
     opacity: 1;
 }
 
@@ -1161,13 +1179,13 @@ main > section {
 
 @media (prefers-reduced-motion: no-preference) {
 
-    /*seções sobem um pouco enquanto aparecem*/
-    .js .revelar {
+    /*conteúdo das seções sobe um pouco enquanto aparece*/
+    .js .revelar > * {
         transform: translateY(24px);
         transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     }
 
-    .js .revelar.visivel {
+    .js .revelar.visivel > * {
         transform: none;
     }
 }

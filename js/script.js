@@ -113,12 +113,15 @@ function montarPosts(lista) {
         //links só aparecem se existirem
         let links = '';
 
+        //aviso escondido da tela para o leitor de tela dizer que o link abre em nova aba
+        const avisoNovaAba = '<span class="visualmente-oculto"> (abre em nova aba)</span>';
+
         if (projeto.codigo !== '') {
-            links += `<a href="${projeto.codigo}" target="_blank" rel="noopener">Ver código</a>`;
+            links += `<a href="${projeto.codigo}" target="_blank" rel="noopener">Ver código${avisoNovaAba}</a>`;
         }
 
         if (projeto.site !== '') {
-            links += `<a href="${projeto.site}" target="_blank" rel="noopener">Visitar site</a>`;
+            links += `<a href="${projeto.site}" target="_blank" rel="noopener">Visitar site${avisoNovaAba}</a>`;
         }
 
         //sem links, o rodapé fica só com as etiquetas
