@@ -132,6 +132,67 @@ a:hover {
     color: #0D1117;
 }
 
+/*fundo: cobre a tela toda, fica atrás de tudo e não recebe clique*/
+.fundo {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    background-image: radial-gradient(circle at top right, #7CC4FF14, #7CC4FF00 600px);
+}
+
+/*cada camada é um ponto no canto; as partículas são as sombras dele*/
+.fundo-camada {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+}
+
+/*as 14 partículas aparecem duas vezes: na tela e 100vh abaixo, para o loop não ter buraco*/
+.fundo-camada-1 {
+    box-shadow:
+        5vw 12vh #7CC4FF80, 18vw 45vh #C9D1D966, 27vw 80vh #7CC4FF59, 36vw 22vh #C9D1D940,
+        44vw 63vh #7CC4FF66, 52vw 8vh #C9D1D959, 61vw 38vh #7CC4FF40, 69vw 90vh #C9D1D980,
+        76vw 54vh #7CC4FF59, 83vw 17vh #C9D1D966, 91vw 72vh #7CC4FF80, 97vw 35vh #C9D1D940,
+        12vw 96vh #7CC4FF66, 58vw 75vh #C9D1D959,
+        5vw 112vh #7CC4FF80, 18vw 145vh #C9D1D966, 27vw 180vh #7CC4FF59, 36vw 122vh #C9D1D940,
+        44vw 163vh #7CC4FF66, 52vw 108vh #C9D1D959, 61vw 138vh #7CC4FF40, 69vw 190vh #C9D1D980,
+        76vw 154vh #7CC4FF59, 83vw 117vh #C9D1D966, 91vw 172vh #7CC4FF80, 97vw 135vh #C9D1D940,
+        12vw 196vh #7CC4FF66, 58vw 175vh #C9D1D959;
+}
+
+/*camada 2: pontos de 2px*/
+.fundo-camada-2 {
+    width: 2px;
+    height: 2px;
+    box-shadow:
+        9vw 30vh #C9D1D959, 15vw 70vh #7CC4FF66, 24vw 5vh #C9D1D940, 33vw 50vh #7CC4FF80,
+        41vw 88vh #C9D1D966, 49vw 27vh #7CC4FF59, 57vw 60vh #C9D1D940, 66vw 14vh #7CC4FF66,
+        73vw 78vh #C9D1D959, 80vw 42vh #7CC4FF40, 88vw 6vh #C9D1D966, 94vw 58vh #7CC4FF59,
+        3vw 84vh #C9D1D940, 70vw 97vh #7CC4FF66,
+        9vw 130vh #C9D1D959, 15vw 170vh #7CC4FF66, 24vw 105vh #C9D1D940, 33vw 150vh #7CC4FF80,
+        41vw 188vh #C9D1D966, 49vw 127vh #7CC4FF59, 57vw 160vh #C9D1D940, 66vw 114vh #7CC4FF66,
+        73vw 178vh #C9D1D959, 80vw 142vh #7CC4FF40, 88vw 106vh #C9D1D966, 94vw 158vh #7CC4FF59,
+        3vw 184vh #C9D1D940, 70vw 197vh #7CC4FF66;
+}
+
+/*camada 3: pontos de 1px mais fracos*/
+.fundo-camada-3 {
+    box-shadow:
+        2vw 40vh #7CC4FF26, 11vw 20vh #C9D1D933, 21vw 62vh #7CC4FF33, 30vw 93vh #C9D1D926,
+        39vw 3vh #7CC4FF26, 47vw 46vh #C9D1D933, 55vw 84vh #7CC4FF33, 64vw 28vh #C9D1D926,
+        72vw 66vh #7CC4FF26, 79vw 9vh #C9D1D933, 86vw 50vh #7CC4FF33, 95vw 86vh #C9D1D926,
+        35vw 74vh #7CC4FF26, 99vw 18vh #C9D1D933,
+        2vw 140vh #7CC4FF26, 11vw 120vh #C9D1D933, 21vw 162vh #7CC4FF33, 30vw 193vh #C9D1D926,
+        39vw 103vh #7CC4FF26, 47vw 146vh #C9D1D933, 55vw 184vh #7CC4FF33, 64vw 128vh #C9D1D926,
+        72vw 166vh #7CC4FF26, 79vw 109vh #C9D1D933, 86vw 150vh #7CC4FF33, 95vw 186vh #C9D1D926,
+        35vw 174vh #7CC4FF26, 99vw 118vh #C9D1D933;
+}
+
 /*rótulo(título) pequeno no inicio de cada seção (PROJETOS, SOBRE MIM...)*/
 main h2, .inicio-rotulo {
     font-family: jetbrains, ui-monospace, monospace;
@@ -386,12 +447,6 @@ main h2 + p {
 main > section {
     border-bottom: 1px solid #30363D;
     padding: 96px max(32px, calc((100% - 1040px) / 2));
-}
-
-/*backgound alternado entre as seções*/
-#projetos,
-#experiencia {
-    background-color: #0F141C;
 }
 
 
@@ -789,9 +844,6 @@ main > section {
 
 /*contato*/
 /*cartão de contato em duas colunas (texto à esquerda e lista à direita)*/
-#contato {
-    background-color: #0F141C;
-}
 
 .contato-cartao {
     position: relative;
@@ -915,6 +967,17 @@ main > section {
 
     to {
         opacity: 1;
+    }
+}
+
+/*partículas sobem uma tela inteira; no fim, a cópia de baixo está onde a de cima começou*/
+@keyframes fundo-subir {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-100vh);
     }
 }
 
@@ -1264,6 +1327,19 @@ main > section {
 
     .js .revelar.visivel > * {
         animation-name: revelar-subir;
+    }
+
+    /*partículas do fundo sobem sem parar, cada camada numa velocidade*/
+    .fundo-camada-1 {
+        animation: fundo-subir 60s linear infinite;
+    }
+
+    .fundo-camada-2 {
+        animation: fundo-subir 90s linear infinite;
+    }
+
+    .fundo-camada-3 {
+        animation: fundo-subir 120s linear infinite;
     }
 
     /*sublinhado do menu cresce da esquerda para a direita*/
