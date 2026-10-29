@@ -213,3 +213,46 @@ const observadorMenu = new IntersectionObserver(function (entradas) {
 for (let i = 0; i < secoesMenu.length; i++) {
     observadorMenu.observe(secoesMenu[i]);
 }
+
+
+//topo
+
+//em 15/12/2026 o 'Java' entra no fim da lista (e no comentário do index.html)
+const tecnologias = ['HTML', 'CSS', 'JavaScript', 'Git', 'GitHub'];
+
+const palavraTopo = document.querySelector('.inicio-palavra');
+const caixaPalavra = document.querySelector('.inicio-palavra-caixa');
+
+if (palavraTopo && caixaPalavra) {
+    //quem pediu menos movimento continua vendo a lista parada do HTML
+    const reduzirMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduzirMovimento === false) {
+        let indiceTecnologia = 0;
+
+        //a tarja cobre a palavra, a palavra troca escondida e a tarja sai revelando a nova
+        function trocarPalavra() {
+            caixaPalavra.classList.add('cobrindo');
+
+            setTimeout(function () {
+                indiceTecnologia++;
+
+                //depois da última, volta para a primeira
+                if (indiceTecnologia === tecnologias.length) {
+                    indiceTecnologia = 0;
+                }
+
+                palavraTopo.textContent = tecnologias[indiceTecnologia];
+                caixaPalavra.classList.remove('cobrindo');
+                caixaPalavra.classList.add('descobrindo');
+
+                setTimeout(function () {
+                    caixaPalavra.classList.remove('descobrindo');
+                }, 300);
+            }, 300);
+        }
+
+        palavraTopo.textContent = tecnologias[0];
+        setInterval(trocarPalavra, 3000);
+    }
+}

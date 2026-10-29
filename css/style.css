@@ -56,7 +56,7 @@
 /*estilo desktop*/
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 68px;
+    scroll-padding-top: 57px;
 }
 
 body {
@@ -194,7 +194,7 @@ a:hover {
 }
 
 /*rótulo(título) pequeno no inicio de cada seção (PROJETOS, SOBRE MIM...)*/
-main h2, .inicio-rotulo {
+main h2 {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 13px;
     font-weight: 500;
@@ -248,7 +248,7 @@ main h2 + p {
     padding: 4px 10px;
 }
 
-/*botões(ver projetos e baixar curriculo)*/
+/*botão azul cheio (baixar currículo do topo)*/
 .botao {
     display: inline-block;
     font-size: 16px;
@@ -262,37 +262,10 @@ main h2 + p {
     transition: background-color 0.2s;
 }
 
-/*hover de ver projetos*/
+/*hover do botão azul*/
 .botao:hover {
     color: #0D1117;
     background-color: #A5D6FF;
-}
-
-/*botão baixar curriculo*/
-.botao-secundario {
-    color: #E6EDF3;
-    background-color: transparent;
-    border-color: #6E7681;
-}
-
-/*hover de baixar curriculo*/
-.botao-secundario:hover {
-    color: #E6EDF3;
-    background-color: #161B22;
-}
-
-/*botão entrar em contato*/
-.botao-terciario {
-    color: #7CC4FF;
-    background-color: #132235;
-    border-color: #132235;
-}
-
-/*hover de entrar em contato*/
-.botao-terciario:hover {
-    color: #A5D6FF;
-    background-color: #1A3350;
-    border-color: #1A3350;
 }
 
 /*botão com borda (copiar e-mail)*/
@@ -320,7 +293,7 @@ main h2 + p {
     border-color: #7CC4FF;
 }
 
-/*botão fantasma sem borda (redes do cabeçalho e voltar ao topo)*/
+/*botão fantasma sem borda (voltar ao topo)*/
 .botao-fantasma {
     display: inline-flex;
     align-items: center;
@@ -342,7 +315,7 @@ main h2 + p {
     color: #A5D6FF;
 }
 
-/*logo do GitHub e do LinkedIn: o arquivo vira máscara e pega a cor do texto*/
+/*logos do GitHub, do LinkedIn e da conversa: o arquivo vira máscara e pega a cor do texto*/
 .logo-rede {
     width: 16px;
     height: 16px;
@@ -365,7 +338,17 @@ main h2 + p {
     mask-image: url(../img/logo-linkedin.png);
 }
 
-/*cabeçalho(nome, menu e redes*/
+.logo-conversa {
+    -webkit-mask-image: url(../img/icones/ui-conversa.svg);
+    mask-image: url(../img/icones/ui-conversa.svg);
+}
+
+.logo-machado {
+    -webkit-mask-image: url(../img/icones/ui-machado.svg);
+    mask-image: url(../img/icones/ui-machado.svg);
+}
+
+/*cabeçalho(nome e menu)*/
 .cabecalho {
     display: flex;
     align-items: center;
@@ -431,16 +414,6 @@ main h2 + p {
     transform: scaleX(1);
 }
 
-/*GitHub e Linkedin espaçamento*/
-.cabecalho-redes {
-    display: flex;
-    gap: 20px;
-}
-
-/*GitHub e Linkedin links*/
-.cabecalho-redes a {
-    text-decoration: none;
-}
 
 
 /*borda e padding de todas as seções, e espaço para o cabeçalho fixo*/
@@ -457,6 +430,7 @@ main > section {
 #inicio {
     padding-top: 128px;
     padding-bottom: 128px;
+    text-align: center;
 }
 
 
@@ -464,19 +438,110 @@ main > section {
     font-size: 56px;
     font-weight: 700;
     letter-spacing: -0.02em;
+    margin-bottom: 16px;
+}
+
+/*caixa do nome: fica do tamanho do h1 para a marca se apoiar no canto dele*/
+.inicio-titulo {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+}
+
+/*<machado /> grande, cruzando o fim do nome como uma assinatura*/
+.inicio-marca {
+    position: absolute;
+    top: -4px;
+    right: -100px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: jetbrains, ui-monospace, monospace;
+    font-size: 32px;
+    line-height: 1;
+    white-space: nowrap;
+    color: #7CC4FF;
+    opacity: 0.9;
+}
+
+/*ícone do machado do tamanho do texto (a cor vem do color pelo currentColor do .logo-rede)*/
+.inicio-marca .logo-machado {
+    width: 32px;
+    height: 32px;
+}
+
+/*cargo abaixo do nome*/
+.inicio-cargo {
+    font-size: 20px;
+    color: #8B96A5;
     margin-bottom: 24px;
 }
 
-.inicio-apresentacao {
-    font-size: 19px;
-    max-width: 60ch;
+/*linha das tecnologias: altura de uma linha*/
+.inicio-tecnologias {
+    font-family: jetbrains, ui-monospace, monospace;
+    font-size: 22px;
+    line-height: 36px;
+    height: 36px;
+    overflow: hidden;
+    color: #7CC4FF;
     margin-bottom: 40px;
 }
 
+/*caixa da palavra: largura fixa para a tarja ter sempre o mesmo tamanho*/
+.inicio-palavra-caixa {
+    position: relative;
+    display: inline-block;
+    min-width: 260px;
+    text-align: center;
+}
+
+/*botões do topo numa linha, no centro*/
 .inicio-botoes {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    gap: 24px;
+    gap: 12px;
+}
+
+/*botão quadrado só com ícone (GitHub, LinkedIn e conversa)*/
+.inicio-icone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: #161B22;
+    border: 1px solid #30363D;
+    border-radius: 8px;
+}
+
+/*ícone de 20px; a cor fica no próprio ícone para o a:hover não trocar*/
+.inicio-icone .logo-rede {
+    width: 20px;
+    height: 20px;
+}
+
+.inicio-icone .logo-github {
+    color: #E6EDF3;
+}
+
+.inicio-icone .logo-linkedin {
+    color: #0A66C2;
+}
+
+.inicio-icone .logo-conversa {
+    color: #7CC4FF;
+}
+
+/*currículo com a mesma altura dos ícones, texto no meio*/
+.inicio-botoes .botao {
+    display: inline-flex;
+    align-items: center;
+    height: 44px;
+    padding: 0 20px;
 }
 
 /*projetos*/
@@ -981,6 +1046,52 @@ main > section {
     }
 }
 
+/*<machado /> vai do azul ao branco e volta*/
+@keyframes inicio-marca-cor {
+    0%,
+    100% {
+        color: #7CC4FF;
+    }
+
+    50% {
+        color: #E6EDF3;
+    }
+}
+
+/*machado inclina 14 graus para trás e volta*/
+@keyframes inicio-machado-balancar {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-14deg);
+    }
+}
+
+/*tarja da palavra cresce até cobrir a caixa inteira*/
+@keyframes inicio-tarja-cobrir {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/*tarja encolhe até sumir*/
+@keyframes inicio-tarja-descobrir {
+    from {
+        transform: scaleX(1);
+    }
+
+    to {
+        transform: scaleX(0);
+    }
+}
+
 /*mesma animação subindo 24px (usada só no bloco de movimento)*/
 @keyframes revelar-subir {
     from {
@@ -998,11 +1109,7 @@ main > section {
 
 @media (max-width: 899px) {
 
-    /*respiro vertical menor nas seções e espaço para o cabeçalho fixo (em 800px o nome ocupa duas linhas)*/
-    html {
-        scroll-padding-top: 82px;
-    }
-
+    /*respiro vertical menor nas seções*/
     main > section {
         padding: 48px 32px;
     }
@@ -1014,6 +1121,19 @@ main > section {
 
     #inicio h1 {
         font-size: 44px;
+    }
+
+    /*marca menor e saindo menos para a direita, para caber na tela em 600px*/
+    .inicio-marca {
+        top: -3px;
+        right: -40px;
+        gap: 6px;
+        font-size: 24px;
+    }
+
+    .inicio-marca .logo-machado {
+        width: 24px;
+        height: 24px;
     }
 
     /*projetos vira uma coluna só (o espaço entre os blocos vem das margens, não do row-gap)*/
@@ -1166,11 +1286,11 @@ main > section {
         scroll-padding-top: 54px;
     }
 
-    /*cabeçalho em duas linhas: nome e redes em cima, menu embaixo (só o menu fica preso no topo)*/
+    /*cabeçalho em duas linhas: nome em cima, menu embaixo (só o menu fica preso no topo)*/
     .cabecalho {
         flex-wrap: wrap;
         row-gap: 12px;
-        top: -62px;
+        top: -52px;
     }
 
     .menu {
@@ -1205,32 +1325,34 @@ main > section {
         
     }
 
-    .inicio-apresentacao {
-        font-size: 17px;
-
-    }
-
-    /*botões do topo, um embaixo do outro*/
-    .inicio-botoes {
+    /*nome e marca empilhados: a marca sobe para cima do nome, sem sobrepor*/
+    .inicio-titulo {
+        display: flex;
         flex-direction: column;
-        align-items: stretch;
-        gap: 16px;
+        align-items: center;
     }
 
-    /*cabeçalho em três linhas: nome, redes e menu (a quebra vem do bloco de 799px)*/
+    .inicio-marca {
+        position: static;
+        order: -1;
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .inicio-marca .logo-machado {
+        width: 18px;
+        height: 18px;
+    }
+
+    /*a lista parada (sem JavaScript) quebra em duas linhas; a palavra que rola continua com 36px pelo line-height*/
+    .inicio-tecnologias {
+        height: auto;
+    }
+
+    /*cabeçalho em duas linhas: nome e menu (a quebra vem do bloco de 799px)*/
     .cabecalho {
         padding: 14px 20px;
-        top: -106px;
-    }
-
-    .cabecalho-nome {
-        order: 1;
-    }
-
-    .cabecalho-redes {
-        order: 2;
-        flex-basis: 100%;
-        gap: 16px;
+        top: -50px;
     }
 
     .menu ul {
@@ -1240,7 +1362,7 @@ main > section {
         font-size: 13px;
     }
 
-    /*GitHub, LinkedIn e voltar ao topo com 44px de altura para o toque*/
+    /*voltar ao topo com 44px de altura para o toque*/
     .botao-fantasma {
         padding: 11px 10px;
     }
@@ -1360,10 +1482,47 @@ main > section {
         transition: background-color 0.2s, color 0.2s, transform 0.1s ease-out;
     }
 
+    .inicio-icone {
+        transition: transform 0.1s ease-out;
+    }
+
     .botao:active,
     .botao-pequeno:active,
-    .botao-fantasma:active {
+    .botao-fantasma:active,
+    .inicio-icone:active {
         transform: scale(0.97);
+    }
+
+    /*<machado /> troca de cor em 6s, sem parar*/
+    .inicio-marca {
+        animation: inicio-marca-cor 6s ease-in-out infinite;
+    }
+
+    /*no mesmo ciclo, o machado balança girando pelo canto de baixo à esquerda, onde termina o cabo*/
+    .inicio-marca .logo-machado {
+        transform-origin: left bottom;
+        animation: inicio-machado-balancar 6s ease-in-out infinite;
+    }
+
+    /*tarja azul sobre a palavra, começa encolhida na esquerda*/
+    .inicio-palavra-caixa::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: #7CC4FF;
+        transform: scaleX(0);
+        transform-origin: left center;
+    }
+
+    /*cobrindo: cresce da esquerda para a direita (classe colocada pelo script.js)*/
+    .inicio-palavra-caixa.cobrindo::after {
+        animation: inicio-tarja-cobrir 300ms ease-in forwards;
+    }
+
+    /*descobrindo: encolhe em direção à direita, revelando a palavra nova*/
+    .inicio-palavra-caixa.descobrindo::after {
+        transform-origin: right center;
+        animation: inicio-tarja-descobrir 300ms ease-out forwards;
     }
 }
 
@@ -1390,6 +1549,12 @@ main > section {
     .etiquetas li:hover {
         background-color: #1A3350;
         color: #A5D6FF;
+    }
+
+    /*botões de ícone do topo: borda azul e fundo azul escuro*/
+    .inicio-icone:hover {
+        border-color: #7CC4FF;
+        background-color: #132235;
     }
 }
 
