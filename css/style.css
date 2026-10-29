@@ -56,6 +56,7 @@
 /*estilo desktop*/
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 68px;
 }
 
 body {
@@ -111,6 +112,26 @@ a:hover {
     border: 0;
 }
 
+/*link "Pular para o conteúdo": fica escondido acima da tela*/
+.pular-conteudo {
+    position: absolute;
+    top: -100px;
+    left: 16px;
+    z-index: 20;
+    font-weight: 600;
+    text-decoration: none;
+    color: #0D1117;
+    background-color: #7CC4FF;
+    border-radius: 8px;
+    padding: 12px 24px;
+}
+
+/*aparece quando recebe o foco pelo Tab*/
+.pular-conteudo:focus {
+    top: 16px;
+    color: #0D1117;
+}
+
 /*rótulo(título) pequeno no inicio de cada seção (PROJETOS, SOBRE MIM...)*/
 main h2, .inicio-rotulo {
     font-family: jetbrains, ui-monospace, monospace;
@@ -141,8 +162,8 @@ main h2 + p {
     padding: 24px;
 }
 
-/*sombra maior do hover nos cartões, escondida até o mouse passar (só a opacidade anima)*/
-.cartao::after,
+/*sombra maior do hover nos posts e no contato, escondida até o mouse passar (só a opacidade anima)*/
+.post::after,
 .contato-cartao::after {
     content: "";
     position: absolute;
@@ -365,7 +386,6 @@ main h2 + p {
 main > section {
     border-bottom: 1px solid #30363D;
     padding: 96px max(32px, calc((100% - 1040px) / 2));
-    scroll-margin-top: 68px;
 }
 
 /*backgound alternado entre as seções*/
@@ -801,6 +821,7 @@ main > section {
 
 .contato-convite {
     max-width: 45ch;
+    text-wrap: pretty;
 }
 
 /*lista de contatos: rótulo à esquerda e link à direita*/
@@ -910,14 +931,17 @@ main > section {
     }
 }
 
-/*  TABLET: de 1023px para baixo       */
+/*  TABLET: de 899px para baixo       */
 
-@media (max-width: 1023px) {
+@media (max-width: 899px) {
 
     /*respiro vertical menor nas seções e espaço para o cabeçalho fixo (em 800px o nome ocupa duas linhas)*/
+    html {
+        scroll-padding-top: 82px;
+    }
+
     main > section {
-        padding: 64px 32px;
-        scroll-margin-top: 82px;
+        padding: 48px 32px;
     }
 
     #inicio {
@@ -929,10 +953,16 @@ main > section {
         font-size: 44px;
     }
 
-    /*projetos vira uma coluna só*/
+    /*projetos vira uma coluna só (o espaço entre os blocos vem das margens, não do row-gap)*/
     #projetos {
         grid-template-columns: 1fr;
-        row-gap: 32px;
+        row-gap: 0;
+    }
+
+    /*32px do título até o primeiro bloco*/
+    #projetos h2 + p,
+    #sobre h2 + p {
+        margin-bottom: 32px;
     }
 
     #projetos > h2,
@@ -947,11 +977,13 @@ main > section {
         grid-column: auto;
         grid-row: auto;
         position: relative;
+        top: auto;
         display: grid;
         grid-template-columns: 48px 1fr;
         column-gap: 16px;
         align-items: center;
         padding: 16px 20px;
+        margin-bottom: 32px;
     }
 
     .perfil img {
@@ -993,7 +1025,12 @@ main > section {
     /*sobre, experiência, formação e contato viram uma coluna*/
     #sobre {
         grid-template-columns: 1fr;
-        row-gap: 32px;
+        row-gap: 0;
+    }
+
+    /*32px entre o cartão e os parágrafos*/
+    #sobre dl {
+        margin-bottom: 32px;
     }
 
     #experiencia article {
@@ -1062,8 +1099,8 @@ main > section {
 @media (max-width: 799px) {
 
     /*espaço para o menu preso no topo*/
-    main > section {
-        scroll-margin-top: 54px;
+    html {
+        scroll-padding-top: 54px;
     }
 
     /*cabeçalho em duas linhas: nome e redes em cima, menu embaixo (só o menu fica preso no topo)*/
@@ -1087,9 +1124,12 @@ main > section {
 
 @media (max-width: 599px) {
 
+    html {
+        scroll-padding-top: 50px;
+    }
+
     main > section {
-        padding: 48px 20px;
-        scroll-margin-top: 50px;
+        padding: 32px 20px;
     }
 
     #inicio {
@@ -1142,6 +1182,18 @@ main > section {
         padding: 11px 10px;
     }
 
+    /*parágrafos do sobre mim e da experiência justificados, com hifenização*/
+    #sobre > div p,
+    .experiencia-texto p {
+        text-align: justify;
+        hyphens: auto;
+    }
+
+    /*logos da experiência no centro*/
+    .experiencia-logos {
+        justify-content: center;
+    }
+
     .post figure {
         padding: 10px;
     }
@@ -1176,10 +1228,11 @@ main > section {
         padding: 32px 24px;
     }
 
-    /*rodapé empilhado*/
+    /*rodapé empilhado e centralizado*/
     .rodape {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        text-align: center;
         gap: 16px;
         padding: 32px 20px;
     }
@@ -1190,8 +1243,8 @@ main > section {
 @media (max-width: 356px) {
 
     /*espaço para o menu de duas linhas preso no topo*/
-    main > section {
-        scroll-margin-top: 95px;
+    html {
+        scroll-padding-top: 95px;
     }
 
     /*linhas do menu afastadas para as áreas de toque não se encostarem*/
@@ -1268,25 +1321,34 @@ main > section {
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
 
-    /*cartões sobem, crescem um pouco e ganham sombra*/
-    .cartao,
+    /*só os posts e o contato sobem, crescem um pouco e ganham sombra (o perfil e a ficha do sobre mim ficam parados)*/
+    .post,
     .contato-cartao {
         transition: border-color 0.2s ease-out, transform 0.2s ease-out;
     }
 
-    .cartao:hover,
+    .post:hover,
     .contato-cartao:hover {
         transform: translateY(-4px) scale(1.02);
     }
 
-    .cartao::after,
+    .post::after,
     .contato-cartao::after {
         transition: opacity 0.2s ease-out;
     }
 
-    .cartao:hover::after,
+    .post:hover::after,
     .contato-cartao:hover::after {
         opacity: 1;
+    }
+
+    /*logos da experiência sobem 2px*/
+    .experiencia-logos a {
+        transition: transform 0.2s ease-out;
+    }
+
+    .experiencia-logos a:hover {
+        transform: translateY(-2px);
     }
 
     /*etiquetas sobem 2px, sem crescer*/
@@ -1356,7 +1418,7 @@ main > section {
     margin: 12px 0 24px 0;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 899px) {
 
     #projetos > .filtros {
         grid-column: auto;
