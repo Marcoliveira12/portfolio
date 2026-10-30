@@ -329,13 +329,13 @@ main h2 + p {
 }
 
 .logo-github {
-    -webkit-mask-image: url(../img/logo-github.svg);
-    mask-image: url(../img/logo-github.svg);
+    -webkit-mask-image: url(../img/icones/ui-github.svg);
+    mask-image: url(../img/icones/ui-github.svg);
 }
 
 .logo-linkedin {
-    -webkit-mask-image: url(../img/logo-linkedin.png);
-    mask-image: url(../img/logo-linkedin.png);
+    -webkit-mask-image: url(../img/icones/ui-linkedin.svg);
+    mask-image: url(../img/icones/ui-linkedin.svg);
 }
 
 .logo-conversa {
@@ -438,44 +438,40 @@ main > section {
     font-size: 56px;
     font-weight: 700;
     letter-spacing: -0.02em;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 
-/*caixa do nome: fica do tamanho do h1 para a marca se apoiar no canto dele*/
-.inicio-titulo {
-    position: relative;
-    display: inline-block;
-    vertical-align: top;
+/*a parte visível do nome não é copiada: quem copia leva só o texto oculto "Marco Antônio Machado"*/
+.inicio-nome [aria-hidden="true"] {
+    user-select: none;
 }
 
-/*<machado /> grande, cruzando o fim do nome como uma assinatura*/
-.inicio-marca {
-    position: absolute;
-    top: -4px;
-    right: -100px;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+/*sobrenome no lugar de "Machado": ícone e <machado /> juntos, na linha de base do nome
+(inline-flex faz os dois quebrarem de linha juntos quando não cabem)*/
+.inicio-sobrenome {
+    display: inline-flex;
+    align-items: baseline;
     font-family: jetbrains, ui-monospace, monospace;
-    font-size: 32px;
-    line-height: 1;
-    white-space: nowrap;
+    font-weight: 700;
     color: #7CC4FF;
-    opacity: 0.9;
 }
 
-/*ícone do machado do tamanho do texto (a cor vem do color pelo currentColor do .logo-rede)*/
-.inicio-marca .logo-machado {
-    width: 32px;
-    height: 32px;
+/*ícone do machado do tamanho da letra (a cor vem do color pelo currentColor do .logo-rede)*/
+.inicio-sobrenome .logo-machado {
+    width: 1em;
+    height: 1em;
+    margin-right: 0.2em;
 }
 
-/*cargo abaixo do nome*/
+/*cargo em maiúsculas espaçadas; o padding-left compensa o espaço que sobra depois da última letra*/
 .inicio-cargo {
-    font-size: 20px;
-    color: #8B96A5;
-    margin-bottom: 24px;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    padding-left: 0.25em;
+    color: #C9D1D9;
+    margin-bottom: 32px;
 }
 
 /*linha das tecnologias: altura de uma linha*/
@@ -506,41 +502,65 @@ main > section {
     gap: 12px;
 }
 
-/*botão quadrado só com ícone (GitHub, LinkedIn e conversa)*/
+/*botão quadrado só com ícone (GitHub, LinkedIn e conversa); relative para o balãozinho*/
 .inicio-icone {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     background-color: #161B22;
     border: 1px solid #30363D;
     border-radius: 8px;
 }
 
-/*ícone de 20px; a cor fica no próprio ícone para o a:hover não trocar*/
+/*ícone de 24px; a cor fica no próprio ícone para o a:hover não trocar*/
 .inicio-icone .logo-rede {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
+    color: #C9D1D9;
 }
 
-.inicio-icone .logo-github {
-    color: #E6EDF3;
+/*foco pelo teclado: borda e ícone azuis, contorno 2px afastado 2px*/
+.inicio-icone:focus-visible {
+    border-color: #7CC4FF;
+    outline-offset: 2px;
 }
 
-.inicio-icone .logo-linkedin {
-    color: #0A66C2;
-}
-
-.inicio-icone .logo-conversa {
+.inicio-icone:focus-visible .logo-rede {
     color: #7CC4FF;
+}
+
+/*balãozinho com o nome, escondido acima do botão (o leitor de tela usa o texto oculto)*/
+.inicio-icone-rotulo {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: nowrap;
+    color: #E6EDF3;
+    background-color: #0D1117;
+    border: 1px solid #30363D;
+    border-radius: 6px;
+    padding: 4px 8px;
+    pointer-events: none;
+    opacity: 0;
+}
+
+/*balãozinho aparece no foco pelo teclado*/
+.inicio-icone:focus-visible .inicio-icone-rotulo {
+    opacity: 1;
 }
 
 /*currículo com a mesma altura dos ícones, texto no meio*/
 .inicio-botoes .botao {
     display: inline-flex;
     align-items: center;
-    height: 44px;
+    height: 48px;
     padding: 0 20px;
 }
 
@@ -1046,27 +1066,78 @@ main > section {
     }
 }
 
-/*<machado /> vai do azul ao branco e volta*/
-@keyframes inicio-marca-cor {
+/*machadada a cada 4s: descansa, puxa para trás, golpeia, quica e volta
+(o timing de cada trecho fica no quadro de onde ele sai)*/
+@keyframes marca-machadada {
     0%,
-    100% {
-        color: #7CC4FF;
+    78% {
+        transform: rotate(0deg);
+        animation-timing-function: ease-out;
     }
 
-    50% {
-        color: #E6EDF3;
+    84% {
+        transform: rotate(-30deg);
+        animation-timing-function: ease-in;
     }
-}
 
-/*machado inclina 14 graus para trás e volta*/
-@keyframes inicio-machado-balancar {
-    0%,
+    89% {
+        transform: rotate(14deg);
+    }
+
+    93% {
+        transform: rotate(-4deg);
+    }
+
+    97%,
     100% {
         transform: rotate(0deg);
     }
+}
 
-    50% {
-        transform: rotate(-14deg);
+/*golpe forte do hover: puxa mais para trás e golpeia mais fundo*/
+@keyframes marca-golpe {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    30% {
+        transform: rotate(-45deg);
+    }
+
+    55% {
+        transform: rotate(22deg);
+    }
+
+    70% {
+        transform: rotate(-6deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/*tremida do sobrenome depois do golpe*/
+@keyframes marca-tremida {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-3px);
+    }
+
+    40% {
+        transform: translateX(3px);
+    }
+
+    60% {
+        transform: translateX(-2px);
+    }
+
+    80% {
+        transform: translateX(2px);
     }
 }
 
@@ -1121,19 +1192,6 @@ main > section {
 
     #inicio h1 {
         font-size: 44px;
-    }
-
-    /*marca menor e saindo menos para a direita, para caber na tela em 600px*/
-    .inicio-marca {
-        top: -3px;
-        right: -40px;
-        gap: 6px;
-        font-size: 24px;
-    }
-
-    .inicio-marca .logo-machado {
-        width: 24px;
-        height: 24px;
     }
 
     /*projetos vira uma coluna só (o espaço entre os blocos vem das margens, não do row-gap)*/
@@ -1325,23 +1383,8 @@ main > section {
         
     }
 
-    /*nome e marca empilhados: a marca sobe para cima do nome, sem sobrepor*/
-    .inicio-titulo {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .inicio-marca {
-        position: static;
-        order: -1;
-        font-size: 18px;
-        margin-bottom: 8px;
-    }
-
-    .inicio-marca .logo-machado {
-        width: 18px;
-        height: 18px;
+    .inicio-cargo {
+        font-size: 14px;
     }
 
     /*a lista parada (sem JavaScript) quebra em duas linhas; a palavra que rola continua com 36px pelo line-height*/
@@ -1482,8 +1525,21 @@ main > section {
         transition: background-color 0.2s, color 0.2s, transform 0.1s ease-out;
     }
 
+    /*botões de ícone sobem 2px no hover e no foco; o ícone e o balãozinho mudam suave*/
     .inicio-icone {
-        transition: transform 0.1s ease-out;
+        transition: border-color 0.2s ease-out, transform 0.2s ease-out;
+    }
+
+    .inicio-icone .logo-rede {
+        transition: color 0.2s ease-out;
+    }
+
+    .inicio-icone-rotulo {
+        transition: opacity 0.2s ease-out;
+    }
+
+    .inicio-icone:focus-visible {
+        transform: translateY(-2px);
     }
 
     .botao:active,
@@ -1493,15 +1549,15 @@ main > section {
         transform: scale(0.97);
     }
 
-    /*<machado /> troca de cor em 6s, sem parar*/
-    .inicio-marca {
-        animation: inicio-marca-cor 6s ease-in-out infinite;
+    /*machado dá uma machadada a cada 4s, girando pelo cabo (canto de baixo à esquerda)*/
+    .inicio-sobrenome .logo-machado {
+        transform-origin: left bottom;
+        animation: marca-machadada 4s infinite;
     }
 
-    /*no mesmo ciclo, o machado balança girando pelo canto de baixo à esquerda, onde termina o cabo*/
-    .inicio-marca .logo-machado {
-        transform-origin: left bottom;
-        animation: inicio-machado-balancar 6s ease-in-out infinite;
+    /*cor do sobrenome muda suave no hover*/
+    .inicio-sobrenome {
+        transition: color 0.2s ease-out;
     }
 
     /*tarja azul sobre a palavra, começa encolhida na esquerda*/
@@ -1551,10 +1607,22 @@ main > section {
         color: #A5D6FF;
     }
 
-    /*botões de ícone do topo: borda azul e fundo azul escuro*/
+    /*botões de ícone do topo: borda e ícone azuis, balãozinho aparece*/
     .inicio-icone:hover {
         border-color: #7CC4FF;
-        background-color: #132235;
+    }
+
+    .inicio-icone:hover .logo-rede {
+        color: #7CC4FF;
+    }
+
+    .inicio-icone:hover .inicio-icone-rotulo {
+        opacity: 1;
+    }
+
+    /*mouse no sobrenome: fica branco (o ícone acompanha pelo currentColor)*/
+    .inicio-sobrenome:hover {
+        color: #E6EDF3;
     }
 }
 
@@ -1599,6 +1667,22 @@ main > section {
 
     .etiquetas li:hover {
         transform: translateY(-2px);
+    }
+
+    /*botões de ícone do topo sobem 2px*/
+    .inicio-icone:hover {
+        transform: translateY(-2px);
+    }
+
+    /*mouse no sobrenome: a machadada para e o machado dá um golpe forte, uma vez.
+    Ao sair, a machadada volta; ao entrar de novo, o golpe começa do zero*/
+    .inicio-sobrenome:hover .logo-machado {
+        animation: marca-golpe 600ms ease-in-out;
+    }
+
+    /*o sobrenome inteiro treme logo depois do golpe (300ms de atraso)*/
+    .inicio-sobrenome:hover {
+        animation: marca-tremida 300ms 300ms;
     }
 }
 
