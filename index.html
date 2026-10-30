@@ -27,9 +27,10 @@
         <nav class="menu" aria-label="Navegação principal">
             <ul>
                 <li><a href="#projetos">Projetos</a></li>
-                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#tecnologias">Tecnologias</a></li>
                 <li><a href="#experiencia">Experiência</a></li>
                 <li><a href="#formacao">Formação</a></li>
+                <li><a href="#sobre">Sobre</a></li>
                 <li><a href="#contato">Contato</a></li>
             </ul>
         </nav>
@@ -106,45 +107,22 @@
             </noscript>
         </section>
 
-        <!-- 3. SOBRE MIM -->
-        <section id="sobre" class="revelar">
-            <h2>Sobre mim</h2>
-            <p>Prazer, Marco.</p>
+        <!-- 3. TECNOLOGIAS -->
+        <section id="tecnologias" class="revelar">
+            <h2>Tecnologias</h2>
+            <!-- parágrafo provisório: o texto definitivo eu escrevo depois -->
+            <p>As ferramentas que uso para construir.</p>
 
-            <dl class="cartao">
-                <dt>Local</dt>
-                <dd>Belém, PA</dd>
-                <dt>Formação</dt>
-                <dd>Engenharia da Computação</dd>
-                <dt>Habilidades</dt>
-                <dd>
-                    <ul class="etiquetas">
-                        <li>HTML</li>
-                        <li>CSS</li>
-                        <li>JavaScript</li>
-                        <li>Git</li>
-                        <li>GitHub</li>
-                        <li>C</li>
-                        <li>C++</li>
-                        <li>Python</li>
-                        <li>Lógica de programação</li>
-                    </ul>
-                </dd>
-            </dl>
+            <!-- o bloco abaixo é montado pelo js/script.js a partir da lista gruposTecnologias -->
+            <div class="tecnologias-grupos"></div>
 
-            <div>
-                <p>Estou no último ano de Engenharia da Computação no CESUPA (Centro Universitário do Estado do Pará), com
-                    conclusão prevista para dezembro de 2026. Na graduação construí uma base em lógica, programação e
-                    fundamentos de computação, e hoje direciono isso para o desenvolvimento de software.</p>
-
-                <p>Minha primeira experiência profissional foi na Agência Fruta, atendendo a Beauty Fair. Ali aprendi
-                    a trabalhar com prazos, com muitas demandas ao mesmo tempo e com pessoas diferentes pedindo coisas
-                    diferentes, uma rotina que levo para qualquer equipe.</p>
-
-                <p>Hoje aprofundo meus estudos em desenvolvimento de software e coloco em prática nos projetos que estão
-                    aqui. Estou aberto a oportunidades como desenvolvedor, em uma equipe onde eu possa contribuir,
-                    aprender com quem tem mais experiência e continuar evoluindo.</p>
-            </div>
+            <noscript>
+                <ul>
+                    <li>Frontend: HTML, CSS, JavaScript.</li>
+                    <li>Backend: Firebase, ESP32.</li>
+                    <li>Ferramentas: Git, GitHub, VS Code.</li>
+                </ul>
+            </noscript>
         </section>
 
         <!-- 4. EXPERIÊNCIA -->
@@ -244,7 +222,48 @@
         </section>
 
 
-        <!-- 6. CONTATO -->
+        <!-- 6. SOBRE MIM -->
+        <section id="sobre" class="revelar">
+            <h2>Sobre mim</h2>
+            <p>Prazer, Marco.</p>
+
+            <dl class="cartao">
+                <dt>Local</dt>
+                <dd>Belém, PA</dd>
+                <dt>Formação</dt>
+                <dd>Engenharia da Computação</dd>
+                <dt>Habilidades</dt>
+                <dd>
+                    <ul class="etiquetas">
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
+                        <li>Git</li>
+                        <li>GitHub</li>
+                        <li>C</li>
+                        <li>C++</li>
+                        <li>Python</li>
+                        <li>Lógica de programação</li>
+                    </ul>
+                </dd>
+            </dl>
+
+            <div>
+                <p>Estou no último ano de Engenharia da Computação no CESUPA (Centro Universitário do Estado do Pará), com
+                    conclusão prevista para dezembro de 2026. Na graduação construí uma base em lógica, programação e
+                    fundamentos de computação, e hoje direciono isso para o desenvolvimento de software.</p>
+
+                <p>Minha primeira experiência profissional foi na Agência Fruta, atendendo a Beauty Fair. Ali aprendi
+                    a trabalhar com prazos, com muitas demandas ao mesmo tempo e com pessoas diferentes pedindo coisas
+                    diferentes, uma rotina que levo para qualquer equipe.</p>
+
+                <p>Hoje aprofundo meus estudos em desenvolvimento de software e coloco em prática nos projetos que estão
+                    aqui. Estou aberto a oportunidades como desenvolvedor, em uma equipe onde eu possa contribuir,
+                    aprender com quem tem mais experiência e continuar evoluindo.</p>
+            </div>
+        </section>
+
+        <!-- 7. CONTATO -->
         <section id="contato" class="revelar">
             <div class="contato-cartao">
                 <div class="contato-texto">
@@ -289,7 +308,12 @@
 
     <footer class="rodape">
         <p class="rodape-nome">Marco Antônio Machado · © <span class="ano-atual">2026</span></p>
-        <p>Pensado e construído por mim em HTML, CSS e JavaScript.</p>
+        <!-- montado pelo js/script.js; sem JavaScript, aparece o texto do noscript -->
+        <div class="rodape-construido">
+            <noscript>
+                <p>Construído com HTML, CSS, JavaScript e Git.</p>
+            </noscript>
+        </div>
         <a href="#inicio" class="rodape-voltar-ao-topo botao-fantasma">Voltar ao topo</a>
     </footer>
 
