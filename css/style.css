@@ -56,7 +56,7 @@
 /*estilo desktop*/
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 57px;
+    scroll-padding-top: 55px;
 }
 
 body {
@@ -348,32 +348,36 @@ main h2 + p {
     mask-image: url(../img/icones/ui-machado.svg);
 }
 
-/*cabeçalho(nome e menu)*/
+/*barra de progresso da rolagem: fina, no topo da tela, acima do cabeçalho; começa vazia (scaleX 0)*/
+.progresso {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    z-index: 30;
+    background-color: #7CC4FF;
+    transform-origin: left;
+    transform: scaleX(0);
+    pointer-events: none;
+}
+
+/*cabeçalho: só o menu, no centro, com fundo opaco e sem borda*/
 .cabecalho {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 32px;
+    justify-content: center;
     position: sticky;
     top: 0;
     z-index: 10;
     font-size: 14px;
     background-color: #0D1117;
-    border-bottom: 1px solid #30363D;
     padding: 16px max(32px, calc((100% - 1040px) / 2));
 }
 
-/*Marco Antonio*/
-.cabecalho-nome {
-    font-size: 15px;
-    font-weight: 600;
-    color: #E6EDF3;
-    text-decoration: none;
-}
-
-/*menu: Projetos, Sobre espaçamento*/
+/*menu: Projetos, Tecnologias... espaçamento*/
 .menu ul {
     display: flex;
+    justify-content: center;
     gap: 28px;
 }
 
@@ -416,9 +420,8 @@ main h2 + p {
 
 
 
-/*borda e padding de todas as seções, e espaço para o cabeçalho fixo*/
+/*padding de todas as seções (elas se separam só pelo espaço, sem linha)*/
 main > section {
-    border-bottom: 1px solid #30363D;
     padding: 96px max(32px, calc((100% - 1040px) / 2));
 }
 
@@ -1256,6 +1259,28 @@ main > section {
     }
 }
 
+/*linha do enfeite do cabeçalho se desenha (de largura 0 até a largura toda)*/
+@keyframes cabecalho-linha-desenhar {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/*tracinho do enfeite cresce de baixo para cima*/
+@keyframes cabecalho-tracinho-crescer {
+    from {
+        transform: scaleY(0);
+    }
+
+    to {
+        transform: scaleY(1);
+    }
+}
+
 /*logos das tecnologias sobem 16px enquanto aparecem*/
 @keyframes tecnologias-aparecer {
     from {
@@ -1446,38 +1471,15 @@ main > section {
 
 
 
-/*  TABLET ESTREITO: de 799px para baixo       */
-
-@media (max-width: 799px) {
-
-    /*espaço para o menu preso no topo*/
-    html {
-        scroll-padding-top: 54px;
-    }
-
-    /*cabeçalho em duas linhas: nome em cima, menu embaixo (só o menu fica preso no topo)*/
-    .cabecalho {
-        flex-wrap: wrap;
-        row-gap: 12px;
-        top: -52px;
-    }
-
-    .menu {
-        order: 3;
-        flex-basis: 100%;
-        border-top: 1px solid #30363D;
-        padding-top: 12px;
-    }
-}
-
 
 
 /*  CELULAR: de 599px para baixo       */
 
 @media (max-width: 599px) {
 
+    /*cabeçalho de 48,8px (fonte do menu menor)*/
     html {
-        scroll-padding-top: 50px;
+        scroll-padding-top: 49px;
     }
 
     main > section {
@@ -1503,14 +1505,11 @@ main > section {
         height: auto;
     }
 
-    /*cabeçalho em duas linhas: nome e menu (a quebra vem do bloco de 799px)*/
     .cabecalho {
         padding: 14px 20px;
-        top: -50px;
     }
 
     .menu ul {
-        justify-content: space-between;
         flex-wrap: wrap;
         gap: 8px 12px;
         font-size: 13px;
@@ -1577,18 +1576,88 @@ main > section {
     }
 }
 
-/*  CELULAR PEQUENO: de 356px para baixo o menu ocupa duas linhas  */
+/*  CELULAR ESTREITO: de 442px para baixo os 6 links não cabem numa linha  */
 
-@media (max-width: 356px) {
+@media (max-width: 442px) {
 
-    /*espaço para o menu de duas linhas preso no topo*/
+    /*espaço para o menu de duas linhas preso no topo (cabeçalho de 93,6px)*/
     html {
-        scroll-padding-top: 95px;
+        scroll-padding-top: 94px;
     }
 
-    /*linhas do menu afastadas para as áreas de toque não se encostarem*/
+    /*menu numa grade de 3 colunas: sempre duas linhas de 3 links, centralizadas.
+    As linhas ficam 24px afastadas para as áreas de toque não se encostarem*/
     .menu ul {
-        row-gap: 24px;
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        justify-content: center;
+        justify-items: center;
+        gap: 24px 16px;
+    }
+}
+
+/*  COMPUTADOR GRANDE: de 1024px para cima o cabeçalho esconde no topo da página  */
+
+@media (min-width: 1024px) {
+
+    /*começa escondido acima da tela (só com JavaScript, pela classe .js no html).
+    Continua no lugar e focável: o Tab ainda chega nos links*/
+    .js .cabecalho {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    /*desce quando a pessoa rola a página ou quando um link do menu recebe foco*/
+    .js .cabecalho.cabecalho-visivel {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    /*cabeçalho aberto mede 61,4px (23px em cima, linha de 22,4px dos links, 16px embaixo)*/
+    html {
+        scroll-padding-top: 62px;
+    }
+
+    /*menu flutuando sobre o conteúdo: sem fundo; 23px em cima para caber o enfeite
+    e deixar 12px entre a linha e o topo das letras*/
+    .cabecalho {
+        background-color: transparent;
+        padding-top: 23px;
+    }
+
+    /*sombra escura em volta das letras, para lerem bem por cima de caixas e imagens
+    (quatro camadas: as menores deixam o contorno mais escuro, as maiores espalham)*/
+    .menu a {
+        text-shadow: 0 0 2px #0D1117, 0 0 4px #0D1117, 0 0 8px #0D1117, 0 0 16px #0D1117;
+    }
+
+    /*enfeite em forma de ⊥: linha horizontal de 120px a 14px do topo...*/
+    .cabecalho::before {
+        content: "";
+        position: absolute;
+        top: 14px;
+        left: 0;
+        right: 0;
+        width: 120px;
+        height: 2px;
+        margin: 0 auto;
+        background-color: #C9D1D9;
+        transform-origin: center;
+    }
+
+    /*...e tracinho de 5px saindo do meio dela para cima (de 9px a 14px do topo,
+    6px abaixo da barra de progresso, que vai de 0 a 3px)*/
+    .cabecalho::after {
+        content: "";
+        position: absolute;
+        top: 9px;
+        left: 0;
+        right: 0;
+        width: 2px;
+        height: 5px;
+        margin: 0 auto;
+        background-color: #C9D1D9;
+        transform-origin: bottom;
     }
 }
 
@@ -1644,6 +1713,21 @@ main > section {
     /*sublinhado do menu cresce da esquerda para a direita*/
     .menu a::after {
         transition: transform 0.2s ease-out;
+    }
+
+    /*cabeçalho desce e aparece suave (só muda de estado de 1024px para cima)*/
+    .cabecalho {
+        transition: transform 300ms ease-out, opacity 300ms ease-out;
+    }
+
+    /*quando o cabeçalho aparece, a linha se desenha do centro para os lados e depois o tracinho cresce para cima.
+    O backwards deixa os dois encolhidos durante o atraso (os enfeites só existem de 1024px para cima)*/
+    .js .cabecalho.cabecalho-visivel::before {
+        animation: cabecalho-linha-desenhar 300ms ease-out 150ms backwards;
+    }
+
+    .js .cabecalho.cabecalho-visivel::after {
+        animation: cabecalho-tracinho-crescer 150ms ease-out 400ms backwards;
     }
 
     /*botões afundam um pouco no clique (mantém as transições de cor de cada um)*/
