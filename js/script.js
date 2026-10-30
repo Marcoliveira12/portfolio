@@ -373,3 +373,58 @@ if (palavraTopo && caixaPalavra) {
         setInterval(trocarPalavra, 3000);
     }
 }
+
+
+//cabeçalho
+
+//de 1024px para cima o CSS esconde o cabeçalho no topo; a classe cabecalho-visivel faz ele descer
+const cabecalho = document.querySelector('.cabecalho');
+
+//mostra o cabeçalho depois de rolar 40px; no topo esconde, a não ser que um link do menu esteja com o foco
+function atualizarCabecalho() {
+    if (window.scrollY > 40) {
+        cabecalho.classList.add('cabecalho-visivel');
+    } else if (cabecalho.contains(document.activeElement) === false) {
+        cabecalho.classList.remove('cabecalho-visivel');
+    }
+}
+
+if (cabecalho) {
+    window.addEventListener('scroll', atualizarCabecalho);
+    atualizarCabecalho();
+
+    //Tab chegou num link do menu: o cabeçalho aparece na hora, mesmo no topo
+    cabecalho.addEventListener('focusin', function () {
+        cabecalho.classList.add('cabecalho-visivel');
+    });
+
+    //o foco saiu do cabeçalho: se a página estiver no topo, ele esconde de novo
+    cabecalho.addEventListener('focusout', function (evento) {
+        if (window.scrollY <= 40 && cabecalho.contains(evento.relatedTarget) === false) {
+            cabecalho.classList.remove('cabecalho-visivel');
+        }
+    });
+}
+
+
+//progresso
+
+const barraProgresso = document.querySelector('.progresso');
+
+//estica a barra de 0 a 1 conforme a parte da página que já foi rolada
+function atualizarProgresso() {
+    const rolagemMaxima = document.documentElement.scrollHeight - window.innerHeight;
+    let progresso = 0;
+
+    //se a página não tem rolagem, a conta dividiria por zero
+    if (rolagemMaxima > 0) {
+        progresso = window.scrollY / rolagemMaxima;
+    }
+
+    barraProgresso.style.transform = `scaleX(${progresso})`;
+}
+
+if (barraProgresso) {
+    window.addEventListener('scroll', atualizarProgresso);
+    atualizarProgresso();
+}
