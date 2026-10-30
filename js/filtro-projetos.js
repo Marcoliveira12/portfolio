@@ -15,9 +15,7 @@ como religar:
 2. no index.html, depois de <script src="js/script.js"></script>, coloque:
    <script src="js/filtro-projetos.js"></script>
    (tem que vir depois, porque usa a lista projetos e a função montarPosts do script.js)
-3. no css/style.css, no .perfil, troque grid-row: 1 / 4 por grid-row: 1 / 6
-   (o cartão de perfil precisa cobrir as duas linhas novas dos filtros).
-   as regras do filtro já estão no fim do css/style.css.
+3. as regras do filtro já estão no fim do css/style.css.
 */
 
 //filtro de projetos por tecnologia

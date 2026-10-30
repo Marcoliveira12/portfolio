@@ -28,11 +28,12 @@
     <header class="cabecalho">
         <nav class="menu" aria-label="Navegação principal">
             <ul>
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#sobre">Sobre</a></li>
                 <li><a href="#projetos">Projetos</a></li>
                 <li><a href="#tecnologias">Tecnologias</a></li>
                 <li><a href="#experiencia">Experiência</a></li>
                 <li><a href="#formacao">Formação</a></li>
-                <li><a href="#sobre">Sobre</a></li>
                 <li><a href="#contato">Contato</a></li>
             </ul>
         </nav>
@@ -80,40 +81,68 @@
             </div>
         </section>
 
-        <!-- 2. PROJETOS -->
+        <!-- 2. SOBRE MIM -->
+        <section id="sobre" class="revelar">
+            <h2>Sobre mim</h2>
+            <p>Prazer, Marco.</p>
+
+            <!-- cada par rótulo e valor fica num div, para os dois blocos ficarem um embaixo do outro com espaço entre eles -->
+            <div class="sobre-cartao">
+                <img class="sobre-foto" src="img/fotodeperfil.png" alt="Foto de Marco Antônio Machado" width="80"
+                    height="80" loading="lazy">
+                <dl>
+                    <div>
+                        <dt>Local</dt>
+                        <dd>Belém, PA</dd>
+                    </div>
+                    <div>
+                        <dt>Formação</dt>
+                        <dd>Engenharia da Computação</dd>
+                    </div>
+                </dl>
+            </div>
+
+            <div>
+                <p>Estou no último ano de Engenharia da Computação no CESUPA (Centro Universitário do Estado do Pará), com
+                    conclusão prevista para dezembro de 2026. Na graduação construí uma base em lógica, programação e
+                    fundamentos de computação, e hoje direciono isso para o desenvolvimento de software.</p>
+
+                <p>Minha primeira experiência profissional foi na Agência Fruta, atendendo a Beauty Fair. Ali aprendi
+                    a trabalhar com prazos, com muitas demandas ao mesmo tempo e com pessoas diferentes pedindo coisas
+                    diferentes, uma rotina que levo para qualquer equipe.</p>
+
+                <p>Hoje aprofundo meus estudos em desenvolvimento de software e coloco em prática nos projetos que estão
+                    aqui. Estou aberto a oportunidades como desenvolvedor, em uma equipe onde eu possa contribuir,
+                    aprender com quem tem mais experiência e continuar evoluindo.</p>
+            </div>
+        </section>
+
+        <!-- 3. PROJETOS -->
         <section id="projetos" class="revelar">
             <h2>Projetos</h2>
             <p>O que venho construindo.</p>
 
-            <aside class="perfil cartao" aria-label="Resumo do perfil">
-                <img src="img/fotodeperfil.png" alt="" width="64" height="64">
-                <p class="perfil-nome">Marco Antônio Machado</p>
-                <p>Desenvolvimento de software</p>
-                <p class="perfil-descricao">Projetos pessoais, acadêmicos e de curso.</p>
-                <ul>
-                    <li><span class="contador-projetos">03</span> projetos</li>
-                    <li><span class="contador-andamento">02</span> em andamento</li>
-                </ul>
-            </aside>
+            <!-- "03 projetos · 02 em andamento": escrito pelo js/script.js a partir da lista de projetos (sem JavaScript fica vazio) -->
+            <p class="projetos-contadores"></p>
 
             <div class="feed">
-                <!-- os posts são montados pelo js/script.js a partir da lista de projetos -->
+                <!-- os cartões são montados pelo js/script.js a partir da lista de projetos: grade de 3 colunas no computador, uma coluna no celular e no tablet -->
             </div>
 
             <noscript>
                 <ul>
-                    <li>Este portfólio · <a href="https://github.com/Marcoliveira12/portfolio" target="_blank" rel="noopener">Ver código<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
                     <li>Teko Lixeira</li>
+                    <li>Este portfólio · <a href="https://github.com/Marcoliveira12/portfolio" target="_blank" rel="noopener">Ver código<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
                     <li>Tecboard · <a href="https://github.com/Marcoliveira12/tecboard" target="_blank" rel="noopener">Ver código<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
                 </ul>
             </noscript>
         </section>
 
-        <!-- 3. TECNOLOGIAS -->
+        <!-- 4. TECNOLOGIAS -->
         <section id="tecnologias" class="revelar">
             <h2>Tecnologias</h2>
             <!-- parágrafo provisório: o texto definitivo eu escrevo depois -->
-            <p>As ferramentas que uso para construir.</p>
+            <p>O que uso para construir.</p>
 
             <!-- o bloco abaixo é montado pelo js/script.js a partir da lista gruposTecnologias -->
             <div class="tecnologias-grupos"></div>
@@ -127,7 +156,7 @@
             </noscript>
         </section>
 
-        <!-- 4. EXPERIÊNCIA -->
+        <!-- 5. EXPERIÊNCIA -->
         <section id="experiencia" class="revelar">
             <h2>Experiência</h2>
             <p>Trajetória profissional.</p>
@@ -165,7 +194,7 @@
         </section>
 
 
-        <!-- 5. FORMAÇÃO -->
+        <!-- 6. FORMAÇÃO -->
         <section id="formacao" class="revelar">
             <h2>Formação</h2>
             <p>Formação e cursos.</p>
@@ -224,47 +253,6 @@
         </section>
 
 
-        <!-- 6. SOBRE MIM -->
-        <section id="sobre" class="revelar">
-            <h2>Sobre mim</h2>
-            <p>Prazer, Marco.</p>
-
-            <dl class="cartao">
-                <dt>Local</dt>
-                <dd>Belém, PA</dd>
-                <dt>Formação</dt>
-                <dd>Engenharia da Computação</dd>
-                <dt>Habilidades</dt>
-                <dd>
-                    <ul class="etiquetas">
-                        <li>HTML</li>
-                        <li>CSS</li>
-                        <li>JavaScript</li>
-                        <li>Git</li>
-                        <li>GitHub</li>
-                        <li>C</li>
-                        <li>C++</li>
-                        <li>Python</li>
-                        <li>Lógica de programação</li>
-                    </ul>
-                </dd>
-            </dl>
-
-            <div>
-                <p>Estou no último ano de Engenharia da Computação no CESUPA (Centro Universitário do Estado do Pará), com
-                    conclusão prevista para dezembro de 2026. Na graduação construí uma base em lógica, programação e
-                    fundamentos de computação, e hoje direciono isso para o desenvolvimento de software.</p>
-
-                <p>Minha primeira experiência profissional foi na Agência Fruta, atendendo a Beauty Fair. Ali aprendi
-                    a trabalhar com prazos, com muitas demandas ao mesmo tempo e com pessoas diferentes pedindo coisas
-                    diferentes, uma rotina que levo para qualquer equipe.</p>
-
-                <p>Hoje aprofundo meus estudos em desenvolvimento de software e coloco em prática nos projetos que estão
-                    aqui. Estou aberto a oportunidades como desenvolvedor, em uma equipe onde eu possa contribuir,
-                    aprender com quem tem mais experiência e continuar evoluindo.</p>
-            </div>
-        </section>
-
         <!-- 7. CONTATO -->
         <section id="contato" class="revelar">
             <div class="contato-cartao">
@@ -280,10 +268,13 @@
                         <div class="contato-email">
 
                             <a href="mailto:marcoantoniomachado1010@gmail.com">marcoantoniomachado1010@<wbr>gmail.com</a>
-                            
-                            <button type="button" class="contato-copiar botao-pequeno">Copiar</button>
 
-                            <span class="contato-aviso" aria-live="polite"></span>
+                            <!-- botão só com ícone; o balãozinho "Copiar" e o aviso para leitor de tela são trocados pelo js/script.js -->
+                            <button type="button" class="contato-copiar" aria-label="Copiar e-mail"><span
+                                    class="logo-rede logo-copiar" aria-hidden="true"></span><span class="contato-dica"
+                                    aria-hidden="true">Copiar</span></button>
+
+                            <span class="contato-aviso visualmente-oculto" role="status" aria-live="polite"></span>
 
                         </div>
                     </li>
@@ -304,6 +295,9 @@
                             rel="noopener">Baixar em PDF<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
                 </ul>
             </div>
+
+            <!-- fica no HTML para funcionar também sem JavaScript; os rótulos das outras seções são montados pelo js/script.js -->
+            <a class="proxima proxima-topo" href="#inicio" aria-label="Voltar ao topo">Voltar ao topo</a>
         </section>
 
     </main>
@@ -316,7 +310,6 @@
                 <p>Construído com HTML, CSS, JavaScript e Git.</p>
             </noscript>
         </div>
-        <a href="#inicio" class="rodape-voltar-ao-topo botao-fantasma">Voltar ao topo</a>
     </footer>
 
     <script src="js/script.js"></script>
