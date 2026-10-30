@@ -42,13 +42,13 @@
         <!-- 1. TOPO -->
         <section id="inicio">
             <div>
-                <div class="inicio-titulo">
-                    <h1>Marco Antônio Machado</h1>
-                    <span class="inicio-marca" aria-hidden="true"><span
-                            class="logo-rede logo-machado"></span>&lt;machado /&gt;</span>
-                </div>
+                <!-- o nome completo fica no texto oculto; o que aparece na tela é escondido do leitor de tela -->
+                <h1 class="inicio-nome"><span class="visualmente-oculto">Marco Antônio Machado</span><span
+                        aria-hidden="true">Marco Antônio </span><span class="inicio-sobrenome" aria-hidden="true"><span
+                            class="logo-rede logo-machado"></span><span
+                            class="inicio-sobrenome-texto">&lt;machado /&gt;</span></span></h1>
 
-                <p class="inicio-cargo">Desenvolvimento de software</p>
+                <p class="inicio-cargo" lang="en">Software Developer</p>
 
                 <!-- Java entra aqui em 15/12/2026, junto com o array do script.js -->
                 <p class="inicio-tecnologias">
@@ -59,14 +59,17 @@
                 <div class="inicio-botoes">
                     <a href="https://github.com/Marcoliveira12" target="_blank" rel="noopener"
                         class="inicio-icone"><span class="logo-rede logo-github" aria-hidden="true"></span><span
-                            class="visualmente-oculto">GitHub (abre em nova aba)</span></a>
+                            class="visualmente-oculto">GitHub (abre em nova aba)</span><span
+                            class="inicio-icone-rotulo" aria-hidden="true">GitHub</span></a>
 
                     <a href="https://www.linkedin.com/in/marco-ant%C3%B4nio-machado-b8a940420/" target="_blank"
                         rel="noopener" class="inicio-icone"><span class="logo-rede logo-linkedin"
-                            aria-hidden="true"></span><span class="visualmente-oculto">LinkedIn (abre em nova aba)</span></a>
+                            aria-hidden="true"></span><span class="visualmente-oculto">LinkedIn (abre em nova aba)</span><span
+                            class="inicio-icone-rotulo" aria-hidden="true">LinkedIn</span></a>
 
                     <a href="#contato" class="inicio-icone"><span class="logo-rede logo-conversa"
-                            aria-hidden="true"></span><span class="visualmente-oculto">Entrar em contato</span></a>
+                            aria-hidden="true"></span><span class="visualmente-oculto">Contato</span><span
+                            class="inicio-icone-rotulo" aria-hidden="true">Contato</span></a>
 
                     <a href="docs/curriculo-marco-machado.pdf" target="_blank" rel="noopener" class="botao">Baixar
                         currículo<span class="visualmente-oculto"> (PDF, abre em nova aba)</span></a>
