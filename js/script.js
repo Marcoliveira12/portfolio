@@ -166,6 +166,123 @@ contadorProjetos.textContent = doisDigitos(projetos.length);
 contadorAndamento.textContent = doisDigitos(projetosEmAndamento);
 
 
+//tecnologias
+
+//para acrescentar uma tecnologia: copie um objeto { nome, arquivo } inteiro, cole no fim dos itens do grupo certo e troque os dados
+//Java e SQL entram no Backend a partir de 15/12/2026, é só acrescentar um objeto em itens
+const gruposTecnologias = [
+    {
+        titulo: 'Frontend',
+        itens: [
+            { nome: 'HTML', arquivo: 'img/icones/tec-html.svg' },
+            { nome: 'CSS', arquivo: 'img/icones/tec-css.svg' },
+            { nome: 'JavaScript', arquivo: 'img/icones/tec-javascript.svg' }
+        ]
+    },
+    {
+        titulo: 'Backend',
+        itens: [
+            { nome: 'Firebase', arquivo: 'img/icones/tec-firebase.svg' },
+            { nome: 'ESP32', arquivo: 'img/icones/tec-esp32.svg' }
+        ]
+    },
+    {
+        titulo: 'Ferramentas',
+        itens: [
+            { nome: 'Git', arquivo: 'img/icones/tec-git.svg' },
+            { nome: 'GitHub', arquivo: 'img/icones/tec-github.svg' },
+            { nome: 'VS Code', arquivo: 'img/icones/tec-vscode.svg' }
+        ]
+    }
+];
+
+//tecnologias deste portfólio que aparecem no rodapé: só as linguagens e o Git
+//(os nomes precisam ser iguais aos da lista de cima, porque o logo vem de lá)
+const construidoCom = ['HTML', 'CSS', 'JavaScript', 'Git'];
+
+const blocoGrupos = document.querySelector('.tecnologias-grupos');
+const blocoConstruido = document.querySelector('.rodape-construido');
+
+//procura nos grupos o arquivo do logo da tecnologia com esse nome (se não achar, devolve texto vazio)
+function buscarArquivo(nome) {
+    let arquivo = '';
+
+    for (let i = 0; i < gruposTecnologias.length; i++) {
+        const itens = gruposTecnologias[i].itens;
+
+        for (let j = 0; j < itens.length; j++) {
+            if (itens[j].nome === nome) {
+                arquivo = itens[j].arquivo;
+            }
+        }
+    }
+
+    return arquivo;
+}
+
+//monta uma caixa para cada grupo, com um item (logo e nome) para cada tecnologia
+function montarGrupos(lista) {
+    let html = '';
+
+    for (let i = 0; i < lista.length; i++) {
+        const grupo = lista[i];
+        let itens = '';
+
+        for (let j = 0; j < grupo.itens.length; j++) {
+            const item = grupo.itens[j];
+
+            //cada item entra 80ms depois do anterior (o primeiro entra sem atraso)
+            itens += `
+                <li class="tecnologias-item" style="animation-delay: ${j * 80}ms">
+                    <img class="tecnologias-icone" src="${item.arquivo}" alt="" width="48" height="48">
+                    <span class="tecnologias-nome">${item.nome}</span>
+                </li>
+            `;
+        }
+
+        html += `
+            <article class="tecnologias-grupo">
+                <h3 class="tecnologias-rotulo">${grupo.titulo}</h3>
+                <ul class="tecnologias-lista">${itens}</ul>
+            </article>
+        `;
+    }
+
+    return html;
+}
+
+//monta a linha do rodapé "esse portfólio foi construído com:" com os logos pequenos
+function montarConstruido() {
+    let itens = '';
+
+    for (let i = 0; i < construidoCom.length; i++) {
+        const nome = construidoCom[i];
+
+        itens += `
+            <li class="rodape-pequeno">
+                <img src="${buscarArquivo(nome)}" alt="" width="32" height="32">
+                <span class="tecnologias-nome">${nome}</span>
+            </li>
+        `;
+    }
+
+    const html = `
+        <p class="rodape-construido-titulo">esse portfólio foi construído com:</p>
+        <ul>${itens}</ul>
+    `;
+
+    return html;
+}
+
+if (blocoGrupos) {
+    blocoGrupos.innerHTML = montarGrupos(gruposTecnologias);
+}
+
+if (blocoConstruido) {
+    blocoConstruido.innerHTML = montarConstruido();
+}
+
+
 //animações
 
 //seções aparecendo de acordo com o scroll do usuário

@@ -774,6 +774,74 @@ main > section {
 }
 
 
+/*tecnologias*/
+/*três caixas lado a lado (Frontend, Backend e Ferramentas)*/
+.tecnologias-grupos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/*caixa de cada grupo, com moldura mais grossa embaixo e à direita*/
+.tecnologias-grupo {
+    background-color: #161B22;
+    border: 1px solid #30363D;
+    border-right: 3px solid #1A3350;
+    border-bottom: 3px solid #1A3350;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+/*nome do grupo (FRONTEND, BACKEND...)*/
+.tecnologias-rotulo {
+    font-family: jetbrains, ui-monospace, monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #7CC4FF;
+    margin-bottom: 16px;
+}
+
+/*logos lado a lado, quebrando linha quando não cabem*/
+.tecnologias-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/*relative para o balãozinho do nome se posicionar em cima do logo (também nos logos do rodapé)*/
+.tecnologias-item,
+.rodape-pequeno {
+    position: relative;
+}
+
+.tecnologias-icone {
+    display: block;
+    width: 48px;
+    height: 48px;
+}
+
+/*nome da tecnologia: invisível, mas o leitor de tela lê; vira balãozinho acima do logo no hover
+(usado nos logos da seção e nos do rodapé)*/
+.tecnologias-nome {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: nowrap;
+    color: #E6EDF3;
+    background-color: #0D1117;
+    border: 1px solid #30363D;
+    border-radius: 6px;
+    padding: 4px 8px;
+    pointer-events: none;
+    opacity: 0;
+}
+
 /*experiência*/
 /*linha embaixo de "Trajetória profissional."*/
 #experiencia h2 + p {
@@ -1033,6 +1101,31 @@ main > section {
     color: #E6EDF3;
 }
 
+/*"esse portfólio foi construído com:" e os logos pequenos, no centro*/
+.rodape-construido {
+    text-align: center;
+}
+
+.rodape-construido-titulo {
+    font-family: jetbrains, ui-monospace, monospace;
+    font-size: 14px;
+    color: #8B96A5;
+    margin-bottom: 12px;
+}
+
+.rodape-construido ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.rodape-pequeno img {
+    display: block;
+    width: 32px;
+    height: 32px;
+}
+
 /*                    animações               */
 /*conteúdo das seções começa invisível (só com JavaScript ligado). A seção fica parada para o menu acertar a parada*/
 .js .revelar:not(.visivel) > * {
@@ -1163,6 +1256,19 @@ main > section {
     }
 }
 
+/*logos das tecnologias sobem 16px enquanto aparecem*/
+@keyframes tecnologias-aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /*mesma animação subindo 24px (usada só no bloco de movimento)*/
 @keyframes revelar-subir {
     from {
@@ -1272,6 +1378,11 @@ main > section {
     /*32px entre o cartão e os parágrafos*/
     #sobre dl {
         margin-bottom: 32px;
+    }
+
+    /*caixas das tecnologias uma embaixo da outra*/
+    .tecnologias-grupos {
+        grid-template-columns: 1fr;
     }
 
     #experiencia article {
@@ -1494,6 +1605,29 @@ main > section {
         animation-name: revelar-subir;
     }
 
+    /*nas tecnologias o bloco dos logos só aparece, sem subir, porque os logos dentro já sobem (senão o movimento soma)*/
+    .js #tecnologias:not(.visivel) > .tecnologias-grupos {
+        transform: none;
+    }
+
+    .js #tecnologias.visivel > .tecnologias-grupos {
+        animation-name: revelar-aparecer;
+    }
+
+    /*logos começam escondidos e mais baixos*/
+    .tecnologias-item {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    /*quando a seção aparece, cada logo sobe no seu tempo (o animation-delay vem do style de cada li)*/
+    #tecnologias.visivel .tecnologias-item {
+        animation-name: tecnologias-aparecer;
+        animation-duration: 400ms;
+        animation-timing-function: ease-out;
+        animation-fill-mode: forwards;
+    }
+
     /*partículas do fundo sobem sem parar, cada camada numa velocidade*/
     .fundo-camada-1 {
         animation: fundo-subir 60s linear infinite;
@@ -1624,6 +1758,22 @@ main > section {
     .inicio-sobrenome:hover {
         color: #E6EDF3;
     }
+
+    /*caixas das tecnologias: moldura de baixo e da direita fica azul*/
+    .tecnologias-grupo {
+        transition: border-color 0.2s ease-out;
+    }
+
+    .tecnologias-grupo:hover {
+        border-right-color: #7CC4FF;
+        border-bottom-color: #7CC4FF;
+    }
+
+    /*nome da tecnologia aparece acima do logo (na seção e no rodapé)*/
+    .tecnologias-item:hover .tecnologias-nome,
+    .rodape-pequeno:hover .tecnologias-nome {
+        opacity: 1;
+    }
 }
 
 /*  MOUSE E MOVIMENTO: só com mouse e para quem não pediu menos movimento  */
@@ -1683,6 +1833,15 @@ main > section {
     /*o sobrenome inteiro treme logo depois do golpe (300ms de atraso)*/
     .inicio-sobrenome:hover {
         animation: marca-tremida 300ms 300ms;
+    }
+
+    /*logo das tecnologias sobe 4px*/
+    .tecnologias-icone {
+        transition: transform 0.2s ease-out;
+    }
+
+    .tecnologias-item:hover .tecnologias-icone {
+        transform: translateY(-4px);
     }
 }
 
