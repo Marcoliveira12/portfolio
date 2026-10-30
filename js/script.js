@@ -5,131 +5,195 @@ const elementoAno = document.querySelector('.ano-atual');
 elementoAno.textContent = new Date().getFullYear();
 
 
-//botão de copiar o email
+//botão de copiar o email (só com ícone)
 const botaoCopiarEmail = document.querySelector('.contato-copiar');
-const avisoEmailCopiado = document.querySelector('.contato-aviso');
+const dicaCopiarEmail = document.querySelector('.contato-dica');
+//aviso escondido da tela: só o leitor de tela lê
+const avisoEmail = document.querySelector('.contato-aviso');
 
-let timerAvisoEmail;
+let timerCopiarEmail;
 
-function copiarEmail() {
-    navigator.clipboard.writeText('marcoantoniomachado1010@gmail.com');
-
-    clearTimeout(timerAvisoEmail);
-
-    avisoEmailCopiado.textContent = 'E-mail copiado!';
-    avisoEmailCopiado.classList.add('visivel');
-
-    timerAvisoEmail = setTimeout(function () {
-        avisoEmailCopiado.classList.remove('visivel');
-
-        timerAvisoEmail = setTimeout(function () {
-            avisoEmailCopiado.textContent = '';
-        }, 150);
-    }, 2000);
+//volta o botão ao normal: ícone de copiar, balãozinho "Copiar" e aviso vazio
+function limparCopiarEmail() {
+    botaoCopiarEmail.classList.remove('contato-copiar-ok');
+    botaoCopiarEmail.classList.remove('contato-copiar-falhou');
+    dicaCopiarEmail.textContent = 'Copiar';
+    avisoEmail.textContent = '';
 }
 
-botaoCopiarEmail.addEventListener('click', copiarEmail);
+//mostra o resultado por 2 segundos; o CSS troca o ícone e o balãozinho pela classe
+function mostrarResultadoCopia(deuCerto) {
+    //clique repetido antes dos 2 segundos: cancela o tempo anterior e começa de novo
+    clearTimeout(timerCopiarEmail);
+    limparCopiarEmail();
+
+    if (deuCerto === true) {
+        botaoCopiarEmail.classList.add('contato-copiar-ok');
+        avisoEmail.textContent = 'E-mail copiado';
+    } else {
+        botaoCopiarEmail.classList.add('contato-copiar-falhou');
+        dicaCopiarEmail.textContent = 'Não copiou';
+        avisoEmail.textContent = 'Não foi possível copiar o e-mail';
+    }
+
+    timerCopiarEmail = setTimeout(limparCopiarEmail, 2000);
+}
+
+function copiarEmail() {
+    //sem a área de transferência (por exemplo, site aberto sem https) já é falha
+    if (navigator.clipboard) {
+        //writeText devolve uma promessa: a primeira function roda se copiou, a segunda se deu erro
+        navigator.clipboard.writeText('marcoantoniomachado1010@gmail.com').then(function () {
+            mostrarResultadoCopia(true);
+        }, function () {
+            mostrarResultadoCopia(false);
+        });
+    } else {
+        mostrarResultadoCopia(false);
+    }
+}
+
+if (botaoCopiarEmail && dicaCopiarEmail && avisoEmail) {
+    botaoCopiarEmail.addEventListener('click', copiarEmail);
+}
 
 
 //projetos
 
-//para adicionar um projeto novo: copie um objeto inteiro (de { até },), cole no fim da lista e troque os dados
+//para adicionar um projeto novo: copie um objeto inteiro (de { até },), cole na lista na posição em que ele deve aparecer
+//e troque os dados. Campos de link (site, codigo, pagina) ficam com '' quando não existem: o cartão só mostra o que tiver link.
+//as descrições abaixo são provisórias: eu escrevo as definitivas
 const projetos = [
-    {
-        titulo: 'Este portfólio',
-        tipo: 'Projeto pessoal',
-        ano: 2026,
-        status: 'Em desenvolvimento',
-        descricao: 'Site pessoal criado para apresentar meus projetos, minha formação e minha evolução na área de desenvolvimento de software.',
-        tecnologias: ['HTML', 'CSS', 'JavaScript'],
-        imagemDesktop: 'img/projeto-portfolio.png',
-        imagemMobile: 'img/projeto-portfolio.png',
-        alt: 'Página inicial deste portfólio',
-        codigo: 'https://github.com/Marcoliveira12/portfolio',
-        site: ''
-    },
     {
         titulo: 'Teko Lixeira',
         tipo: 'TCC',
         ano: 2026,
+        origem: 'TCC · 2026',
         status: 'Em desenvolvimento',
-        descricao: 'Lixeira inteligente criada no Amazon Hacking 2025 que pesa cada descarte e envia os dados para um dashboard, ajudando a otimizar a coleta de lixo.',
+        descricao: 'Lixeira IoT, do Amazon Hacking ao TCC.',
         tecnologias: ['ESP32', 'React', 'JavaScript', 'Firebase'],
         imagemDesktop: 'img/projeto-teko-lixeira.png',
         imagemMobile: 'img/projeto-teko-lixeira.png',
         alt: 'Dashboard do Teko Lixeira mostrando o peso de lixo coletado no mês e o status da lixeira',
+        //TODO: ainda não tem repositório público nem site no ar
         codigo: '',
-        site: ''
+        site: '',
+        //o prompt 8 preenche a página do projeto (ex: 'projetos/teko-lixeira.html')
+        pagina: ''
+    },
+    {
+        titulo: 'Este portfólio',
+        tipo: 'Projeto pessoal',
+        ano: 2026,
+        origem: 'Projeto pessoal · 2026',
+        status: 'Em desenvolvimento',
+        descricao: 'Meu site pessoal.',
+        tecnologias: ['HTML', 'CSS', 'JavaScript', 'Git'],
+        imagemDesktop: 'img/projeto-portfolio.png',
+        imagemMobile: 'img/projeto-portfolio.png',
+        alt: 'Página inicial deste portfólio',
+        codigo: 'https://github.com/Marcoliveira12/portfolio',
+        //TODO: link do site no ar quando o portfólio for publicado
+        site: '',
+        //o prompt 8 preenche a página do projeto (ex: 'projetos/portfolio.html')
+        pagina: ''
     },
     {
         titulo: 'Tecboard',
         tipo: 'Curso Alura',
         ano: 2026,
+        origem: 'Curso Alura · 2026',
         status: 'Concluído',
-        descricao: 'Landing page construída em HTML e CSS a partir de um layout no Figma, durante o curso da Alura.',
+        descricao: 'Do layout do Figma a uma landing page de monitoramento.',
         tecnologias: ['HTML', 'CSS'],
         imagemDesktop: 'img/projeto-tecboard.png',
         imagemMobile: 'img/projeto-tecboard.png',
         alt: 'Topo da landing page Tecboard, com o título Fique de olho no que importa, o botão Testar versão demo e celulares mostrando o aplicativo',
         codigo: 'https://github.com/Marcoliveira12/tecboard',
-        site: 'https://marcoliveira12.github.io/tecboard/'
+        site: 'https://marcoliveira12.github.io/tecboard/',
+        //o prompt 8 preenche a página do projeto (ex: 'projetos/tecboard.html')
+        pagina: ''
     }
 ];
 
 const feedProjetos = document.querySelector('.feed');
 
-//monta um post para cada projeto da lista recebida e coloca tudo dentro do .feed
+//monta um cartão para cada projeto da lista recebida e coloca tudo dentro do .feed (a grade de projetos)
 function montarPosts(lista) {
     let html = '';
 
     for (let i = 0; i < lista.length; i++) {
         const projeto = lista[i];
 
-        //só o primeiro print carrega na hora, os outros esperam a rolagem
-        let carregamento = '';
+        //imagem do projeto; sem imagem, um bloco do mesmo tamanho com o nome
+        let midia = '';
 
-        if (i > 0) {
-            carregamento = ' loading="lazy"';
+        if (projeto.imagemDesktop !== '') {
+            midia = `
+                <picture>
+                    <source media="(max-width: 599px)" srcset="${projeto.imagemMobile}">
+                    <img class="projeto-imagem" src="${projeto.imagemDesktop}" alt="${projeto.alt}" width="1280" height="800" loading="lazy">
+                </picture>
+            `;
+        } else {
+            //TODO: falta a imagem deste projeto
+            midia = `<div class="projeto-sem-imagem">${projeto.titulo}</div>`;
         }
 
-        //links só aparecem se existirem
-        let links = '';
-
-        //aviso escondido da tela para o leitor de tela dizer que o link abre em nova aba
-        const avisoNovaAba = '<span class="visualmente-oculto"> (abre em nova aba)</span>';
-
-        if (projeto.codigo !== '') {
-            links += `<a href="${projeto.codigo}" target="_blank" rel="noopener">Ver código${avisoNovaAba}</a>`;
-        }
+        //botões sobre a imagem: só os que têm link
+        let acoes = '';
 
         if (projeto.site !== '') {
-            links += `<a href="${projeto.site}" target="_blank" rel="noopener">Visitar site${avisoNovaAba}</a>`;
+            acoes += `
+                <a class="projeto-acao" href="${projeto.site}" target="_blank" rel="noopener noreferrer" aria-label="Ver site de ${projeto.titulo} (abre em nova aba)">
+                    <span class="logo-rede logo-site" aria-hidden="true"></span>
+                    <span class="projeto-acao-rotulo" aria-hidden="true">Ver site</span>
+                </a>
+            `;
         }
 
-        //o rodapé só existe se o projeto tiver algum link
-        let rodape = '';
+        if (projeto.codigo !== '') {
+            acoes += `
+                <a class="projeto-acao" href="${projeto.codigo}" target="_blank" rel="noopener noreferrer" aria-label="Ver código de ${projeto.titulo} no GitHub (abre em nova aba)">
+                    <span class="logo-rede logo-github" aria-hidden="true"></span>
+                    <span class="projeto-acao-rotulo" aria-hidden="true">Ver código</span>
+                </a>
+            `;
+        }
 
-        if (links !== '') {
-            rodape = `<footer><div class="post-links">${links}</div></footer>`;
+        //o bloco dos botões só existe se o projeto tiver algum link
+        let blocoAcoes = '';
+
+        if (acoes !== '') {
+            blocoAcoes = `<div class="projeto-acoes">${acoes}</div>`;
+        }
+
+        //com página, o título vira link e o cartão inteiro clica; sem página, o título é só texto
+        let titulo = projeto.titulo;
+
+        if (projeto.pagina !== '') {
+            titulo = `<a class="projeto-link" href="${projeto.pagina}">${projeto.titulo}</a>`;
+        }
+
+        //uma pílula de texto para cada tecnologia
+        let tags = '';
+
+        for (let j = 0; j < projeto.tecnologias.length; j++) {
+            tags += `<li class="projeto-tag">${projeto.tecnologias[j]}</li>`;
         }
 
         html += `
-            <article class="post cartao">
-                <header>
-                    <p>${projeto.tipo} · ${projeto.ano}</p>
-                    <h3>${projeto.titulo}</h3>
-                </header>
+            <article class="projeto">
+                <div class="projeto-midia">
+                    ${midia}
+                    ${blocoAcoes}
+                </div>
 
-                <figure>
-                    <picture>
-                        <source media="(max-width: 599px)" srcset="${projeto.imagemMobile}">
-                        <img src="${projeto.imagemDesktop}" alt="${projeto.alt}" width="1280" height="720"${carregamento}>
-                    </picture>
-                </figure>
+                <h3 class="projeto-titulo">${titulo}</h3>
+                <p class="projeto-origem">${projeto.origem}</p>
+                <p class="projeto-descricao">${projeto.descricao}</p>
 
-                <p class="post-descricao">${projeto.descricao}</p>
-
-                ${rodape}
+                <ul class="projeto-tags" aria-label="Tecnologias usadas">${tags}</ul>
             </article>
         `;
     }
@@ -139,9 +203,8 @@ function montarPosts(lista) {
 
 montarPosts(projetos);
 
-//contadores do cartão de perfil (total de projetos e em andamento)
-const contadorProjetos = document.querySelector('.contador-projetos');
-const contadorAndamento = document.querySelector('.contador-andamento');
+//contadores da seção Projetos (total e em andamento), na linha abaixo do título
+const contadoresProjetos = document.querySelector('.projetos-contadores');
 
 //coloca o zero na frente dos números menores que 10 (3 vira 03)
 function doisDigitos(numero) {
@@ -162,8 +225,23 @@ for (let i = 0; i < projetos.length; i++) {
     }
 }
 
-contadorProjetos.textContent = doisDigitos(projetos.length);
-contadorAndamento.textContent = doisDigitos(projetosEmAndamento);
+//escolhe a palavra certa para a quantidade: 1 projeto, 2 projetos
+function singularOuPlural(quantidade, singular, plural) {
+    let palavra = plural;
+
+    if (quantidade === 1) {
+        palavra = singular;
+    }
+
+    return palavra;
+}
+
+//escreve "03 projetos · 02 em andamento", com os números num span para ficarem mais claros
+if (contadoresProjetos) {
+    const palavraProjetos = singularOuPlural(projetos.length, 'projeto', 'projetos');
+
+    contadoresProjetos.innerHTML = `<span class="projetos-numero">${doisDigitos(projetos.length)}</span> ${palavraProjetos} · <span class="projetos-numero">${doisDigitos(projetosEmAndamento)}</span> em andamento`;
+}
 
 
 //tecnologias
@@ -251,7 +329,7 @@ function montarGrupos(lista) {
     return html;
 }
 
-//monta a linha do rodapé "esse portfólio foi construído com:" com os logos pequenos
+//monta a parte direita do rodapé: "Construído com" e os logos pequenos, na mesma linha
 function montarConstruido() {
     let itens = '';
 
@@ -260,14 +338,14 @@ function montarConstruido() {
 
         itens += `
             <li class="rodape-pequeno">
-                <img src="${buscarArquivo(nome)}" alt="" width="32" height="32">
+                <img src="${buscarArquivo(nome)}" alt="" width="20" height="20">
                 <span class="tecnologias-nome">${nome}</span>
             </li>
         `;
     }
 
     const html = `
-        <p class="rodape-construido-titulo">esse portfólio foi construído com:</p>
+        <p class="rodape-construido-titulo">Construído com</p>
         <ul>${itens}</ul>
     `;
 
@@ -327,9 +405,39 @@ const observadorMenu = new IntersectionObserver(function (entradas) {
     }
 }, { rootMargin: '-50% 0px -50% 0px' });
 
-for (let i = 0; i < secoesMenu.length; i++) {
-    observadorMenu.observe(secoesMenu[i]);
+//só observa as seções se o menu existir (abaixo de 1024px ele fica escondido, mas continua no HTML)
+if (linksMenu.length > 0) {
+    for (let i = 0; i < secoesMenu.length; i++) {
+        observadorMenu.observe(secoesMenu[i]);
+    }
 }
+
+
+//próxima seção
+
+//no pé de cada seção, um rótulo para a seguinte (o CSS só mostra no computador em tela cheia).
+//a última seção (Contato) fica de fora: o "Voltar ao topo" dela está no index.html
+const secoesPagina = document.querySelectorAll('main > section');
+
+function montarProximas() {
+    //vai até a penúltima seção (length - 1 fica de fora): cada uma aponta para a seguinte
+    for (let i = 0; i < secoesPagina.length - 1; i++) {
+        const idProxima = secoesPagina[i + 1].id;
+        const linkDoMenu = document.querySelector(`.menu a[href="#${idProxima}"]`);
+        //o nome é o mesmo do menu; se o link não existir, fica o id
+        let nome = idProxima;
+
+        if (linkDoMenu) {
+            nome = linkDoMenu.textContent;
+        }
+
+        secoesPagina[i].insertAdjacentHTML('beforeend', `
+            <a class="proxima" href="#${idProxima}" aria-label="Ir para ${nome}">${nome}</a>
+        `);
+    }
+}
+
+montarProximas();
 
 
 //topo
@@ -339,8 +447,10 @@ const tecnologias = ['HTML', 'CSS', 'JavaScript', 'Git', 'GitHub'];
 
 const palavraTopo = document.querySelector('.inicio-palavra');
 const caixaPalavra = document.querySelector('.inicio-palavra-caixa');
+const sobrenomeTopo = document.querySelector('.inicio-sobrenome');
+const machadoTopo = document.querySelector('.inicio-sobrenome .logo-machado');
 
-if (palavraTopo && caixaPalavra) {
+if (palavraTopo && caixaPalavra && sobrenomeTopo && machadoTopo) {
     //quem pediu menos movimento continua vendo a lista parada do HTML
     const reduzirMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -369,8 +479,31 @@ if (palavraTopo && caixaPalavra) {
             }, 300);
         }
 
+        //um ciclo do topo: o machado golpeia e, no impacto, o sobrenome treme e a palavra troca
+        function cicloTopo() {
+            machadoTopo.classList.add('golpeando');
+
+            //o impacto é aos 330ms: 55% dos 600ms do golpe, o quadro em que o machado desce (ver @keyframes marca-golpe)
+            setTimeout(function () {
+                sobrenomeTopo.classList.add('tremendo');
+                trocarPalavra();
+            }, 330);
+        }
+
+        //cada classe sai quando a sua animação termina, para o próximo ciclo poder colocar de novo
+        machadoTopo.addEventListener('animationend', function () {
+            machadoTopo.classList.remove('golpeando');
+        });
+
+        //o animationend do machado também chega aqui, porque o machado está dentro do sobrenome: por isso confere o nome
+        sobrenomeTopo.addEventListener('animationend', function (evento) {
+            if (evento.animationName === 'marca-tremida') {
+                sobrenomeTopo.classList.remove('tremendo');
+            }
+        });
+
         palavraTopo.textContent = tecnologias[0];
-        setInterval(trocarPalavra, 3000);
+        setInterval(cicloTopo, 3000);
     }
 }
 
@@ -380,11 +513,12 @@ if (palavraTopo && caixaPalavra) {
 //de 1024px para cima o CSS esconde o cabeçalho no topo; a classe cabecalho-visivel faz ele descer
 const cabecalho = document.querySelector('.cabecalho');
 
-//mostra o cabeçalho depois de rolar 40px; no topo esconde, a não ser que um link do menu esteja com o foco
+//mostra o cabeçalho depois de rolar 40px; no topo esconde, a não ser que um link do menu esteja com o foco do teclado.
+//o foco do clique não conta: depois de clicar em Início, o link fica com o foco e o menu precisa esconder ao chegar no topo
 function atualizarCabecalho() {
     if (window.scrollY > 40) {
         cabecalho.classList.add('cabecalho-visivel');
-    } else if (cabecalho.contains(document.activeElement) === false) {
+    } else if (cabecalho.querySelector(':focus-visible') === null) {
         cabecalho.classList.remove('cabecalho-visivel');
     }
 }
@@ -428,3 +562,205 @@ if (barraProgresso) {
     window.addEventListener('scroll', atualizarProgresso);
     atualizarProgresso();
 }
+
+
+//rolagem por seção
+
+//no computador em tela cheia, cada gesto da roda do mouse (ou cada toque nas setas para cima e para baixo)
+//leva à próxima seção (ou à anterior) numa animação de 1s.
+//só a roda e as duas setas passam por aqui: as outras teclas, a barra de rolagem, o leitor de tela e o toque
+//continuam com a rolagem do navegador
+const faixaTelaCheia = window.matchMedia('(min-width: 1024px) and (min-height: 640px)');
+const movimentoReduzido = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+//número da seção em que a página está, na lista secoesPagina (0 é o início, 6 é o contato)
+let indiceAtual = 0;
+//true enquanto a animarRolagem está rodando
+let animando = false;
+//hora (em ms) do último evento da roda que fez parte de um gesto
+let ultimoGiro = 0;
+//true quando o gesto atual já trocou de seção ou chegou durante uma animação: o resto dele é ignorado
+let gestoUsado = false;
+let timerSincronizar;
+
+//curva de aceleração e freada (ease-in-out cúbica): recebe o tempo de 0 a 1 e devolve o caminho de 0 a 1.
+//na primeira metade é 4t³: começa devagar e acelera. Na segunda é a mesma curva espelhada: freia até parar.
+//as duas metades se encontram no meio (t = 0,5 dá 0,5 nas duas contas)
+function curvaSuave(t) {
+    let caminho = 4 * t * t * t;
+
+    if (t >= 0.5) {
+        caminho = 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    return caminho;
+}
+
+//leva a página da posição atual até destino (em px) em 1000ms, um quadro de cada vez
+function animarRolagem(destino) {
+    const inicio = window.scrollY;
+    const distancia = destino - inicio;
+    const duracao = 1000;
+    const comeco = performance.now();
+
+    //cada quadro calcula quanto do tempo passou e põe a página no ponto certo da curva
+    function quadro() {
+        //de 0 a 1; o Math.min não deixa passar de 1 se um quadro atrasar
+        const t = Math.min((performance.now() - comeco) / duracao, 1);
+
+        //instant: rola na hora, sem a rolagem suave do CSS por cima da animação
+        window.scrollTo({ top: inicio + distancia * curvaSuave(t), behavior: 'instant' });
+
+        //enquanto não chegou ao fim, pede o próximo quadro; no último, a animação termina
+        if (t < 1) {
+            requestAnimationFrame(quadro);
+        } else {
+            animando = false;
+        }
+    }
+
+    //com movimento reduzido vai direto para o destino, sem animação
+    if (movimentoReduzido.matches) {
+        window.scrollTo({ top: destino, behavior: 'instant' });
+    } else {
+        animando = true;
+        requestAnimationFrame(quadro);
+    }
+}
+
+//decide o que um gesto faz, seja da roda ou das setas. paraCima é true quando o gesto sobe.
+//mesmoGesto é true quando o evento continua um gesto que já começou (a roda girando, a seta segurada).
+//devolve true quando o navegador não pode rolar sozinho (quem chamou faz o preventDefault)
+function rolarPorSecao(paraCima, mesmoGesto) {
+    let bloquear = false;
+
+    //um gesto novo começa sem ter sido usado
+    if (mesmoGesto === false) {
+        gestoUsado = false;
+    }
+
+    const caixa = secoesPagina[indiceAtual].getBoundingClientRect();
+    const alturaJanela = window.innerHeight;
+    //seção mais alta que a janela (2px de tolerância para os arredondamentos)
+    const maisAlta = caixa.height > alturaJanela + 2;
+
+    //para baixo: vai para a seguinte; a seção alta ainda tem conteúdo se o fim dela está abaixo da janela
+    let destino = indiceAtual + 1;
+    let temConteudo = maisAlta && caixa.bottom > alturaJanela + 2;
+
+    //para cima: vai para a anterior; a seção alta ainda tem conteúdo se o começo dela está acima da janela
+    if (paraCima === true) {
+        destino = indiceAtual - 1;
+        temConteudo = maisAlta && caixa.top < -2;
+    }
+
+    if (animando === true || gestoUsado === true) {
+        //animação em andamento, ou o resto de um gesto já usado (a inércia depois de trocar de seção):
+        //o gesto não faz nada, nem rola por dentro de uma seção alta
+        bloquear = true;
+        gestoUsado = true;
+    } else if (temConteudo === false && destino >= 0 && destino < secoesPagina.length) {
+        //existe uma seção para ir: o navegador não rola sozinho
+        bloquear = true;
+
+        //só um gesto novo troca de seção; a continuação de um gesto que estava rolando nativo é ignorada
+        if (mesmoGesto === false) {
+            indiceAtual = destino;
+            gestoUsado = true;
+            animarRolagem(secoesPagina[destino].offsetTop);
+        }
+    }
+    //nos outros casos (seção alta com conteúdo, primeira seção para cima, última para baixo)
+    //bloquear fica false: o navegador rola normal
+
+    return bloquear;
+}
+
+//roda do mouse
+function rolarPelaRoda(evento) {
+    //só na faixa de tela cheia e sem o Ctrl (Ctrl + roda é o zoom do navegador)
+    if (faixaTelaCheia.matches && evento.ctrlKey === false) {
+        const agora = performance.now();
+        //menos de 200ms desde o último evento: é o mesmo gesto continuando (um giro rápido, a inércia do trackpad)
+        const mesmoGesto = agora - ultimoGiro < 200;
+
+        //movimento maior que 4, ou movimento mínimo que continua um gesto (o fim da inércia).
+        //um movimento mínimo solto fica com o navegador
+        if (Math.abs(evento.deltaY) > 4 || mesmoGesto === true) {
+            ultimoGiro = agora;
+
+            if (rolarPorSecao(evento.deltaY < 0, mesmoGesto) === true) {
+                evento.preventDefault();
+            }
+        }
+    }
+}
+
+window.addEventListener('wheel', rolarPelaRoda, { passive: false });
+
+//devolve true quando o elemento recebe texto digitado (campo de formulário ou elemento editável)
+function ehCampoDeTexto(elemento) {
+    let campo = false;
+
+    if (elemento.tagName === 'INPUT' || elemento.tagName === 'TEXTAREA' || elemento.tagName === 'SELECT') {
+        campo = true;
+    }
+
+    if (elemento.isContentEditable === true) {
+        campo = true;
+    }
+
+    return campo;
+}
+
+//setas para baixo e para cima: o mesmo que um gesto da roda
+function rolarPelaSeta(evento) {
+    const ehSeta = evento.key === 'ArrowDown' || evento.key === 'ArrowUp';
+    //Ctrl, Alt, Meta ou Shift apertado: a tecla é um atalho, fica com o navegador
+    const temModificador = evento.ctrlKey === true || evento.altKey === true || evento.metaKey === true || evento.shiftKey === true;
+
+    if (faixaTelaCheia.matches && ehSeta === true && temModificador === false && ehCampoDeTexto(evento.target) === false) {
+        //segurar a tecla repete o keydown com repeat true: conta como o mesmo gesto continuando,
+        //como a roda girando sem parar, e por isso nunca troca de seção
+        if (rolarPorSecao(evento.key === 'ArrowUp', evento.repeat) === true) {
+            evento.preventDefault();
+        }
+    }
+}
+
+window.addEventListener('keydown', rolarPelaSeta);
+
+//devolve o número da seção com o topo mais perto do topo da janela
+function acharSecaoMaisPerto() {
+    let maisPerto = 0;
+    let menorDistancia = Math.abs(secoesPagina[0].getBoundingClientRect().top);
+
+    for (let i = 1; i < secoesPagina.length; i++) {
+        const distancia = Math.abs(secoesPagina[i].getBoundingClientRect().top);
+
+        if (distancia < menorDistancia) {
+            menorDistancia = distancia;
+            maisPerto = i;
+        }
+    }
+
+    return maisPerto;
+}
+
+//rolou por outro meio (outras teclas, barra de rolagem, menu, rótulos): a seção atual passa a ser a que está na tela.
+//não mexe durante a animação da roda, que já sabe para onde vai
+function sincronizarSecao() {
+    if (animando === false) {
+        indiceAtual = acharSecaoMaisPerto();
+    }
+}
+
+//cada scroll reinicia a contagem: a sincronização só roda quando a rolagem fica 150ms parada
+function agendarSincronizacao() {
+    clearTimeout(timerSincronizar);
+    timerSincronizar = setTimeout(sincronizarSecao, 150);
+}
+
+window.addEventListener('scroll', agendarSincronizacao);
+//a página pode abrir já rolada (ao recarregar, o navegador volta para onde estava)
+sincronizarSecao();

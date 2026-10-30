@@ -55,8 +55,7 @@
 
 /*estilo desktop*/
 html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 55px;
+    scroll-padding-top: 16px;
 }
 
 body {
@@ -214,31 +213,8 @@ main h2 + p {
     margin-bottom: 40px;
 }
 
-/*cards(caixas) nas seções projetos e sobre mim (o .perfil troca o relative por sticky)*/
-.cartao {
-    position: relative;
-    background-color: #161B22;
-    border: 1px solid #30363D;
-    border-radius:12px;
-    padding: 24px;
-}
 
-/*sombra maior do hover nos posts e no contato, escondida até o mouse passar (só a opacidade anima)*/
-.post::after,
-.contato-cartao::after {
-    content: "";
-    position: absolute;
-    top: -1px;
-    right: -1px;
-    bottom: -1px;
-    left: -1px;
-    border-radius: inherit;
-    box-shadow: 0 16px 32px #00000073;
-    opacity: 0;
-    pointer-events: none;
-}
-
-/*etiquetas azuis sem borda (habilidades do sobre mim e competências da experiência)*/
+/*etiquetas azuis sem borda (competências da experiência)*/
 .etiquetas li {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 12px;
@@ -266,53 +242,6 @@ main h2 + p {
 .botao:hover {
     color: #0D1117;
     background-color: #A5D6FF;
-}
-
-/*botão com borda (copiar e-mail)*/
-.botao-pequeno {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: jetbrains, ui-monospace, monospace;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #7CC4FF;
-    background-color: transparent;
-    border: 1px solid #30363D;
-    border-radius: 6px;
-    padding: 4px 10px;
-    transition: background-color 0.2s, border-color 0.2s;
-}
-
-/*hover do botão pequeno (a cor fixa vence o a:hover)*/
-.botao-pequeno:hover {
-    color: #7CC4FF;
-    background-color: #132235;
-    border-color: #7CC4FF;
-}
-
-/*botão fantasma sem borda (voltar ao topo)*/
-.botao-fantasma {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: inter, system-ui, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: none;
-    color: #7CC4FF;
-    background-color: transparent;
-    border-radius: 6px;
-    padding: 6px 10px;
-    transition: background-color 0.2s, color 0.2s;
-}
-
-/*hover do botão fantasma*/
-.botao-fantasma:hover {
-    background-color: #132235;
-    color: #A5D6FF;
 }
 
 /*logos do GitHub, do LinkedIn e da conversa: o arquivo vira máscara e pega a cor do texto*/
@@ -343,6 +272,16 @@ main h2 + p {
     mask-image: url(../img/icones/ui-conversa.svg);
 }
 
+.logo-copiar {
+    -webkit-mask-image: url(../img/icones/ui-copiar.svg);
+    mask-image: url(../img/icones/ui-copiar.svg);
+}
+
+.logo-site {
+    -webkit-mask-image: url(../img/icones/ui-site.svg);
+    mask-image: url(../img/icones/ui-site.svg);
+}
+
 .logo-machado {
     -webkit-mask-image: url(../img/icones/ui-machado.svg);
     mask-image: url(../img/icones/ui-machado.svg);
@@ -362,7 +301,7 @@ main h2 + p {
     pointer-events: none;
 }
 
-/*cabeçalho: só o menu, no centro, com fundo opaco e sem borda*/
+/*cabeçalho: só o menu, no centro, sem fundo e sem borda (só existe de 1024px para cima)*/
 .cabecalho {
     display: flex;
     justify-content: center;
@@ -370,7 +309,6 @@ main h2 + p {
     top: 0;
     z-index: 10;
     font-size: 14px;
-    background-color: #0D1117;
     padding: 16px max(32px, calc((100% - 1040px) / 2));
 }
 
@@ -428,9 +366,15 @@ main > section {
 
 
 /*topo*/
-/*padding, título, parágrafo e espaçamento dos botões da seção inicio*/
+/*o início ocupa a tela inteira em todas as larguras, com o conteúdo no centro (na vertical pelo flex, na horizontal pelo text-align).
+100svh logo depois de 100vh: quem entende svh usa ele. É min-height: se o conteúdo for mais alto que a tela, a seção cresce*/
 
 #inicio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100svh;
     padding-top: 128px;
     padding-bottom: 128px;
     text-align: center;
@@ -464,6 +408,12 @@ main > section {
     width: 1em;
     height: 1em;
     margin-right: 0.2em;
+}
+
+/*na fonte mono o espaço tem a largura de uma letra (0,6em) e fica grande antes do />.
+O word-spacing tira 0,3em: sobra um espaço normal, do tamanho do espaço do Inter*/
+.inicio-sobrenome-texto {
+    word-spacing: -0.3em;
 }
 
 /*cargo em maiúsculas espaçadas; o padding-left compensa o espaço que sobra depois da última letra*/
@@ -568,174 +518,231 @@ main > section {
 }
 
 /*projetos*/
-/*seção projetos dividida em duas colunas (cartão de perfil à esquerda e posts à direita)*/
-#projetos {
+/*a linha dos contadores fica colada no título; o espaço até os cartões vem dela*/
+#projetos h2 + p {
+    margin-bottom: 0;
+}
+
+/*"03 projetos · 02 em andamento" (escrito pelo JavaScript; sem ele fica vazia e só sobra o espaço)*/
+.projetos-contadores {
+    font-family: jetbrains, ui-monospace, monospace;
+    font-size: 13px;
+    color: #8B96A5;
+    margin-top: 8px;
+    margin-bottom: 40px;
+}
+
+.projetos-numero {
+    color: #E6EDF3;
+}
+
+/*grade de 3 colunas: três projetos por linha; com mais projetos, eles quebram para uma nova linha.
+minmax(0, 1fr): as três colunas ficam sempre com a mesma largura, mesmo com um texto comprido*/
+.feed {
     display: grid;
-    grid-template-columns: 240px 1fr;
-    column-gap: 48px;
-    align-items: start;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
 }
 
-/*título, frase e posts na coluna da direita*/
-#projetos > h2,
-#projetos > p,
-#projetos > .feed,
-#projetos > noscript {
-    grid-column: 2;
+/*cartão de projeto: sem caixa nem fundo; relative para o link do título poder cobrir o cartão*/
+.projeto {
+    position: relative;
 }
 
-/*cartão de perfil na coluna da esquerda*/
-.perfil {
-    grid-column: 1;
-    grid-row: 1 / 4;
-    position: sticky;
-    top: 96px;
+/*caixa da imagem: os botões de Ver site e Ver código ficam por cima dela*/
+.projeto-midia {
+    position: relative;
 }
 
-/*foto do cartão de perfil*/
-.perfil img {
-    width: 64px;
-    height: 64px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 16px;
-}
-
-/*textos do cartão de perfil*/
-.perfil p {
-    font-size: 14px;
-    color: #8B96A5;
-}
-
-/*nome no cartão de perfil (Marco Antônio Machado)*/
-.perfil .perfil-nome {
-    font-size: 16px;
-    font-weight: 600;
-    color: #E6EDF3;
-}
-
-/*descrição no cartão de perfil (Projetos pessoais, acadêmicos e de curso)*/
-.perfil .perfil-descricao {
-    color: #C9D1D9;
-    margin-top: 12px;
-}
-
-/*contador do cartão*/
-.perfil ul {
-    display: flex;
-    gap: 32px;
-    border-top: 1px solid #30363D;
-    margin-top: 20px;
-    padding-top: 16px;
-}
-
-/*palavras do contador (PROJETOS e EM ANDAMENTO)*/
-.perfil li {
-    font-family: jetbrains, ui-monospace, monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #8B96A5;
-}
-
-/*números do contador*/
-.perfil li span {
-    display: block;
-    font-family: inter, system-ui, sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: 0;
-    color: #E6EDF3;
-}
-
-/*espaço entre um post de projeto e outro*/
-.post {
-    margin-bottom: 24px;
-}
-
-/*rótulo do post (tipo e ano do projeto)*/
-.post header p {
-    font-family: jetbrains, ui-monospace, monospace;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    line-height: 1.4;
-    color: #8B96A5;
-}
-
-/*nome/titulo do projeto no post*/
-.post h3 {
-    font-size: 22px;
-    font-weight: 600;
-    margin-top: 6px;
-}
-
-/*moldura em volta do print do projeto*/
-.post figure {
-    margin: 16px 0 0 0;
-    padding: 16px;
-    background-color: #0F141C;
-    border: 1px solid #30363D;
-    border-radius: 10px;
-}
-
-/*print do projeto dentro da moldura (cantos arredondados e sombra)*/
-.post img {
+/*imagem (ou o bloco no lugar dela) sempre em 16 por 10, cortando o que sobrar*/
+.projeto-imagem,
+.projeto-sem-imagem {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 6px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border: 1px solid #30363D;
+    border-radius: 12px;
 }
 
-/*descrição do projeto abaixo do print*/
-.post-descricao {
-    margin-top: 12px;
-}
-
-/*rodapé do post: só os links, encostados à direita*/
-.post footer {
+/*projeto sem imagem: fundo escuro com o nome no centro*/
+.projeto-sem-imagem {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: center;
+    font-family: jetbrains, ui-monospace, monospace;
+    color: #8B96A5;
+    background-color: #0F141C;
+}
+
+.projeto-titulo {
+    font-size: 20px;
+    font-weight: 600;
+    color: #E6EDF3;
+    margin-top: 16px;
+}
+
+/*título com link (só quando o projeto tem página): o ::after cobre o cartão inteiro*/
+.projeto-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.projeto-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+}
+
+/*foco pelo teclado: o contorno vai no cartão inteiro, não só no título*/
+.projeto-link:focus-visible {
+    outline: none;
+}
+
+.projeto-link:focus-visible::after {
+    outline: 2px solid #7CC4FF;
+    outline-offset: 2px;
+}
+
+/*tipo e ano (ex: Projeto pessoal · 2026)*/
+.projeto-origem {
     font-size: 14px;
-    border-top: 1px solid #30363D;
-    margin-top: 20px;
-    padding-top: 16px;
+    color: #8B96A5;
+    margin-top: 4px;
 }
 
-/*links do post (Ver código e Visitar site)*/
-.post-links {
+.projeto-descricao {
+    font-size: 14px;
+    color: #C9D1D9;
+    margin-top: 8px;
+}
+
+/*pílulas das tecnologias, com contorno azul*/
+.projeto-tags {
     display: flex;
-    gap: 20px;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.projeto-tag {
+    font-family: jetbrains, ui-monospace, monospace;
+    font-size: 12px;
+    color: #7CC4FF;
+    background-color: transparent;
+    border: 1px solid #7CC4FF;
+    border-radius: 999px;
+    padding: 4px 12px;
+}
+
+/*botões Ver site e Ver código por cima da imagem, com fundo escuro (#0D1117 com 0.72 de opacidade).
+Escondidos até o mouse ou o foco chegar no cartão; z-index 1 deixa eles acima do link do cartão.
+pointer-events none no bloco: o clique na parte escura passa para o cartão; só os botões recebem clique*/
+.projeto-acoes {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    background-color: #0D1117B8;
+    border-radius: 12px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/*botão redondo com ícone*/
+.projeto-acao {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: #161B22;
+    border: 1px solid #30363D;
+    border-radius: 999px;
+}
+
+/*ícone de 24px; a cor fica no próprio ícone para o a:hover não trocar*/
+.projeto-acao .logo-rede {
+    width: 24px;
+    height: 24px;
+    color: #E6EDF3;
+}
+
+/*foco pelo teclado: borda e ícone azuis*/
+.projeto-acao:focus-visible {
+    border-color: #7CC4FF;
+}
+
+.projeto-acao:focus-visible .logo-rede {
+    color: #7CC4FF;
+}
+
+/*balãozinho com "Ver site" ou "Ver código" acima do botão, escondido (o leitor de tela usa o aria-label)*/
+.projeto-acao-rotulo {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: nowrap;
+    color: #E6EDF3;
+    background-color: #0D1117;
+    border: 1px solid #30363D;
+    border-radius: 6px;
+    padding: 4px 8px;
+    pointer-events: none;
+    opacity: 0;
 }
 
 /*sobre mim*/
 
-/*seção sobre mim dividida em duas colunas*/
-#sobre {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    column-gap: 64px;
-    align-items: stretch;
+/*abaixo de 900px tudo numa coluna: título, cartão e parágrafos. De 900px para cima, ver o fim do arquivo*/
+
+/*cartão horizontal: foto à esquerda e Local e Formação à direita, centralizados na vertical entre si.
+Largura do conteúdo, até 420px (a folga fica igual dos dois lados), alinhado à esquerda como o texto, 32px até os parágrafos.
+Mesma moldura das caixas de Tecnologias (mais grossa embaixo e à direita), sem fundo*/
+.sobre-cartao {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: fit-content;
+    max-width: 420px;
+    margin-bottom: 32px;
+    background-color: transparent;
+    border: 1px solid #30363D;
+    border-right: 3px solid #1A3350;
+    border-bottom: 3px solid #1A3350;
+    border-radius: 12px;
+    padding: 20px;
 }
 
-/*título e "Prazer, Marco." ocupando a largura toda, em cima das colunas*/
-#sobre h2 {
-    grid-column: 1 / -1;
-    margin-bottom: 12px;
+/*foto redonda de 80px; flex-shrink 0 não deixa ela encolher quando o texto aperta*/
+.sobre-foto {
+    display: block;
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 1px solid #30363D;
+    border-radius: 50%;
 }
 
-#sobre h2 + p {
-    grid-column: 1 / -1;
-}
-
-/*cartão ficha (Local, Formação e Habilidades): rótulos, valores, linhas divisórias e etiquetas*/
-#sobre dl {
+/*Local e Formação um embaixo do outro, alinhados à esquerda, 12px entre eles*/
+.sobre-cartao dl {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: 12px;
 }
 
+/*rótulos (LOCAL, FORMAÇÃO) e valores*/
 #sobre dt {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 11px;
@@ -748,25 +755,9 @@ main > section {
 #sobre dd {
     font-size: 15px;
     color: #E6EDF3;
-    border-bottom: 1px solid #30363D;
-    margin-bottom: 28px;
-    padding-bottom: 28px;
 }
 
-#sobre dd:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-#sobre .etiquetas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 8px;
-}
-
-/*três parágrafos sobre mim, com largura confortável de leitura*/
+/*parágrafos sobre mim, com largura confortável de leitura*/
 #sobre > div p {
     max-width: 65ch;
     margin-bottom: 20px;
@@ -778,15 +769,30 @@ main > section {
 
 
 /*tecnologias*/
-/*três caixas lado a lado (Frontend, Backend e Ferramentas)*/
+/*rótulo, título e caixas na mesma coluna de até 720px, no centro: o título começa na borda das caixas.
+Só margem dos lados, para manter a de baixo de cada texto.
+width 100%: na tela cheia a seção é flex, e o margin auto sozinho encolheria cada bloco*/
+#tecnologias > h2,
+#tecnologias > h2 + p,
 .tecnologias-grupos {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    width: 100%;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/*caixa de cada grupo, com moldura mais grossa embaixo e à direita*/
+/*três caixas uma embaixo da outra (Frontend, Backend e Ferramentas)*/
+.tecnologias-grupos {
+    display: grid;
+    gap: 16px;
+}
+
+/*caixa de cada grupo, com moldura mais grossa embaixo e à direita.
+Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na vertical*/
 .tecnologias-grupo {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    align-items: center;
     background-color: #161B22;
     border: 1px solid #30363D;
     border-right: 3px solid #1A3350;
@@ -803,7 +809,6 @@ main > section {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #7CC4FF;
-    margin-bottom: 16px;
 }
 
 /*logos lado a lado, quebrando linha quando não cabem*/
@@ -999,16 +1004,18 @@ main > section {
 }
 
 /*contato*/
-/*cartão de contato em duas colunas (texto à esquerda e lista à direita)*/
+/*cartão de contato em duas colunas (texto à esquerda e lista à direita).
+Mesma moldura do cartão do Sobre mim (mais grossa embaixo e à direita), sem fundo*/
 
 .contato-cartao {
-    position: relative;
     display: grid;
     grid-template-columns: 1fr 1.4fr;
     column-gap: 48px;
-    background-color: #161B22;
+    background-color: transparent;
     border: 1px solid #30363D;
-    border-radius: 16px;
+    border-right: 3px solid #1A3350;
+    border-bottom: 3px solid #1A3350;
+    border-radius: 12px;
     padding: 48px;
 }
 
@@ -1042,7 +1049,8 @@ main > section {
     padding: 14px 0;
 }
 
-#contato li span {
+/*rótulo de cada linha (E-mail, LinkedIn...): só o span filho direto do li, para não pegar o ícone e o balãozinho do botão de copiar*/
+#contato li > span {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 11px;
     letter-spacing: 0.12em;
@@ -1068,26 +1076,126 @@ main > section {
     gap: 8px 12px;
 }
 
-/*botão copiar e-mail (visual vem do .botao-pequeno, só que menor)*/
+/*botão copiar e-mail: só o ícone, com alvo de toque de 44px. Sem JavaScript ele não funciona, então só aparece com .js.
+A margem de -12px em cima e embaixo devolve o espaço: a linha do e-mail não fica mais alta que as outras*/
 .contato-copiar {
-    font-size: 11px;
-    padding: 2px 8px;
+    position: relative;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin: -12px 0;
+    color: #8B96A5;
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
+    transition: color 0.2s;
 }
 
-/*aviso de e-mail copiado: começa invisível*/
-#contato .contato-aviso {
-    color: #7EE787;
+.js .contato-copiar {
+    display: inline-flex;
+}
+
+/*ícone de 20px; a cor vem do botão (currentColor)*/
+.contato-copiar .logo-rede {
+    width: 20px;
+    height: 20px;
+}
+
+/*foco pelo teclado: ícone azul e contorno 2px afastado 2px*/
+.contato-copiar:focus-visible {
+    color: #7CC4FF;
+    outline-offset: 2px;
+}
+
+/*copiou: o ícone vira o check azul por 2 segundos (classe colocada pelo JavaScript)*/
+.contato-copiar-ok {
+    color: #7CC4FF;
+}
+
+.contato-copiar-ok .logo-rede {
+    -webkit-mask-image: url(../img/icones/ui-check.svg);
+    mask-image: url(../img/icones/ui-check.svg);
+}
+
+/*balãozinho "Copiar" acima do ícone, escondido (o leitor de tela usa o aria-label)*/
+.contato-dica {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: inter, system-ui, sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: nowrap;
+    color: #E6EDF3;
+    background-color: #0D1117;
+    border: 1px solid #30363D;
+    border-radius: 6px;
+    padding: 4px 8px;
+    pointer-events: none;
     opacity: 0;
-    transition: opacity 0.15s;
 }
 
-/*aviso visível (classe colocada pelo JavaScript)*/
-#contato .contato-aviso.visivel {
+/*balãozinho aparece no foco pelo teclado e quando a cópia falha ("Não copiou", mesmo sem hover)*/
+.contato-copiar:focus-visible .contato-dica,
+.contato-copiar-falhou .contato-dica {
     opacity: 1;
 }
 
-/*rodapé*/
+/*rótulo "próxima seção" (montado pelo script.js): nome da seção em maiúsculas com uma linha fina embaixo.
+Escondido aqui; só aparece no computador em tela cheia, ver o fim do arquivo.
+O "Voltar ao topo" usa o mesmo estilo, mas está no index.html*/
+.proxima {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+    font-family: inter, system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #C9D1D9;
+    border-radius: 6px;
+    padding: 0 12px;
+}
+
+/*linha vertical fina embaixo do nome, no centro*/
+.proxima::after {
+    content: "";
+    width: 2px;
+    height: 28px;
+    margin-top: 8px;
+    background-color: #C9D1D9;
+}
+
+.proxima:focus-visible {
+    color: #7CC4FF;
+}
+
+/*"Voltar ao topo" (último rótulo): aparece em todas as larguras, no fim do contato, com a linha em cima do texto*/
+.proxima-topo {
+    display: flex;
+    margin: 32px auto 0;
+}
+
+.proxima-topo::after {
+    content: none;
+}
+
+.proxima-topo::before {
+    content: "";
+    width: 2px;
+    height: 28px;
+    margin-bottom: 8px;
+    background-color: #C9D1D9;
+}
+
+/*rodapé numa linha só: nome à esquerda e "Construído com" com os logos à direita*/
 .rodape {
     display: flex;
     align-items: center;
@@ -1096,7 +1204,7 @@ main > section {
     font-size: 14px;
     color: #8B96A5;
     border-top: 1px solid #30363D;
-    padding: 32px max(32px, calc((100% - 1040px) / 2));
+    padding: 20px max(32px, calc((100% - 1040px) / 2));
 }
 
 .rodape-nome {
@@ -1104,29 +1212,28 @@ main > section {
     color: #E6EDF3;
 }
 
-/*"esse portfólio foi construído com:" e os logos pequenos, no centro*/
+/*"Construído com" e os logos pequenos na mesma linha, alinhados ao centro na vertical*/
 .rodape-construido {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .rodape-construido-titulo {
     font-family: jetbrains, ui-monospace, monospace;
-    font-size: 14px;
+    font-size: 12px;
     color: #8B96A5;
-    margin-bottom: 12px;
 }
 
 .rodape-construido ul {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+    gap: 12px;
 }
 
 .rodape-pequeno img {
     display: block;
-    width: 32px;
-    height: 32px;
+    width: 20px;
+    height: 20px;
 }
 
 /*                    animações               */
@@ -1162,35 +1269,7 @@ main > section {
     }
 }
 
-/*machadada a cada 4s: descansa, puxa para trás, golpeia, quica e volta
-(o timing de cada trecho fica no quadro de onde ele sai)*/
-@keyframes marca-machadada {
-    0%,
-    78% {
-        transform: rotate(0deg);
-        animation-timing-function: ease-out;
-    }
-
-    84% {
-        transform: rotate(-30deg);
-        animation-timing-function: ease-in;
-    }
-
-    89% {
-        transform: rotate(14deg);
-    }
-
-    93% {
-        transform: rotate(-4deg);
-    }
-
-    97%,
-    100% {
-        transform: rotate(0deg);
-    }
-}
-
-/*golpe forte do hover: puxa mais para trás e golpeia mais fundo*/
+/*golpe do machado (a cada 3s, pelo cicloTopo do script.js): puxa para trás, golpeia aos 55% (330ms), quica e volta*/
 @keyframes marca-golpe {
     0% {
         transform: rotate(0deg);
@@ -1213,7 +1292,7 @@ main > section {
     }
 }
 
-/*tremida do sobrenome depois do golpe*/
+/*tremida do sobrenome no impacto do golpe*/
 @keyframes marca-tremida {
     0%,
     100% {
@@ -1256,6 +1335,29 @@ main > section {
 
     to {
         transform: scaleX(0);
+    }
+}
+
+/*check do botão de copiar cresce de 80% até o tamanho normal*/
+@keyframes contato-check-pulo {
+    from {
+        transform: scale(0.8);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+/*linha do rótulo da próxima seção cresce até o tamanho todo e volta*/
+@keyframes proxima-linha {
+    0%,
+    100% {
+        transform: scaleY(0.4);
+    }
+
+    50% {
+        transform: scaleY(1);
     }
 }
 
@@ -1325,91 +1427,25 @@ main > section {
         font-size: 44px;
     }
 
-    /*projetos vira uma coluna só (o espaço entre os blocos vem das margens, não do row-gap)*/
-    #projetos {
-        grid-template-columns: 1fr;
-        row-gap: 0;
-    }
-
-    /*32px do título até o primeiro bloco*/
-    #projetos h2 + p,
+    /*32px do título até o primeiro bloco (nos projetos, o espaço vem da linha dos contadores)*/
     #sobre h2 + p {
         margin-bottom: 32px;
     }
 
-    #projetos > h2,
-    #projetos > p,
-    #projetos > .feed,
-    #projetos > noscript {
-        grid-column: auto;
-    }
-
-    /*cartão de perfil compacto: foto à esquerda, nome e descrição curta à direita, contador embaixo*/
-    .perfil {
-        grid-column: auto;
-        grid-row: auto;
-        position: relative;
-        top: auto;
-        display: grid;
-        grid-template-columns: 48px 1fr;
-        column-gap: 16px;
-        align-items: center;
-        padding: 16px 20px;
+    .projetos-contadores {
         margin-bottom: 32px;
     }
 
-    .perfil img {
-        grid-row: 1 / 3;
-        width: 48px;
-        height: 48px;
-        margin-bottom: 0;
+    /*caixas das tecnologias: rótulo em cima e logos embaixo*/
+    .tecnologias-grupo {
+        display: block;
     }
 
-    /*descrição longa some da tela, mas o leitor de tela ainda lê*/
-    .perfil .perfil-descricao {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        margin: -1px;
-        padding: 0;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
+    .tecnologias-rotulo {
+        margin-bottom: 16px;
     }
 
-    /*contador numa linha só, ocupando a largura toda*/
-    .perfil ul {
-        grid-column: 1 / -1;
-        flex-wrap: wrap;
-        gap: 4px 16px;
-        margin-top: 12px;
-        padding-top: 12px;
-    }
-
-    /*número ao lado da palavra (03 projetos)*/
-    .perfil li span {
-        display: inline;
-        font-size: 14px;
-        margin-right: 4px;
-    }
-
-    /*sobre, experiência, formação e contato viram uma coluna*/
-    #sobre {
-        grid-template-columns: 1fr;
-        row-gap: 0;
-    }
-
-    /*32px entre o cartão e os parágrafos*/
-    #sobre dl {
-        margin-bottom: 32px;
-    }
-
-    /*caixas das tecnologias uma embaixo da outra*/
-    .tecnologias-grupos {
-        grid-template-columns: 1fr;
-    }
-
+    /*experiência, formação e contato viram uma coluna*/
     #experiencia article {
         grid-template-columns: 1fr;
         row-gap: 24px;
@@ -1434,30 +1470,6 @@ main > section {
         row-gap: 32px;
     }
 
-    /*cabeçalho acompanha o padding das seções*/
-    .cabecalho {
-        padding: 16px 32px;
-    }
-
-    /*área de toque de 44px: o padding cresce e a margem negativa devolve o espaço*/
-    .menu a {
-        display: inline-block;
-        padding: 12px 4px;
-        margin: -12px -4px;
-    }
-
-    /*sublinhado acompanha o texto, não a área de toque (4px abaixo, igual ao desktop)*/
-    .menu a::after {
-        left: 4px;
-        right: 4px;
-        bottom: 8px;
-    }
-
-    /*botão copiar com 44px de altura para o toque*/
-    .botao-pequeno {
-        padding: 15px 12px;
-    }
-
     /*links do contato com 44px de altura, sem mudar o espaço entre as linhas*/
     #contato li a {
         padding: 9px 0;
@@ -1465,7 +1477,7 @@ main > section {
     }
 
     .rodape {
-        padding: 32px 32px;
+        padding: 20px 32px;
     }
 }
 
@@ -1476,11 +1488,6 @@ main > section {
 /*  CELULAR: de 599px para baixo       */
 
 @media (max-width: 599px) {
-
-    /*cabeçalho de 48,8px (fonte do menu menor)*/
-    html {
-        scroll-padding-top: 49px;
-    }
 
     main > section {
         padding: 32px 20px;
@@ -1505,21 +1512,6 @@ main > section {
         height: auto;
     }
 
-    .cabecalho {
-        padding: 14px 20px;
-    }
-
-    .menu ul {
-        flex-wrap: wrap;
-        gap: 8px 12px;
-        font-size: 13px;
-    }
-
-    /*voltar ao topo com 44px de altura para o toque*/
-    .botao-fantasma {
-        padding: 11px 10px;
-    }
-
     /*parágrafos do sobre mim e da experiência justificados, com hifenização*/
     #sobre > div p,
     .experiencia-texto p {
@@ -1530,16 +1522,6 @@ main > section {
     /*logos da experiência no centro*/
     .experiencia-logos {
         justify-content: center;
-    }
-
-    .post figure {
-        padding: 10px;
-    }
-
-    /*ver código e visitar site com 44px de altura, sem mudar o espaçamento*/
-    .post-links a {
-        padding: 11px 0;
-        margin: -11px 0;
     }
 
     /*listas pequenas viram uma coluna*/
@@ -1566,33 +1548,117 @@ main > section {
         padding: 32px 24px;
     }
 
-    /*rodapé empilhado e centralizado*/
+    /*rodapé empilhado e centralizado, 12px entre as duas partes*/
     .rodape {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 16px;
-        padding: 32px 20px;
+        gap: 12px;
+        padding: 20px 20px;
     }
 }
 
-/*  CELULAR ESTREITO: de 442px para baixo os 6 links não cabem numa linha  */
+/*  CELULAR E TABLET: de 1023px para baixo não existe cabeçalho nem menu  */
 
-@media (max-width: 442px) {
+@media (max-width: 1023px) {
 
-    /*espaço para o menu de duas linhas preso no topo (cabeçalho de 93,6px)*/
-    html {
-        scroll-padding-top: 94px;
+    /*sem menu nessas larguras: a navegação é pela rolagem (a barra de progresso e o "Pular para o conteúdo" continuam)*/
+    .cabecalho {
+        display: none;
     }
 
-    /*menu numa grade de 3 colunas: sempre duas linhas de 3 links, centralizadas.
-    As linhas ficam 24px afastadas para as áreas de toque não se encostarem*/
-    .menu ul {
-        display: grid;
-        grid-template-columns: repeat(3, auto);
+    /*botões do início sempre em duas linhas: os 3 ícones em cima e o Baixar currículo embaixo.
+    O ::after é uma peça invisível de largura toda entre os dois (order 1): ele quebra a linha depois dos ícones.
+    Ele forma uma linha de altura 0, então o row-gap vira 0 e o espaço de 12px fica na margem do botão*/
+    .inicio-botoes {
+        row-gap: 0;
+    }
+
+    .inicio-botoes::after {
+        content: "";
+        flex-basis: 100%;
+        order: 1;
+    }
+
+    .inicio-botoes .botao {
+        order: 2;
+        margin-top: 12px;
+    }
+
+    /*rótulo, título e contadores dos projetos no centro*/
+    #projetos h2,
+    #projetos h2 + p,
+    .projetos-contadores {
+        text-align: center;
+    }
+
+    /*projetos um embaixo do outro: uma coluna de até 560px no centro, 64px entre um projeto e o seguinte*/
+    .feed {
+        grid-template-columns: minmax(0, 560px);
         justify-content: center;
-        justify-items: center;
-        gap: 24px 16px;
+        gap: 64px;
+    }
+
+    /*texto de cada cartão no centro (a imagem continua na largura toda do cartão)*/
+    .projeto-titulo,
+    .projeto-origem,
+    .projeto-descricao {
+        text-align: center;
+    }
+
+    .projeto-tags {
+        justify-content: center;
+    }
+}
+
+/*  DE 900px PARA CIMA: sobre mim em duas colunas, como a Experiência  */
+
+@media (min-width: 900px) {
+
+    /*título em cima e, embaixo, cartão (280px) à esquerda e parágrafos à direita, 48px entre eles.
+    O align-content centraliza o bloco na vertical quando a seção ocupa a tela cheia*/
+    #sobre {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        column-gap: 48px;
+        align-content: center;
+    }
+
+    /*rótulo e título na largura toda*/
+    #sobre h2,
+    #sobre h2 + p {
+        grid-column: 1 / 3;
+    }
+
+    /*cartão vertical: foto em cima, Local e Formação embaixo, tudo no centro.
+    Estica até a altura dos parágrafos (stretch da grade) e o conteúdo fica no meio dele*/
+    .sobre-cartao {
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+        width: auto;
+        max-width: none;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    .sobre-foto {
+        width: 112px;
+        height: 112px;
+    }
+
+    /*textos do cartão vertical maiores e 22px entre Local e Formação
+    (no celular continuam menores: com 17px "Engenharia da Computação" quebra em 393px e 375px)*/
+    .sobre-cartao dl {
+        gap: 22px;
+    }
+
+    #sobre dt {
+        font-size: 12px;
+    }
+
+    #sobre dd {
+        font-size: 17px;
     }
 }
 
@@ -1618,10 +1684,9 @@ main > section {
         scroll-padding-top: 62px;
     }
 
-    /*menu flutuando sobre o conteúdo: sem fundo; 23px em cima para caber o enfeite
+    /*menu flutuando sobre o conteúdo (o cabeçalho não tem fundo); 23px em cima para caber o enfeite
     e deixar 12px entre a linha e o topo das letras*/
     .cabecalho {
-        background-color: transparent;
         padding-top: 23px;
     }
 
@@ -1659,11 +1724,104 @@ main > section {
         background-color: #C9D1D9;
         transform-origin: bottom;
     }
+
+    /*48px entre a linha dos contadores e a grade de projetos*/
+    .projetos-contadores {
+        margin-bottom: 48px;
+    }
+}
+
+/*  COMPUTADOR LARGO: de 1280px para cima os projetos usam uma coluna de até 1200px  */
+
+@media (min-width: 1280px) {
+
+    /*só a seção Projetos fica mais larga (as outras continuam com até 1040px):
+    o que passar de 1200px vira padding, metade de cada lado*/
+    #projetos {
+        padding-left: max(32px, calc((100% - 1200px) / 2));
+        padding-right: max(32px, calc((100% - 1200px) / 2));
+    }
+
+    /*40px entre os cartões, nas duas direções*/
+    .feed {
+        gap: 40px;
+    }
+}
+
+/*  TELA CHEIA: computador com janela de pelo menos 640px de altura, uma seção por tela  */
+
+@media (min-width: 1024px) and (min-height: 640px) {
+
+    /*sem scroll-padding: cada seção já tem o próprio espaço em cima.
+    Sem scroll-snap: a roda já vai de seção em seção pelo script.js, e o encaixe puxava de volta a rolagem dentro da Formação*/
+    html {
+        scroll-padding-top: 0;
+    }
+
+    /*cabeçalho fixo: não ocupa espaço no alto da página, então a primeira tela começa colada no topo*/
+    .cabecalho {
+        position: fixed;
+        left: 0;
+        right: 0;
+    }
+
+    /*cada seção ocupa no mínimo uma tela, com o conteúdo centralizado na vertical.
+    62px em cima (altura do cabeçalho aberto) e 80px embaixo (espaço do link da próxima seção).
+    100svh logo depois de 100vh: quem entende svh usa ele, quem não entende fica com o vh.
+    Se o conteúdo for mais alto que a tela, a seção cresce e nada é cortado*/
+    main > section {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 100vh;
+        min-height: 100svh;
+        padding-top: 62px;
+        padding-bottom: 80px;
+    }
+
+    #inicio {
+        padding-top: 62px;
+        padding-bottom: 80px;
+    }
+
+    /*parágrafos do sobre mim com até 80ch (com o cartão ao lado, a coluna deles já é mais estreita que isso)*/
+    #sobre > div p {
+        max-width: 80ch;
+    }
+
+    /*contato e rodapé formam a última tela: o contato desconta os 63px de altura do rodapé*/
+    #contato {
+        min-height: calc(100vh - 63px);
+        min-height: calc(100svh - 63px);
+    }
+
+    /*foco pelo teclado nunca fica atrás do cabeçalho*/
+    main a,
+    main button {
+        scroll-margin-top: 80px;
+    }
+
+    /*rótulo da próxima seção no pé de cada seção, centralizado (margin auto com left e right 0).
+    Mede 55px (texto de 19px, 8px e a linha de 28px): cabe nos 80px de baixo da seção*/
+    .proxima {
+        position: absolute;
+        bottom: 24px;
+        left: 0;
+        right: 0;
+        display: flex;
+        margin: 0 auto;
+    }
 }
 
 /*  MOVIMENTO: só para quem não pediu menos movimento  */
 
 @media (prefers-reduced-motion: no-preference) {
+
+    /*links do menu e rolagem por seção deslizam até a seção (com movimento reduzido, vão direto)*/
+    html {
+        scroll-behavior: smooth;
+    }
 
     /*conteúdo das seções sobe um pouco enquanto aparece*/
     .js .revelar:not(.visivel) > * {
@@ -1715,6 +1873,29 @@ main > section {
         transition: transform 0.2s ease-out;
     }
 
+    /*linha dos rótulos da próxima seção pulsa, crescendo a partir do texto:
+    de cima para baixo e, no "Voltar ao topo", de baixo para cima*/
+    .proxima::after {
+        transform-origin: top;
+        animation: proxima-linha 2s ease-in-out infinite;
+    }
+
+    .proxima-topo::before {
+        transform-origin: bottom;
+        animation: proxima-linha 2s ease-in-out infinite;
+    }
+
+    /*check do e-mail copiado entra com um pulinho*/
+    .contato-copiar-ok .logo-rede {
+        animation: contato-check-pulo 150ms ease-out;
+    }
+
+    /*botões dos projetos aparecem e somem suave*/
+    .projeto-acoes,
+    .projeto-acao-rotulo {
+        transition: opacity 0.2s ease-out;
+    }
+
     /*cabeçalho desce e aparece suave (só muda de estado de 1024px para cima)*/
     .cabecalho {
         transition: transform 300ms ease-out, opacity 300ms ease-out;
@@ -1730,17 +1911,19 @@ main > section {
         animation: cabecalho-tracinho-crescer 150ms ease-out 400ms backwards;
     }
 
-    /*botões afundam um pouco no clique (mantém as transições de cor de cada um)*/
+    /*Baixar currículo: a cor e a subida do hover mudam suave*/
     .botao {
-        transition: background-color 0.2s, transform 0.1s ease-out;
+        transition: background-color 0.2s, transform 0.2s ease-out;
     }
 
-    .botao-pequeno {
-        transition: background-color 0.2s, border-color 0.2s, transform 0.1s ease-out;
+    /*botões sem transform no hover: voltam suave depois de afundar no clique (ver o bloco BOTÕES PRESSIONADOS)*/
+    .contato-copiar {
+        transition: color 0.2s, transform 80ms ease-out;
     }
 
-    .botao-fantasma {
-        transition: background-color 0.2s, color 0.2s, transform 0.1s ease-out;
+    .projeto-acao,
+    .pular-conteudo {
+        transition: transform 80ms ease-out;
     }
 
     /*botões de ícone sobem 2px no hover e no foco; o ícone e o balãozinho mudam suave*/
@@ -1760,17 +1943,18 @@ main > section {
         transform: translateY(-2px);
     }
 
-    .botao:active,
-    .botao-pequeno:active,
-    .botao-fantasma:active,
-    .inicio-icone:active {
-        transform: scale(0.97);
-    }
-
-    /*machado dá uma machadada a cada 4s, girando pelo cabo (canto de baixo à esquerda)*/
+    /*machado gira pelo cabo (canto de baixo à esquerda)*/
     .inicio-sobrenome .logo-machado {
         transform-origin: left bottom;
-        animation: marca-machadada 4s infinite;
+    }
+
+    /*golpe do machado e tremida do sobrenome: classes colocadas e tiradas pelo cicloTopo do script.js*/
+    .inicio-sobrenome .logo-machado.golpeando {
+        animation: marca-golpe 600ms ease-in-out;
+    }
+
+    .inicio-sobrenome.tremendo {
+        animation: marca-tremida 300ms;
     }
 
     /*cor do sobrenome muda suave no hover*/
@@ -1804,15 +1988,18 @@ main > section {
 
 @media (hover: hover) {
 
-    /*cartões (projetos, perfil, sobre mim e contato): borda um pouco mais clara*/
-    .cartao,
-    .contato-cartao {
-        transition: border-color 0.2s ease-out;
+    /*link da próxima seção fica azul*/
+    .proxima:hover {
+        color: #7CC4FF;
     }
 
-    .cartao:hover,
-    .contato-cartao:hover {
-        border-color: #484F58;
+    /*botão copiar e-mail: ícone azul e balãozinho "Copiar"*/
+    .contato-copiar:hover {
+        color: #7CC4FF;
+    }
+
+    .contato-copiar:hover .contato-dica {
+        opacity: 1;
     }
 
     /*etiquetas: azul mais claro*/
@@ -1823,6 +2010,37 @@ main > section {
     .etiquetas li:hover {
         background-color: #1A3350;
         color: #A5D6FF;
+    }
+
+    /*projetos: mouse no cartão ou foco dentro dele mostra os botões sobre a imagem (e eles passam a receber clique)*/
+    .projeto:hover .projeto-acoes,
+    .projeto:focus-within .projeto-acoes {
+        opacity: 1;
+    }
+
+    .projeto:hover .projeto-acao,
+    .projeto:focus-within .projeto-acao {
+        pointer-events: auto;
+    }
+
+    /*botão com o mouse em cima: borda e ícone azuis*/
+    .projeto-acao:hover {
+        border-color: #7CC4FF;
+    }
+
+    .projeto-acao:hover .logo-rede {
+        color: #7CC4FF;
+    }
+
+    /*balãozinho "Ver site" / "Ver código" no hover ou no foco do botão*/
+    .projeto-acao:hover .projeto-acao-rotulo,
+    .projeto-acao:focus-visible .projeto-acao-rotulo {
+        opacity: 1;
+    }
+
+    /*cartão com página: título azul no hover (sem página o título não tem link)*/
+    .projeto:hover .projeto-link {
+        color: #7CC4FF;
     }
 
     /*botões de ícone do topo: borda e ícone azuis, balãozinho aparece*/
@@ -1843,12 +2061,16 @@ main > section {
         color: #E6EDF3;
     }
 
-    /*caixas das tecnologias: moldura de baixo e da direita fica azul*/
-    .tecnologias-grupo {
+    /*caixas das tecnologias, cartão do sobre mim e cartão do contato: moldura de baixo e da direita fica azul*/
+    .tecnologias-grupo,
+    .sobre-cartao,
+    .contato-cartao {
         transition: border-color 0.2s ease-out;
     }
 
-    .tecnologias-grupo:hover {
+    .tecnologias-grupo:hover,
+    .sobre-cartao:hover,
+    .contato-cartao:hover {
         border-right-color: #7CC4FF;
         border-bottom-color: #7CC4FF;
     }
@@ -1860,30 +2082,35 @@ main > section {
     }
 }
 
+/*  SEM MOUSE (toque): nada fica escondido esperando hover  */
+
+@media (hover: none) {
+
+    /*botões dos projetos sempre visíveis, no canto de baixo à direita da imagem, sem escurecer a imagem*/
+    .projeto-acoes {
+        justify-content: flex-end;
+        align-items: flex-end;
+        gap: 8px;
+        padding: 12px;
+        background-color: transparent;
+        opacity: 1;
+    }
+
+    /*botões menores e clicáveis; sem balãozinho (o aria-label já diz o que cada um faz)*/
+    .projeto-acao {
+        width: 40px;
+        height: 40px;
+        pointer-events: auto;
+    }
+
+    .projeto-acao-rotulo {
+        display: none;
+    }
+}
+
 /*  MOUSE E MOVIMENTO: só com mouse e para quem não pediu menos movimento  */
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-
-    /*só os posts e o contato sobem, crescem um pouco e ganham sombra (o perfil e a ficha do sobre mim ficam parados)*/
-    .post,
-    .contato-cartao {
-        transition: border-color 0.2s ease-out, transform 0.2s ease-out;
-    }
-
-    .post:hover,
-    .contato-cartao:hover {
-        transform: translateY(-4px) scale(1.02);
-    }
-
-    .post::after,
-    .contato-cartao::after {
-        transition: opacity 0.2s ease-out;
-    }
-
-    .post:hover::after,
-    .contato-cartao:hover::after {
-        opacity: 1;
-    }
 
     /*logos da experiência sobem 2px*/
     .experiencia-logos a {
@@ -1903,20 +2130,10 @@ main > section {
         transform: translateY(-2px);
     }
 
-    /*botões de ícone do topo sobem 2px*/
-    .inicio-icone:hover {
+    /*botões de ícone do topo e o Baixar currículo sobem 2px*/
+    .inicio-icone:hover,
+    .botao:hover {
         transform: translateY(-2px);
-    }
-
-    /*mouse no sobrenome: a machadada para e o machado dá um golpe forte, uma vez.
-    Ao sair, a machadada volta; ao entrar de novo, o golpe começa do zero*/
-    .inicio-sobrenome:hover .logo-machado {
-        animation: marca-golpe 600ms ease-in-out;
-    }
-
-    /*o sobrenome inteiro treme logo depois do golpe (300ms de atraso)*/
-    .inicio-sobrenome:hover {
-        animation: marca-tremida 300ms 300ms;
     }
 
     /*logo das tecnologias sobe 4px*/
@@ -1929,12 +2146,25 @@ main > section {
     }
 }
 
-/*  Filtro de projetos: desativado até ter uns 6 projetos. O JavaScript está em js/filtro-projetos.js  */
+/*  BOTÕES PRESSIONADOS: só para quem não pediu menos movimento.
+Fica depois do bloco do mouse: com a mesma especificidade, o :active vence o translateY do hover  */
 
-/*filtros na coluna da direita*/
-#projetos > .filtros {
-    grid-column: 2;
+@media (prefers-reduced-motion: no-preference) {
+
+    /*botões afundam no clique: 1px para baixo e 3% menores, em 80ms
+    (ao soltar, voltam com a transição normal de cada botão)*/
+    .botao:active,
+    .inicio-icone:active,
+    .contato-copiar:active,
+    .projeto-acao:active,
+    .pular-conteudo:active,
+    .filtro:active {
+        transform: translateY(1px) scale(0.97);
+        transition: transform 80ms ease-out;
+    }
 }
+
+/*  Filtro de projetos: desativado até ter uns 6 projetos. O JavaScript está em js/filtro-projetos.js  */
 
 /*filtros por tecnologia: escondidos sem JavaScript*/
 .filtros,
@@ -1984,11 +2214,4 @@ main > section {
     font-size: 14px;
     color: #8B96A5;
     margin: 12px 0 24px 0;
-}
-
-@media (max-width: 899px) {
-
-    #projetos > .filtros {
-        grid-column: auto;
-    }
 }
