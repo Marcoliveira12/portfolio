@@ -225,17 +225,12 @@ main h2 + p {
     border: 1px solid #7CC4FF;
     border-radius: 8px;
     padding: 12px 24px;
-    transition: background-color 0.2s;
+    transition: border-color 0.2s ease-out, background-color 0.2s ease-out;
 }
 
-/*hover do botão azul*/
-.botao:hover {
-    color: #0D1117;
-    background-color: #A5D6FF;
-}
-
-/*logos do GitHub, do LinkedIn e da conversa: o arquivo vira máscara e pega a cor do texto*/
-.logo-rede {
+/*logos do GitHub, do LinkedIn e da conversa e ícone de download: o arquivo vira máscara e pega a cor do texto*/
+.logo-rede,
+.botao-icone {
     width: 16px;
     height: 16px;
     background-color: currentColor;
@@ -275,6 +270,15 @@ main h2 + p {
 .logo-machado {
     -webkit-mask-image: url(../img/icones/ui-machado.svg);
     mask-image: url(../img/icones/ui-machado.svg);
+}
+
+/*ícone de download do Baixar currículo, um pouco maior que as logos*/
+.botao-icone {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    -webkit-mask-image: url(../img/icones/download.svg);
+    mask-image: url(../img/icones/download.svg);
 }
 
 /*barra de progresso da rolagem: fina, no topo da tela, acima do cabeçalho; começa vazia (scaleX 0)*/
@@ -465,10 +469,16 @@ O word-spacing tira 0,3em: sobra um espaço normal, do tamanho do espaço do Int
     color: #C9D1D9;
 }
 
-/*foco pelo teclado: borda e ícone azuis, contorno 2px afastado 2px*/
-.inicio-icone:focus-visible {
+/*foco pelo teclado: borda e ícone azuis, contorno 2px afastado 2px (vale também para o Baixar currículo)*/
+.inicio-icone:focus-visible,
+.botao:focus-visible {
     border-color: #7CC4FF;
     outline-offset: 2px;
+}
+
+/*Baixar currículo no foco: fundo clareia como no hover*/
+.botao:focus-visible {
+    background-color: #A5D6FF;
 }
 
 .inicio-icone:focus-visible .logo-rede {
@@ -499,10 +509,11 @@ O word-spacing tira 0,3em: sobra um espaço normal, do tamanho do espaço do Int
     opacity: 1;
 }
 
-/*currículo com a mesma altura dos ícones, texto no meio*/
+/*currículo com a mesma altura dos ícones, texto no meio e ícone de download à direita*/
 .inicio-botoes .botao {
     display: inline-flex;
     align-items: center;
+    gap: 8px;
     height: 48px;
     padding: 0 20px;
 }
@@ -1904,9 +1915,9 @@ O "Voltar ao topo" usa o mesmo estilo, mas está no index.html*/
         animation: cabecalho-tracinho-crescer 150ms ease-out 400ms backwards;
     }
 
-    /*Baixar currículo: a cor e a subida do hover mudam suave*/
+    /*Baixar currículo: borda, fundo e a subida do hover mudam suave*/
     .botao {
-        transition: background-color 0.2s, transform 0.2s ease-out;
+        transition: border-color 0.2s ease-out, background-color 0.2s ease-out, transform 0.2s ease-out;
     }
 
     /*botões sem transform no hover: voltam suave depois de afundar no clique (ver o bloco BOTÕES PRESSIONADOS)*/
@@ -1932,7 +1943,8 @@ O "Voltar ao topo" usa o mesmo estilo, mas está no index.html*/
         transition: opacity 0.2s ease-out;
     }
 
-    .inicio-icone:focus-visible {
+    .inicio-icone:focus-visible,
+    .botao:focus-visible {
         transform: translateY(-2px);
     }
 
@@ -2037,6 +2049,13 @@ O "Voltar ao topo" usa o mesmo estilo, mas está no index.html*/
 
     .inicio-icone:hover .inicio-icone-rotulo {
         opacity: 1;
+    }
+
+    /*Baixar currículo: fundo clareia, borda continua azul (o ícone acompanha a cor do texto)*/
+    .botao:hover {
+        color: #0D1117;
+        background-color: #A5D6FF;
+        border-color: #7CC4FF;
     }
 
     /*mouse no sobrenome: fica branco (o ícone acompanha pelo currentColor)*/
