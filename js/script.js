@@ -1,64 +1,4 @@
-document.documentElement.classList.add('js');
-
-//ano atual do rodapé
-const elementoAno = document.querySelector('.ano-atual');
-elementoAno.textContent = new Date().getFullYear();
-
-
-//botão de copiar o email (só com ícone)
-const botaoCopiarEmail = document.querySelector('.contato-copiar');
-const dicaCopiarEmail = document.querySelector('.contato-dica');
-//aviso escondido da tela: só o leitor de tela lê
-const avisoEmail = document.querySelector('.contato-aviso');
-
-let timerCopiarEmail;
-
-//volta o botão ao normal: ícone de copiar, balãozinho "Copiar" e aviso vazio
-function limparCopiarEmail() {
-    botaoCopiarEmail.classList.remove('contato-copiar-ok');
-    botaoCopiarEmail.classList.remove('contato-copiar-falhou');
-    dicaCopiarEmail.textContent = 'Copiar';
-    avisoEmail.textContent = '';
-}
-
-//mostra o resultado por 2 segundos; o CSS troca o ícone e o balãozinho pela classe
-function mostrarResultadoCopia(deuCerto) {
-    //clique repetido antes dos 2 segundos: cancela o tempo anterior e começa de novo
-    clearTimeout(timerCopiarEmail);
-    limparCopiarEmail();
-
-    if (deuCerto === true) {
-        botaoCopiarEmail.classList.add('contato-copiar-ok');
-        avisoEmail.textContent = 'E-mail copiado';
-    } else {
-        botaoCopiarEmail.classList.add('contato-copiar-falhou');
-        dicaCopiarEmail.textContent = 'Não copiou';
-        avisoEmail.textContent = 'Não foi possível copiar o e-mail';
-    }
-
-    timerCopiarEmail = setTimeout(limparCopiarEmail, 2000);
-}
-
-function copiarEmail() {
-    //sem a área de transferência (por exemplo, site aberto sem https) já é falha
-    if (navigator.clipboard) {
-        //writeText devolve uma promessa: a primeira function roda se copiou, a segunda se deu erro
-        navigator.clipboard.writeText('marcoamachado.dev@gmail.com').then(function () {
-            mostrarResultadoCopia(true);
-        }, function () {
-            mostrarResultadoCopia(false);
-        });
-    } else {
-        mostrarResultadoCopia(false);
-    }
-}
-
-if (botaoCopiarEmail && dicaCopiarEmail && avisoEmail) {
-    botaoCopiarEmail.addEventListener('click', copiarEmail);
-}
-
-
-//projetos
+// ===== DADOS =====
 
 //para adicionar um projeto novo: copie um objeto inteiro (de { até },), cole na lista na posição em que ele deve aparecer
 //e troque os dados. Campos de link (site, codigo, pagina) ficam com '' quando não existem: o cartão só mostra o que tiver link.
@@ -116,136 +56,6 @@ const projetos = [
     }
 ];
 
-const feedProjetos = document.querySelector('.feed');
-
-//monta um cartão para cada projeto da lista recebida e coloca tudo dentro do .feed (a grade de projetos)
-function montarPosts(lista) {
-    let html = '';
-
-    for (let i = 0; i < lista.length; i++) {
-        const projeto = lista[i];
-
-        //imagem do projeto; sem imagem, um bloco do mesmo tamanho com o nome
-        let midia = '';
-
-        if (projeto.imagemDesktop !== '') {
-            midia = `
-                <picture>
-                    <source media="(max-width: 599px)" srcset="${projeto.imagemMobile}">
-                    <img class="projeto-imagem" src="${projeto.imagemDesktop}" alt="${projeto.alt}" width="1280" height="800" loading="lazy">
-                </picture>
-            `;
-        } else {
-            //TODO: falta a imagem deste projeto
-            midia = `<div class="projeto-sem-imagem">${projeto.titulo}</div>`;
-        }
-
-        //botões sobre a imagem: só os que têm link
-        let acoes = '';
-
-        if (projeto.site !== '') {
-            acoes += `
-                <a class="projeto-acao" href="${projeto.site}" target="_blank" rel="noopener noreferrer" aria-label="Ver site de ${projeto.titulo} (abre em nova aba)">
-                    <span class="logo-rede logo-site" aria-hidden="true"></span>
-                    <span class="projeto-acao-rotulo" aria-hidden="true">Ver site</span>
-                </a>
-            `;
-        }
-
-        if (projeto.codigo !== '') {
-            acoes += `
-                <a class="projeto-acao" href="${projeto.codigo}" target="_blank" rel="noopener noreferrer" aria-label="Ver código de ${projeto.titulo} no GitHub (abre em nova aba)">
-                    <span class="logo-rede logo-github" aria-hidden="true"></span>
-                    <span class="projeto-acao-rotulo" aria-hidden="true">Ver código</span>
-                </a>
-            `;
-        }
-
-        //o bloco dos botões só existe se o projeto tiver algum link
-        let blocoAcoes = '';
-
-        if (acoes !== '') {
-            blocoAcoes = `<div class="projeto-acoes">${acoes}</div>`;
-        }
-
-        //com página, o título vira link e o cartão inteiro clica; sem página, o título é só texto
-        let titulo = projeto.titulo;
-
-        if (projeto.pagina !== '') {
-            titulo = `<a class="projeto-link" href="${projeto.pagina}">${projeto.titulo}</a>`;
-        }
-
-        //uma pílula de texto para cada tecnologia
-        let tags = '';
-
-        for (let j = 0; j < projeto.tecnologias.length; j++) {
-            tags += `<li class="projeto-tag">${projeto.tecnologias[j]}</li>`;
-        }
-
-        html += `
-            <article class="projeto">
-                <div class="projeto-midia">
-                    ${midia}
-                    ${blocoAcoes}
-                </div>
-
-                <h3 class="projeto-titulo">${titulo}</h3>
-                <p class="projeto-origem">${projeto.origem}</p>
-                <p class="projeto-descricao">${projeto.descricao}</p>
-
-                <ul class="projeto-tags" aria-label="Tecnologias usadas">${tags}</ul>
-            </article>
-        `;
-    }
-
-    feedProjetos.innerHTML = html;
-}
-
-montarPosts(projetos);
-
-//contadores da seção Projetos (total e em andamento), na linha abaixo do título
-const contadoresProjetos = document.querySelector('.projetos-contadores');
-
-//coloca o zero na frente dos números menores que 10 (3 vira 03)
-function doisDigitos(numero) {
-    let texto = String(numero);
-
-    if (numero < 10) {
-        texto = '0' + numero;
-    }
-
-    return texto;
-}
-
-let projetosEmAndamento = 0;
-
-for (let i = 0; i < projetos.length; i++) {
-    if (projetos[i].status === 'Em desenvolvimento') {
-        projetosEmAndamento++;
-    }
-}
-
-//escolhe a palavra certa para a quantidade: 1 projeto, 2 projetos
-function singularOuPlural(quantidade, singular, plural) {
-    let palavra = plural;
-
-    if (quantidade === 1) {
-        palavra = singular;
-    }
-
-    return palavra;
-}
-
-//escreve "03 projetos · 02 em andamento", com os números num span para ficarem mais claros
-if (contadoresProjetos) {
-    const palavraProjetos = singularOuPlural(projetos.length, 'projeto', 'projetos');
-
-    contadoresProjetos.innerHTML = `<span class="projetos-numero">${doisDigitos(projetos.length)}</span> ${palavraProjetos} · <span class="projetos-numero">${doisDigitos(projetosEmAndamento)}</span> em andamento`;
-}
-
-
-//tecnologias
-
 //para acrescentar uma tecnologia: copie um objeto { nome, arquivo } inteiro, cole no fim dos itens do grupo certo e troque os dados
 //Java e SQL entram no Backend a partir de 15/12/2026, é só acrescentar um objeto em itens
 const gruposTecnologias = [
@@ -280,90 +90,21 @@ const gruposTecnologias = [
 //(os nomes precisam ser iguais aos da lista de cima, porque o logo vem de lá)
 const construidoCom = ['HTML', 'CSS', 'JavaScript', 'Git'];
 
-const blocoGrupos = document.querySelector('.tecnologias-grupos');
-const blocoConstruido = document.querySelector('.rodape-construido');
-
-//procura nos grupos o arquivo do logo da tecnologia com esse nome (se não achar, devolve texto vazio)
-function buscarArquivo(nome) {
-    let arquivo = '';
-
-    for (let i = 0; i < gruposTecnologias.length; i++) {
-        const itens = gruposTecnologias[i].itens;
-
-        for (let j = 0; j < itens.length; j++) {
-            if (itens[j].nome === nome) {
-                arquivo = itens[j].arquivo;
-            }
-        }
-    }
-
-    return arquivo;
-}
-
-//monta uma caixa para cada grupo, com um item (logo e nome) para cada tecnologia
-function montarGrupos(lista) {
-    let html = '';
-
-    for (let i = 0; i < lista.length; i++) {
-        const grupo = lista[i];
-        let itens = '';
-
-        for (let j = 0; j < grupo.itens.length; j++) {
-            const item = grupo.itens[j];
-
-            //cada item entra 80ms depois do anterior (o primeiro entra sem atraso)
-            itens += `
-                <li class="tecnologias-item" style="animation-delay: ${j * 80}ms">
-                    <img class="tecnologias-icone" src="${item.arquivo}" alt="" width="48" height="48">
-                    <span class="tecnologias-nome">${item.nome}</span>
-                </li>
-            `;
-        }
-
-        html += `
-            <article class="tecnologias-grupo">
-                <h3 class="tecnologias-rotulo">${grupo.titulo}</h3>
-                <ul class="tecnologias-lista">${itens}</ul>
-            </article>
-        `;
-    }
-
-    return html;
-}
-
-//monta a parte direita do rodapé: "Construído com" e os logos pequenos, na mesma linha
-function montarConstruido() {
-    let itens = '';
-
-    for (let i = 0; i < construidoCom.length; i++) {
-        const nome = construidoCom[i];
-
-        itens += `
-            <li class="rodape-pequeno">
-                <img src="${buscarArquivo(nome)}" alt="" width="20" height="20">
-                <span class="tecnologias-nome">${nome}</span>
-            </li>
-        `;
-    }
-
-    const html = `
-        <p class="rodape-construido-titulo">Construído com</p>
-        <ul>${itens}</ul>
-    `;
-
-    return html;
-}
-
-if (blocoGrupos) {
-    blocoGrupos.innerHTML = montarGrupos(gruposTecnologias);
-}
-
-if (blocoConstruido) {
-    blocoConstruido.innerHTML = montarConstruido();
-}
+//palavras que se revezam no topo
+//em 15/12/2026 o 'Java' entra no fim da lista (e no comentário do index.html)
+const tecnologiasTopo = ['HTML', 'CSS', 'JavaScript', 'Git', 'GitHub'];
 
 
-//animações
+// ===== RECURSOS GERAIS =====
+
+//avisa o CSS que o JavaScript está ligado (as regras com .js só valem com ele)
+document.documentElement.classList.add('js');
+
+//quem pediu menos movimento no sistema (usado no topo e na rolagem por seção)
+const movimentoReduzido = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+//todas as seções da página, na ordem (usadas na próxima seção e na rolagem por seção)
+const secoesPagina = document.querySelectorAll('main > section');
 
 //seções aparecendo de acordo com o scroll do usuário
 const secoesRevelar = document.querySelectorAll('.revelar');
@@ -372,7 +113,7 @@ const observadorSecoes = new IntersectionObserver(function (entradas) {
     for (let i = 0; i < entradas.length; i++) {
         const entrada = entradas[i];
 
-        if (entrada.isIntersecting) {
+        if (entrada.isIntersecting === true) {
             entrada.target.classList.add('visivel');
             observadorSecoes.unobserve(entrada.target);
         }
@@ -383,168 +124,7 @@ for (let i = 0; i < secoesRevelar.length; i++) {
     observadorSecoes.observe(secoesRevelar[i]);
 }
 
-//menu destacando o link da seção que está na tela
-const secoesMenu = document.querySelectorAll('main section[id]');
-const linksMenu = document.querySelectorAll('.menu a');
-
-const observadorMenu = new IntersectionObserver(function (entradas) {
-    for (let i = 0; i < entradas.length; i++) {
-        const entrada = entradas[i];
-
-        if (entrada.isIntersecting) {
-            for (let j = 0; j < linksMenu.length; j++) {
-                linksMenu[j].classList.remove('ativo');
-                linksMenu[j].removeAttribute('aria-current');
-            }
-
-            const linkAtivo = document.querySelector(`.menu a[href="#${entrada.target.id}"]`);
-
-            if (linkAtivo) {
-                linkAtivo.classList.add('ativo');
-                linkAtivo.setAttribute('aria-current', 'true');
-            }
-        }
-    }
-}, { rootMargin: '-50% 0px -50% 0px' });
-
-//só observa as seções se o menu existir (abaixo de 1024px ele fica escondido, mas continua no HTML)
-if (linksMenu.length > 0) {
-    for (let i = 0; i < secoesMenu.length; i++) {
-        observadorMenu.observe(secoesMenu[i]);
-    }
-}
-
-
-//próxima seção
-
-//no pé de cada seção, um rótulo para a seguinte (o CSS só mostra no computador em tela cheia).
-//a última seção (Contato) fica de fora: o "Voltar ao topo" dela está no index.html
-const secoesPagina = document.querySelectorAll('main > section');
-
-function montarProximas() {
-    //vai até a penúltima seção (length - 1 fica de fora): cada uma aponta para a seguinte
-    for (let i = 0; i < secoesPagina.length - 1; i++) {
-        const idProxima = secoesPagina[i + 1].id;
-        const linkDoMenu = document.querySelector(`.menu a[href="#${idProxima}"]`);
-        //o nome é o mesmo do menu; se o link não existir, fica o id
-        let nome = idProxima;
-
-        if (linkDoMenu) {
-            nome = linkDoMenu.textContent;
-        }
-
-        secoesPagina[i].insertAdjacentHTML('beforeend', `
-            <a class="proxima" href="#${idProxima}" aria-label="Ir para ${nome}">${nome}</a>
-        `);
-    }
-}
-
-montarProximas();
-
-
-//topo
-
-//em 15/12/2026 o 'Java' entra no fim da lista (e no comentário do index.html)
-const tecnologias = ['HTML', 'CSS', 'JavaScript', 'Git', 'GitHub'];
-
-const palavraTopo = document.querySelector('.inicio-palavra');
-const caixaPalavra = document.querySelector('.inicio-palavra-caixa');
-const sobrenomeTopo = document.querySelector('.inicio-sobrenome');
-const machadoTopo = document.querySelector('.inicio-sobrenome .logo-machado');
-
-if (palavraTopo && caixaPalavra && sobrenomeTopo && machadoTopo) {
-    //quem pediu menos movimento continua vendo a lista parada do HTML
-    const reduzirMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (reduzirMovimento === false) {
-        let indiceTecnologia = 0;
-
-        //a tarja cobre a palavra, a palavra troca escondida e a tarja sai revelando a nova
-        function trocarPalavra() {
-            caixaPalavra.classList.add('cobrindo');
-
-            setTimeout(function () {
-                indiceTecnologia++;
-
-                //depois da última, volta para a primeira
-                if (indiceTecnologia === tecnologias.length) {
-                    indiceTecnologia = 0;
-                }
-
-                palavraTopo.textContent = tecnologias[indiceTecnologia];
-                caixaPalavra.classList.remove('cobrindo');
-                caixaPalavra.classList.add('descobrindo');
-
-                setTimeout(function () {
-                    caixaPalavra.classList.remove('descobrindo');
-                }, 300);
-            }, 300);
-        }
-
-        //um ciclo do topo: o machado golpeia e, no impacto, o sobrenome treme e a palavra troca
-        function cicloTopo() {
-            machadoTopo.classList.add('golpeando');
-
-            //o impacto é aos 330ms: 55% dos 600ms do golpe, o quadro em que o machado desce (ver @keyframes marca-golpe)
-            setTimeout(function () {
-                sobrenomeTopo.classList.add('tremendo');
-                trocarPalavra();
-            }, 330);
-        }
-
-        //cada classe sai quando a sua animação termina, para o próximo ciclo poder colocar de novo
-        machadoTopo.addEventListener('animationend', function () {
-            machadoTopo.classList.remove('golpeando');
-        });
-
-        //o animationend do machado também chega aqui, porque o machado está dentro do sobrenome: por isso confere o nome
-        sobrenomeTopo.addEventListener('animationend', function (evento) {
-            if (evento.animationName === 'marca-tremida') {
-                sobrenomeTopo.classList.remove('tremendo');
-            }
-        });
-
-        palavraTopo.textContent = tecnologias[0];
-        setInterval(cicloTopo, 3000);
-    }
-}
-
-
-//cabeçalho
-
-//de 1024px para cima o CSS esconde o cabeçalho no topo; a classe cabecalho-visivel faz ele descer
-const cabecalho = document.querySelector('.cabecalho');
-
-//mostra o cabeçalho depois de rolar 40px; no topo esconde, a não ser que um link do menu esteja com o foco do teclado.
-//o foco do clique não conta: depois de clicar em Início, o link fica com o foco e o menu precisa esconder ao chegar no topo
-function atualizarCabecalho() {
-    if (window.scrollY > 40) {
-        cabecalho.classList.add('cabecalho-visivel');
-    } else if (cabecalho.querySelector(':focus-visible') === null) {
-        cabecalho.classList.remove('cabecalho-visivel');
-    }
-}
-
-if (cabecalho) {
-    window.addEventListener('scroll', atualizarCabecalho);
-    atualizarCabecalho();
-
-    //Tab chegou num link do menu: o cabeçalho aparece na hora, mesmo no topo
-    cabecalho.addEventListener('focusin', function () {
-        cabecalho.classList.add('cabecalho-visivel');
-    });
-
-    //o foco saiu do cabeçalho: se a página estiver no topo, ele esconde de novo
-    cabecalho.addEventListener('focusout', function (evento) {
-        if (window.scrollY <= 40 && cabecalho.contains(evento.relatedTarget) === false) {
-            cabecalho.classList.remove('cabecalho-visivel');
-        }
-    });
-}
-
-
-//progresso
-
+//barra de progresso
 const barraProgresso = document.querySelector('.progresso');
 
 //estica a barra de 0 a 1 conforme a parte da página que já foi rolada
@@ -562,9 +142,31 @@ function atualizarProgresso() {
 
 if (barraProgresso) {
     window.addEventListener('scroll', atualizarProgresso);
-    atualizarProgresso();
 }
 
+//próxima seção
+
+//no pé de cada seção, um rótulo para a seguinte (o CSS só mostra no computador em tela cheia).
+//a última seção (Contato) fica de fora: o "Voltar ao topo" dela está no index.html
+function montarProximas() {
+    //vai até a penúltima seção (length - 1 fica de fora): cada uma aponta para a seguinte
+    for (let i = 0; i < secoesPagina.length - 1; i++) {
+        const idProxima = secoesPagina[i + 1].id;
+        const linkDoMenu = document.querySelector(`.menu a[href="#${idProxima}"]`);
+        //o nome é o mesmo do menu; se o link não existir, fica o id
+        let nome = idProxima;
+
+        if (linkDoMenu) {
+            nome = linkDoMenu.textContent;
+        }
+
+        secoesPagina[i].insertAdjacentHTML('beforeend', `
+            <a class="proxima-secao" href="#${idProxima}" aria-label="Ir para ${nome}">${nome}</a>
+        `);
+    }
+}
+
+montarProximas();
 
 //rolagem por seção
 
@@ -573,7 +175,6 @@ if (barraProgresso) {
 //só a roda e as duas setas passam por aqui: as outras teclas, a barra de rolagem, o leitor de tela e o toque
 //continuam com a rolagem do navegador
 const faixaTelaCheia = window.matchMedia('(min-width: 1024px) and (min-height: 640px)');
-const movimentoReduzido = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 //número da seção em que a página está, na lista secoesPagina (0 é o início, 6 é o contato)
 let indiceAtual = 0;
@@ -764,5 +365,422 @@ function agendarSincronizacao() {
 }
 
 window.addEventListener('scroll', agendarSincronizacao);
+
+
+// ===== CABEÇALHO E MENU =====
+
+//de 1024px para cima o CSS esconde o cabeçalho no topo; a classe cabecalho-visivel faz ele descer
+const cabecalho = document.querySelector('.cabecalho');
+
+//mostra o cabeçalho depois de rolar 40px; no topo esconde, a não ser que um link do menu esteja com o foco do teclado.
+//o foco do clique não conta: depois de clicar em Início, o link fica com o foco e o menu precisa esconder ao chegar no topo
+function atualizarCabecalho() {
+    if (window.scrollY > 40) {
+        cabecalho.classList.add('cabecalho-visivel');
+    } else if (cabecalho.querySelector(':focus-visible') === null) {
+        cabecalho.classList.remove('cabecalho-visivel');
+    }
+}
+
+if (cabecalho) {
+    window.addEventListener('scroll', atualizarCabecalho);
+
+    //Tab chegou num link do menu: o cabeçalho aparece na hora, mesmo no topo
+    cabecalho.addEventListener('focusin', function () {
+        cabecalho.classList.add('cabecalho-visivel');
+    });
+
+    //o foco saiu do cabeçalho: se a página estiver no topo, ele esconde de novo
+    cabecalho.addEventListener('focusout', function (evento) {
+        if (window.scrollY <= 40 && cabecalho.contains(evento.relatedTarget) === false) {
+            cabecalho.classList.remove('cabecalho-visivel');
+        }
+    });
+}
+
+//menu destacando o link da seção que está na tela
+const secoesMenu = document.querySelectorAll('main section[id]');
+const linksMenu = document.querySelectorAll('.menu a');
+
+const observadorMenu = new IntersectionObserver(function (entradas) {
+    for (let i = 0; i < entradas.length; i++) {
+        const entrada = entradas[i];
+
+        if (entrada.isIntersecting === true) {
+            for (let j = 0; j < linksMenu.length; j++) {
+                linksMenu[j].classList.remove('ativo');
+                linksMenu[j].removeAttribute('aria-current');
+            }
+
+            const linkAtivo = document.querySelector(`.menu a[href="#${entrada.target.id}"]`);
+
+            if (linkAtivo) {
+                linkAtivo.classList.add('ativo');
+                linkAtivo.setAttribute('aria-current', 'true');
+            }
+        }
+    }
+}, { rootMargin: '-50% 0px -50% 0px' });
+
+//só observa as seções se o menu existir (abaixo de 1024px ele fica escondido, mas continua no HTML)
+if (linksMenu.length > 0) {
+    for (let i = 0; i < secoesMenu.length; i++) {
+        observadorMenu.observe(secoesMenu[i]);
+    }
+}
+
+
+// ===== INÍCIO =====
+
+const palavraTopo = document.querySelector('.inicio-palavra');
+const caixaPalavra = document.querySelector('.inicio-palavra-caixa');
+const sobrenomeTopo = document.querySelector('.inicio-sobrenome');
+const machadoTopo = document.querySelector('.inicio-sobrenome .logo-machado');
+
+//posição da palavra que está na tela, na lista tecnologiasTopo
+let indiceTecnologia = 0;
+
+//a tarja cobre a palavra, a palavra troca escondida e a tarja sai revelando a nova
+function trocarPalavra() {
+    caixaPalavra.classList.add('cobrindo');
+
+    setTimeout(function () {
+        indiceTecnologia++;
+
+        //depois da última, volta para a primeira
+        if (indiceTecnologia === tecnologiasTopo.length) {
+            indiceTecnologia = 0;
+        }
+
+        palavraTopo.textContent = tecnologiasTopo[indiceTecnologia];
+        caixaPalavra.classList.remove('cobrindo');
+        caixaPalavra.classList.add('descobrindo');
+
+        setTimeout(function () {
+            caixaPalavra.classList.remove('descobrindo');
+        }, 300);
+    }, 300);
+}
+
+//um ciclo do topo: o machado golpeia e, no impacto, o sobrenome treme e a palavra troca
+function cicloTopo() {
+    machadoTopo.classList.add('golpeando');
+
+    //o impacto é aos 330ms: 55% dos 600ms do golpe, o quadro em que o machado desce (ver @keyframes marca-golpe)
+    setTimeout(function () {
+        sobrenomeTopo.classList.add('tremendo');
+        trocarPalavra();
+    }, 330);
+}
+
+//quem pediu menos movimento continua vendo a lista parada do HTML
+if (palavraTopo && caixaPalavra && sobrenomeTopo && machadoTopo && movimentoReduzido.matches === false) {
+    //cada classe sai quando a sua animação termina, para o próximo ciclo poder colocar de novo
+    machadoTopo.addEventListener('animationend', function () {
+        machadoTopo.classList.remove('golpeando');
+    });
+
+    //o animationend do machado também chega aqui, porque o machado está dentro do sobrenome: por isso confere o nome
+    sobrenomeTopo.addEventListener('animationend', function (evento) {
+        if (evento.animationName === 'marca-tremida') {
+            sobrenomeTopo.classList.remove('tremendo');
+        }
+    });
+
+    //troca a palavra do topo a cada 3 segundos, começando pela primeira da lista
+    palavraTopo.textContent = tecnologiasTopo[0];
+    setInterval(cicloTopo, 3000);
+}
+
+
+// ===== PROJETOS =====
+
+const listaProjetos = document.querySelector('.projetos-lista');
+
+//monta um cartão para cada projeto da lista recebida e coloca tudo dentro do .projetos-lista (a grade de projetos)
+function montarProjetos(lista) {
+    let html = '';
+
+    for (let i = 0; i < lista.length; i++) {
+        const projeto = lista[i];
+
+        //imagem do projeto; sem imagem, um bloco do mesmo tamanho com o nome
+        let midia = '';
+
+        if (projeto.imagemDesktop !== '') {
+            midia = `
+                <picture>
+                    <source media="(max-width: 599px)" srcset="${projeto.imagemMobile}">
+                    <img class="projeto-imagem" src="${projeto.imagemDesktop}" alt="${projeto.alt}" width="1280" height="800" loading="lazy">
+                </picture>
+            `;
+        } else {
+            //TODO: falta a imagem deste projeto
+            midia = `<div class="projeto-sem-imagem">${projeto.titulo}</div>`;
+        }
+
+        //botões sobre a imagem: só os que têm link
+        let acoes = '';
+
+        if (projeto.site !== '') {
+            acoes += `
+                <a class="projeto-acao" href="${projeto.site}" target="_blank" rel="noopener noreferrer" aria-label="Ver site de ${projeto.titulo} (abre em nova aba)">
+                    <span class="logo-rede logo-site" aria-hidden="true"></span>
+                    <span class="projeto-acao-rotulo" aria-hidden="true">Ver site</span>
+                </a>
+            `;
+        }
+
+        if (projeto.codigo !== '') {
+            acoes += `
+                <a class="projeto-acao" href="${projeto.codigo}" target="_blank" rel="noopener noreferrer" aria-label="Ver código de ${projeto.titulo} no GitHub (abre em nova aba)">
+                    <span class="logo-rede logo-github" aria-hidden="true"></span>
+                    <span class="projeto-acao-rotulo" aria-hidden="true">Ver código</span>
+                </a>
+            `;
+        }
+
+        //o bloco dos botões só existe se o projeto tiver algum link
+        let blocoAcoes = '';
+
+        if (acoes !== '') {
+            blocoAcoes = `<div class="projeto-acoes">${acoes}</div>`;
+        }
+
+        //com página, o título vira link e o cartão inteiro clica; sem página, o título é só texto
+        let titulo = projeto.titulo;
+
+        if (projeto.pagina !== '') {
+            titulo = `<a class="projeto-link" href="${projeto.pagina}">${projeto.titulo}</a>`;
+        }
+
+        //uma pílula de texto para cada tecnologia
+        let tags = '';
+
+        for (let j = 0; j < projeto.tecnologias.length; j++) {
+            tags += `<li class="projeto-tag">${projeto.tecnologias[j]}</li>`;
+        }
+
+        html += `
+            <article class="projeto">
+                <div class="projeto-midia">
+                    ${midia}
+                    ${blocoAcoes}
+                </div>
+
+                <h3 class="projeto-titulo">${titulo}</h3>
+                <p class="projeto-origem">${projeto.origem}</p>
+                <p class="projeto-descricao">${projeto.descricao}</p>
+
+                <ul class="projeto-tags" aria-label="Tecnologias usadas">${tags}</ul>
+            </article>
+        `;
+    }
+
+    listaProjetos.innerHTML = html;
+}
+
+montarProjetos(projetos);
+
+//contadores da seção Projetos (total e em andamento), na linha abaixo do título
+const contadoresProjetos = document.querySelector('.projetos-contadores');
+
+//coloca o zero na frente dos números menores que 10 (3 vira 03)
+function doisDigitos(numero) {
+    let texto = String(numero);
+
+    if (numero < 10) {
+        texto = '0' + numero;
+    }
+
+    return texto;
+}
+
+let projetosEmAndamento = 0;
+
+for (let i = 0; i < projetos.length; i++) {
+    if (projetos[i].status === 'Em desenvolvimento') {
+        projetosEmAndamento++;
+    }
+}
+
+//escolhe a palavra certa para a quantidade: 1 projeto, 2 projetos
+function singularOuPlural(quantidade, singular, plural) {
+    let palavra = plural;
+
+    if (quantidade === 1) {
+        palavra = singular;
+    }
+
+    return palavra;
+}
+
+//escreve "03 projetos · 02 em andamento", com os números num span para ficarem mais claros
+if (contadoresProjetos) {
+    const palavraProjetos = singularOuPlural(projetos.length, 'projeto', 'projetos');
+
+    contadoresProjetos.innerHTML = `<span class="projetos-numero">${doisDigitos(projetos.length)}</span> ${palavraProjetos} · <span class="projetos-numero">${doisDigitos(projetosEmAndamento)}</span> em andamento`;
+}
+
+
+// ===== TECNOLOGIAS =====
+
+const blocoGrupos = document.querySelector('.tecnologias-grupos');
+
+//procura nos grupos o arquivo do logo da tecnologia com esse nome (se não achar, devolve texto vazio)
+function buscarArquivo(nome) {
+    let arquivo = '';
+
+    for (let i = 0; i < gruposTecnologias.length; i++) {
+        const itens = gruposTecnologias[i].itens;
+
+        for (let j = 0; j < itens.length; j++) {
+            if (itens[j].nome === nome) {
+                arquivo = itens[j].arquivo;
+            }
+        }
+    }
+
+    return arquivo;
+}
+
+//monta uma caixa para cada grupo, com um item (logo e nome) para cada tecnologia
+function montarGrupos(lista) {
+    let html = '';
+
+    for (let i = 0; i < lista.length; i++) {
+        const grupo = lista[i];
+        let itens = '';
+
+        for (let j = 0; j < grupo.itens.length; j++) {
+            const item = grupo.itens[j];
+
+            //cada item entra 80ms depois do anterior (o primeiro entra sem atraso)
+            itens += `
+                <li class="tecnologias-item" style="animation-delay: ${j * 80}ms">
+                    <img class="tecnologias-icone" src="${item.arquivo}" alt="" width="48" height="48">
+                    <span class="tecnologias-nome">${item.nome}</span>
+                </li>
+            `;
+        }
+
+        html += `
+            <article class="tecnologias-grupo">
+                <h3 class="tecnologias-rotulo">${grupo.titulo}</h3>
+                <ul class="tecnologias-lista">${itens}</ul>
+            </article>
+        `;
+    }
+
+    return html;
+}
+
+if (blocoGrupos) {
+    blocoGrupos.innerHTML = montarGrupos(gruposTecnologias);
+}
+
+
+// ===== CONTATO =====
+
+//botão de copiar o email (só com ícone)
+const botaoCopiarEmail = document.querySelector('.contato-copiar');
+const dicaCopiarEmail = document.querySelector('.contato-dica');
+//aviso escondido da tela: só o leitor de tela lê
+const avisoEmail = document.querySelector('.contato-aviso');
+
+let timerCopiarEmail;
+
+//volta o botão ao normal: ícone de copiar, balãozinho "Copiar" e aviso vazio
+function limparCopiarEmail() {
+    botaoCopiarEmail.classList.remove('contato-copiar-ok');
+    botaoCopiarEmail.classList.remove('contato-copiar-falhou');
+    dicaCopiarEmail.textContent = 'Copiar';
+    avisoEmail.textContent = '';
+}
+
+//mostra o resultado por 2 segundos; o CSS troca o ícone e o balãozinho pela classe
+function mostrarResultadoCopia(deuCerto) {
+    //clique repetido antes dos 2 segundos: cancela o tempo anterior e começa de novo
+    clearTimeout(timerCopiarEmail);
+    limparCopiarEmail();
+
+    if (deuCerto === true) {
+        botaoCopiarEmail.classList.add('contato-copiar-ok');
+        avisoEmail.textContent = 'E-mail copiado';
+    } else {
+        botaoCopiarEmail.classList.add('contato-copiar-falhou');
+        dicaCopiarEmail.textContent = 'Não copiou';
+        avisoEmail.textContent = 'Não foi possível copiar o e-mail';
+    }
+
+    timerCopiarEmail = setTimeout(limparCopiarEmail, 2000);
+}
+
+function copiarEmail() {
+    //sem a área de transferência (por exemplo, site aberto sem https) já é falha
+    if (navigator.clipboard) {
+        //writeText devolve uma promessa: a primeira function roda se copiou, a segunda se deu erro
+        navigator.clipboard.writeText('marcoamachado.dev@gmail.com').then(function () {
+            mostrarResultadoCopia(true);
+        }, function () {
+            mostrarResultadoCopia(false);
+        });
+    } else {
+        mostrarResultadoCopia(false);
+    }
+}
+
+if (botaoCopiarEmail && dicaCopiarEmail && avisoEmail) {
+    botaoCopiarEmail.addEventListener('click', copiarEmail);
+}
+
+
+// ===== RODAPÉ =====
+
+//ano atual do rodapé
+const elementoAno = document.querySelector('.rodape-ano');
+elementoAno.textContent = new Date().getFullYear();
+
+const blocoConstruido = document.querySelector('.rodape-construido');
+
+//monta a parte direita do rodapé: "Construído com" e os logos pequenos, na mesma linha
+function montarConstruido() {
+    let itens = '';
+
+    for (let i = 0; i < construidoCom.length; i++) {
+        const nome = construidoCom[i];
+
+        itens += `
+            <li class="rodape-construido-item">
+                <img src="${buscarArquivo(nome)}" alt="" width="20" height="20">
+                <span class="tecnologias-nome">${nome}</span>
+            </li>
+        `;
+    }
+
+    const html = `
+        <p class="rodape-construido-titulo">Construído com</p>
+        <ul>${itens}</ul>
+    `;
+
+    return html;
+}
+
+if (blocoConstruido) {
+    blocoConstruido.innerHTML = montarConstruido();
+}
+
+
+// ===== PRIMEIRA MEDIDA =====
+
+//fica no fim porque mede a página, que só fica completa depois de montar a palavra do topo, os cartões, as tecnologias e o rodapé.
 //a página pode abrir já rolada (ao recarregar, o navegador volta para onde estava)
+if (cabecalho) {
+    atualizarCabecalho();
+}
+
+if (barraProgresso) {
+    atualizarProgresso();
+}
+
 sincronizarSecao();

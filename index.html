@@ -17,6 +17,7 @@
     <!-- barra de progresso da rolagem (o script.js estica conforme a página rola) -->
     <div class="progresso" aria-hidden="true"></div>
 
+    <!-- fundo de partículas, atrás de tudo -->
     <div class="fundo" aria-hidden="true">
         <span class="fundo-camada fundo-camada-1"></span>
         <span class="fundo-camada fundo-camada-2"></span>
@@ -25,6 +26,7 @@
 
     <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
 
+    <!-- CABEÇALHO E MENU -->
     <header class="cabecalho">
         <nav class="menu" aria-label="Navegação principal">
             <ul>
@@ -39,18 +41,15 @@
         </nav>
     </header>
 
-
-
     <main id="conteudo">
 
-        <!-- 1. TOPO -->
+        <!-- 1. INÍCIO -->
         <section id="inicio">
             <div>
                 <!-- o nome completo fica no texto oculto; o que aparece na tela é escondido do leitor de tela -->
                 <h1 class="inicio-nome"><span class="visualmente-oculto">Marco Antônio Machado</span><span
-                        aria-hidden="true">Marco Antônio </span><span class="inicio-sobrenome" aria-hidden="true"><span
-                            class="logo-rede logo-machado"></span><span
-                            class="inicio-sobrenome-texto">&lt;machado /&gt;</span></span></h1>
+                    aria-hidden="true">Marco Antônio </span><span class="inicio-sobrenome" aria-hidden="true"><span
+                    class="logo-rede logo-machado"></span><span class="inicio-sobrenome-texto">&lt;machado /&gt;</span></span></h1>
 
                 <p class="inicio-cargo" lang="en">Software Developer</p>
 
@@ -61,22 +60,23 @@
                 </p>
 
                 <div class="inicio-botoes">
-                    <a href="https://github.com/Marcoliveira12" target="_blank" rel="noopener"
-                        class="inicio-icone"><span class="logo-rede logo-github" aria-hidden="true"></span><span
-                            class="visualmente-oculto">GitHub (abre em nova aba)</span><span
-                            class="inicio-icone-rotulo" aria-hidden="true">GitHub</span></a>
+                    <a href="https://github.com/Marcoliveira12" target="_blank" rel="noopener" class="inicio-icone"><span
+                        class="logo-rede logo-github" aria-hidden="true"></span><span
+                        class="visualmente-oculto">GitHub (abre em nova aba)</span><span
+                        class="inicio-icone-rotulo" aria-hidden="true">GitHub</span></a>
 
-                    <a href="https://www.linkedin.com/in/marco-ant%C3%B4nio-machado-b8a940420/" target="_blank"
-                        rel="noopener" class="inicio-icone"><span class="logo-rede logo-linkedin"
-                            aria-hidden="true"></span><span class="visualmente-oculto">LinkedIn (abre em nova aba)</span><span
-                            class="inicio-icone-rotulo" aria-hidden="true">LinkedIn</span></a>
+                    <a href="https://www.linkedin.com/in/marco-ant%C3%B4nio-machado-b8a940420/" target="_blank" rel="noopener"
+                        class="inicio-icone"><span class="logo-rede logo-linkedin" aria-hidden="true"></span><span
+                        class="visualmente-oculto">LinkedIn (abre em nova aba)</span><span
+                        class="inicio-icone-rotulo" aria-hidden="true">LinkedIn</span></a>
 
-                    <a href="#contato" class="inicio-icone"><span class="logo-rede logo-conversa"
-                            aria-hidden="true"></span><span class="visualmente-oculto">Contato</span><span
-                            class="inicio-icone-rotulo" aria-hidden="true">Contato</span></a>
+                    <a href="#contato" class="inicio-icone"><span class="logo-rede logo-conversa" aria-hidden="true"></span><span
+                        class="visualmente-oculto">Contato</span><span
+                        class="inicio-icone-rotulo" aria-hidden="true">Contato</span></a>
 
-                    <a href="docs/curriculo-marco-machado.pdf" target="_blank" rel="noopener" class="botao">Baixar
-                        currículo<span class="botao-icone" aria-hidden="true"></span><span class="visualmente-oculto"> (PDF, abre em nova aba)</span></a>
+                    <a href="docs/curriculo-marco-machado.pdf" target="_blank" rel="noopener" class="inicio-botao-curriculo">Baixar
+                        currículo<span class="inicio-botao-curriculo-icone" aria-hidden="true"></span><span
+                        class="visualmente-oculto"> (PDF, abre em nova aba)</span></a>
                 </div>
             </div>
         </section>
@@ -125,7 +125,7 @@
             <!-- "03 projetos · 02 em andamento": escrito pelo js/script.js a partir da lista de projetos (sem JavaScript fica vazio) -->
             <p class="projetos-contadores"></p>
 
-            <div class="feed">
+            <div class="projetos-lista">
                 <!-- os cartões são montados pelo js/script.js a partir da lista de projetos: grade de 3 colunas no computador, uma coluna no celular e no tablet -->
             </div>
 
@@ -164,14 +164,16 @@
             <article>
                 <div class="experiencia-logos">
                     <a href="https://www.linkedin.com/company/agenciafruta/" target="_blank" rel="noopener"><img
-                            src="img/logo-agenciafruta.png" alt="Agência Fruta"><span class="visualmente-oculto"> no LinkedIn (abre em nova aba)</span></a>
+                        src="img/logo-agenciafruta.png" alt="Agência Fruta"><span
+                        class="visualmente-oculto"> no LinkedIn (abre em nova aba)</span></a>
                     <a href="https://www.linkedin.com/company/beauty-fair/" target="_blank" rel="noopener"><img
-                            src="img/logo-beautyfair.png" alt="Beauty Fair"><span class="visualmente-oculto"> no LinkedIn (abre em nova aba)</span></a>
+                        src="img/logo-beautyfair.png" alt="Beauty Fair"><span
+                        class="visualmente-oculto"> no LinkedIn (abre em nova aba)</span></a>
                 </div>
 
                 <div class="experiencia-texto">
                     <p class="experiencia-periodo">Estágio · <time datetime="2025-02">fev/2025</time> a <time
-                            datetime="2026-06">jun/2026</time></p>
+                        datetime="2026-06">jun/2026</time></p>
                     <h3>Agência Fruta Marketing Digital</h3>
                     <p>Atuei na Agência Fruta, agência de marketing digital, na equipe que atendia a Beauty Fair,
                         empresa que realiza alguns dos maiores eventos do setor de beleza da América Latina. Em um
@@ -186,7 +188,6 @@
             </article>
         </section>
 
-
         <!-- 6. FORMAÇÃO -->
         <section id="formacao" class="revelar">
             <h2>Formação</h2>
@@ -195,14 +196,14 @@
             <article>
                 <img src="img/logo-cesupa.png" alt="">
                 <div>
-                    <p class="graduacao-periodo">Graduação · conclusão em dezembro de 2026</p>
+                    <p class="formacao-periodo">Graduação · conclusão em dezembro de 2026</p>
                     <h3>Engenharia da Computação</h3>
-                    <p class="graduacao-instituicao">CESUPA (Centro Universitário do Estado do Pará)</p>
+                    <p class="formacao-instituicao">CESUPA (Centro Universitário do Estado do Pará)</p>
                 </div>
             </article>
 
-            <div class="cursos">
-                <p class="cursos-rotulo">Cursos</p>
+            <div class="formacao-cursos">
+                <p class="formacao-cursos-rotulo">Cursos</p>
                 <ul>
                     <li>
                         <h3>JavaScript para Web: Crie páginas dinâmicas</h3>
@@ -245,7 +246,6 @@
             </div>
         </section>
 
-
         <!-- 7. CONTATO -->
         <section id="contato" class="revelar">
             <div class="contato-cartao">
@@ -259,44 +259,40 @@
                 <ul>
                     <li><span>E-mail</span>
                         <div class="contato-email">
-
                             <a href="mailto:marcoamachado.dev@gmail.com">marcoamachado.dev@<wbr>gmail.com</a>
 
                             <!-- botão só com ícone; o balãozinho "Copiar" e o aviso para leitor de tela são trocados pelo js/script.js -->
                             <button type="button" class="contato-copiar" aria-label="Copiar e-mail"><span
-                                    class="logo-rede logo-copiar" aria-hidden="true"></span><span class="contato-dica"
-                                    aria-hidden="true">Copiar</span></button>
+                                class="logo-rede logo-copiar" aria-hidden="true"></span><span
+                                class="contato-dica" aria-hidden="true">Copiar</span></button>
 
                             <span class="contato-aviso visualmente-oculto" role="status" aria-live="polite"></span>
-
                         </div>
                     </li>
 
-
-                    <li><span>LinkedIn</span> <a
-                            href="https://www.linkedin.com/in/marco-ant%C3%B4nio-machado-b8a940420/" target="_blank"
-                            rel="noopener">Marco Antônio Machado<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
+                    <li><span>LinkedIn</span> <a href="https://www.linkedin.com/in/marco-ant%C3%B4nio-machado-b8a940420/"
+                        target="_blank" rel="noopener">Marco Antônio Machado<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
 
                     <li><span>WhatsApp</span> <a href="https://wa.me/5591991337448" target="_blank"
-                            rel="noopener">Enviar mensagem<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
+                        rel="noopener">Enviar mensagem<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
 
                     <li><span>GitHub</span> <a href="https://github.com/Marcoliveira12" target="_blank"
-                            rel="noopener">Marcoliveira12<span class="visualmente-oculto"> (abre em nova aba)</span></a>
-                    </li>
+                        rel="noopener">Marcoliveira12<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
 
                     <li><span>Currículo</span> <a href="docs/curriculo-marco-machado.pdf" target="_blank"
-                            rel="noopener">Baixar em PDF<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
+                        rel="noopener">Baixar em PDF<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
                 </ul>
             </div>
 
             <!-- fica no HTML para funcionar também sem JavaScript; os rótulos das outras seções são montados pelo js/script.js -->
-            <a class="proxima proxima-topo" href="#inicio" aria-label="Voltar ao topo">Voltar ao topo</a>
+            <a class="proxima-secao proxima-secao-topo" href="#inicio" aria-label="Voltar ao topo">Voltar ao topo</a>
         </section>
 
     </main>
 
+    <!-- RODAPÉ -->
     <footer class="rodape">
-        <p class="rodape-nome">Marco Antônio Machado · © <span class="ano-atual">2026</span></p>
+        <p class="rodape-nome">Marco Antônio Machado · © <span class="rodape-ano">2026</span></p>
         <!-- montado pelo js/script.js; sem JavaScript, aparece o texto do noscript -->
         <div class="rodape-construido">
             <noscript>
@@ -305,7 +301,7 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script src="js/script.js" defer></script>
 </body>
 
 </html>

@@ -1,6 +1,8 @@
+/* ===== FONTES ===== */
+
 @font-face {
     font-family: "inter";
-    src: url(../fonts/inter-regular.woff2)format(woff2);
+    src: url(../fonts/inter-regular.woff2) format(woff2);
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -8,7 +10,7 @@
 
 @font-face {
     font-family: "inter";
-    src: url(../fonts/inter-medium.woff2)format(woff2);
+    src: url(../fonts/inter-medium.woff2) format(woff2);
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -16,7 +18,7 @@
 
 @font-face {
     font-family: "inter";
-    src: url(../fonts/inter-semibold.woff2)format(woff2);
+    src: url(../fonts/inter-semibold.woff2) format(woff2);
     font-weight: 600;
     font-style: normal;
     font-display: swap;
@@ -24,7 +26,7 @@
 
 @font-face {
     font-family: "inter";
-    src: url(../fonts/inter-bold.woff2)format(woff2);
+    src: url(../fonts/inter-bold.woff2) format(woff2);
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -32,7 +34,7 @@
 
 @font-face {
     font-family: "jetbrains";
-    src: url(../fonts/jetbrainsmono-regular.woff2)format(woff2);
+    src: url(../fonts/jetbrainsmono-regular.woff2) format(woff2);
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -40,11 +42,13 @@
 
 @font-face {
     font-family: "jetbrains";
-    src: url(../fonts/jetbrainsmono-medium.woff2)format(woff2);
+    src: url(../fonts/jetbrainsmono-medium.woff2) format(woff2);
     font-weight: 500;
     font-style: normal;
     font-display: swap;
 }
+
+/* ===== REGRAS GERAIS ===== */
 
 /*reset*/
 * {
@@ -53,7 +57,7 @@
     box-sizing: border-box;
 }
 
-/*estilo desktop*/
+/*folga acima da seção quando um link leva até ela (de 1024px para cima, ver o bloco do cabeçalho)*/
 html {
     scroll-padding-top: 16px;
 }
@@ -125,7 +129,7 @@ a:hover {
     padding: 12px 24px;
 }
 
-/*aparece quando recebe o foco pelo Tab*/
+/*aparece quando recebe o foco pelo Tab (a cor repete a de cima para o a:hover não trocar)*/
 .pular-conteudo:focus {
     top: 16px;
     color: #0D1117;
@@ -192,45 +196,24 @@ a:hover {
         35vw 174vh #7CC4FF26, 99vw 118vh #C9D1D933;
 }
 
-/*rótulo(título) pequeno no inicio de cada seção (PROJETOS, SOBRE MIM...)*/
-main h2 {
-    font-family: jetbrains, ui-monospace, monospace;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #7CC4FF;
-    margin-bottom: 12px;
-}
-
-/*título(<p>) grande logo abaixo do rótulo(titulo) de cada seção*/
-main h2 + p {
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-    color: #E6EDF3;
-    margin-bottom: 40px;
-}
-
-
-/*botão azul cheio (baixar currículo do topo)*/
-.botao {
-    display: inline-block;
-    font-size: 16px;
-    font-weight: 600;
-    text-decoration: none;
-    color: #0D1117;
+/*barra de progresso da rolagem: fina, no topo da tela, acima do cabeçalho; começa vazia (scaleX 0)*/
+.progresso {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    z-index: 30;
     background-color: #7CC4FF;
-    border: 1px solid #7CC4FF;
-    border-radius: 8px;
-    padding: 12px 24px;
-    transition: border-color 0.2s ease-out, background-color 0.2s ease-out;
+    transform-origin: left;
+    transform: scaleX(0);
+    pointer-events: none;
 }
 
-/*logos do GitHub, do LinkedIn e da conversa e ícone de download: o arquivo vira máscara e pega a cor do texto*/
+/*logos e ícones (GitHub, LinkedIn, conversa, copiar, site, machado e o download do currículo):
+o arquivo vira máscara e pega a cor do texto*/
 .logo-rede,
-.botao-icone {
+.inicio-botao-curriculo-icone {
     width: 16px;
     height: 16px;
     background-color: currentColor;
@@ -272,28 +255,277 @@ main h2 + p {
     mask-image: url(../img/icones/ui-machado.svg);
 }
 
-/*ícone de download do Baixar currículo, um pouco maior que as logos*/
-.botao-icone {
-    flex-shrink: 0;
-    width: 18px;
-    height: 18px;
-    -webkit-mask-image: url(../img/icones/download.svg);
-    mask-image: url(../img/icones/download.svg);
+/*padding de todas as seções (elas se separam só pelo espaço, sem linha)*/
+main > section {
+    padding: 96px max(32px, calc((100% - 1040px) / 2));
 }
 
-/*barra de progresso da rolagem: fina, no topo da tela, acima do cabeçalho; começa vazia (scaleX 0)*/
-.progresso {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    z-index: 30;
-    background-color: #7CC4FF;
-    transform-origin: left;
-    transform: scaleX(0);
-    pointer-events: none;
+/*rótulo(título) pequeno no inicio de cada seção (PROJETOS, SOBRE MIM...)*/
+main h2 {
+    font-family: jetbrains, ui-monospace, monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #7CC4FF;
+    margin-bottom: 12px;
 }
+
+/*título(<p>) grande logo abaixo do rótulo(titulo) de cada seção*/
+main h2 + p {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: #E6EDF3;
+    margin-bottom: 40px;
+}
+
+/*balãozinho com o nome, escondido acima do botão ou do logo (Início, Projetos, Tecnologias, Contato e rodapé).
+O leitor de tela usa o texto oculto ou o aria-label de cada botão*/
+.inicio-icone-rotulo,
+.projeto-acao-rotulo,
+.tecnologias-nome,
+.contato-dica {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: nowrap;
+    color: #E6EDF3;
+    background-color: #0D1117;
+    border: 1px solid #30363D;
+    border-radius: 6px;
+    padding: 4px 8px;
+    pointer-events: none;
+    opacity: 0;
+}
+
+/*8px entre o balãozinho e o botão (no Contato ele fica colado, porque o botão de copiar já é maior que o ícone)*/
+.inicio-icone-rotulo,
+.projeto-acao-rotulo,
+.tecnologias-nome {
+    margin-bottom: 8px;
+}
+
+/*conteúdo das seções começa invisível (só com JavaScript ligado). A seção fica parada para o menu acertar a parada*/
+.js .revelar:not(.visivel) > * {
+    opacity: 0;
+}
+
+/*conteúdo aparece quando o JavaScript coloca a classe visivel na seção.
+É animação, e não transição, para não brigar com o hover dos cartões depois de terminar*/
+.js .revelar.visivel > * {
+    animation: revelar-aparecer 0.5s ease-out;
+}
+
+/*rótulo "próxima seção" (montado pelo script.js): nome da seção em maiúsculas com uma linha fina embaixo.
+Escondido aqui; só aparece no computador em tela cheia, ver o fim deste bloco.
+O "Voltar ao topo" usa o mesmo estilo, mas está no index.html*/
+.proxima-secao {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+    font-family: inter, system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #C9D1D9;
+    border-radius: 6px;
+    padding: 0 12px;
+}
+
+/*linha vertical fina embaixo do nome, no centro*/
+.proxima-secao::after {
+    content: "";
+    width: 2px;
+    height: 28px;
+    margin-top: 8px;
+    background-color: #C9D1D9;
+}
+
+.proxima-secao:focus-visible {
+    color: #7CC4FF;
+}
+
+/*"Voltar ao topo" (último rótulo): aparece em todas as larguras, no fim do contato, com a linha em cima do texto.
+Fica aqui, junto dos outros rótulos, porque a regra da tela cheia (no fim deste bloco) precisa vir depois desta*/
+.proxima-secao-topo {
+    display: flex;
+    margin: 32px auto 0;
+}
+
+.proxima-secao-topo::after {
+    content: none;
+}
+
+.proxima-secao-topo::before {
+    content: "";
+    width: 2px;
+    height: 28px;
+    margin-bottom: 8px;
+    background-color: #C9D1D9;
+}
+
+@keyframes revelar-aparecer {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/*mesma animação subindo 24px (usada só com movimento)*/
+@keyframes revelar-subir {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/*partículas sobem uma tela inteira; no fim, a cópia de baixo está onde a de cima começou*/
+@keyframes fundo-subir {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-100vh);
+    }
+}
+
+/*linha do rótulo da próxima seção cresce até o tamanho todo e volta*/
+@keyframes proxima-linha {
+    0%,
+    100% {
+        transform: scaleY(0.4);
+    }
+
+    50% {
+        transform: scaleY(1);
+    }
+}
+
+/*seções com menos respiro no tablet e no celular*/
+@media (max-width: 899px) {
+
+    main > section {
+        padding: 48px 32px;
+    }
+}
+
+/*e menos ainda no celular*/
+@media (max-width: 599px) {
+
+    main > section {
+        padding: 32px 20px;
+    }
+}
+
+/*tela cheia: computador com janela de pelo menos 640px de altura, uma seção por tela*/
+@media (min-width: 1024px) and (min-height: 640px) {
+
+    /*cada seção ocupa no mínimo uma tela, com o conteúdo centralizado na vertical.
+    62px em cima (altura do cabeçalho aberto) e 80px embaixo (espaço do link da próxima seção).
+    100svh logo depois de 100vh: quem entende svh usa ele, quem não entende fica com o vh.
+    Se o conteúdo for mais alto que a tela, a seção cresce e nada é cortado*/
+    main > section {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 100vh;
+        min-height: 100svh;
+        padding-top: 62px;
+        padding-bottom: 80px;
+    }
+
+    /*rótulo da próxima seção no pé de cada seção, centralizado (margin auto com left e right 0).
+    Mede 55px (texto de 19px, 8px e a linha de 28px): cabe nos 80px de baixo da seção*/
+    .proxima-secao {
+        position: absolute;
+        bottom: 24px;
+        left: 0;
+        right: 0;
+        display: flex;
+        margin: 0 auto;
+    }
+}
+
+/*movimento: só para quem não pediu menos movimento*/
+@media (prefers-reduced-motion: no-preference) {
+
+    /*links do menu e rolagem por seção deslizam até a seção (com movimento reduzido, vão direto)*/
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /*conteúdo das seções sobe um pouco enquanto aparece*/
+    .js .revelar:not(.visivel) > * {
+        transform: translateY(24px);
+    }
+
+    .js .revelar.visivel > * {
+        animation-name: revelar-subir;
+    }
+
+    /*partículas do fundo sobem sem parar, cada camada numa velocidade*/
+    .fundo-camada-1 {
+        animation: fundo-subir 60s linear infinite;
+    }
+
+    .fundo-camada-2 {
+        animation: fundo-subir 90s linear infinite;
+    }
+
+    .fundo-camada-3 {
+        animation: fundo-subir 120s linear infinite;
+    }
+
+    /*linha dos rótulos da próxima seção pulsa, crescendo a partir do texto:
+    de cima para baixo e, no "Voltar ao topo", de baixo para cima*/
+    .proxima-secao::after {
+        transform-origin: top;
+        animation: proxima-linha 2s ease-in-out infinite;
+    }
+
+    .proxima-secao-topo::before {
+        transform-origin: bottom;
+        animation: proxima-linha 2s ease-in-out infinite;
+    }
+
+    /*"Pular para o conteúdo" afunda no clique, como os outros botões, e volta suave*/
+    .pular-conteudo {
+        transition: transform 80ms ease-out;
+    }
+
+    .pular-conteudo:active {
+        transform: translateY(1px) scale(0.97);
+        transition: transform 80ms ease-out;
+    }
+}
+
+/*mouse: link da próxima seção fica azul*/
+@media (hover: hover) {
+
+    .proxima-secao:hover {
+        color: #7CC4FF;
+    }
+}
+
+/* ===== CABEÇALHO E MENU ===== */
 
 /*cabeçalho: só o menu, no centro, sem fundo e sem borda (só existe de 1024px para cima)*/
 .cabecalho {
@@ -350,19 +582,151 @@ main h2 + p {
     transform: scaleX(1);
 }
 
+/*linha do enfeite do cabeçalho se desenha (de largura 0 até a largura toda)*/
+@keyframes cabecalho-linha-desenhar {
+    from {
+        transform: scaleX(0);
+    }
 
-
-/*padding de todas as seções (elas se separam só pelo espaço, sem linha)*/
-main > section {
-    padding: 96px max(32px, calc((100% - 1040px) / 2));
+    to {
+        transform: scaleX(1);
+    }
 }
 
+/*tracinho do enfeite cresce de baixo para cima*/
+@keyframes cabecalho-tracinho-crescer {
+    from {
+        transform: scaleY(0);
+    }
 
+    to {
+        transform: scaleY(1);
+    }
+}
 
-/*topo*/
+/*celular e tablet: de 1023px para baixo não existe cabeçalho nem menu*/
+@media (max-width: 1023px) {
+
+    /*a navegação é pela rolagem (a barra de progresso e o "Pular para o conteúdo" continuam)*/
+    .cabecalho {
+        display: none;
+    }
+}
+
+/*computador: de 1024px para cima o cabeçalho esconde no topo da página*/
+@media (min-width: 1024px) {
+
+    /*começa escondido acima da tela (só com JavaScript, pela classe .js no html).
+    Continua no lugar e focável: o Tab ainda chega nos links*/
+    .js .cabecalho {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    /*desce quando a pessoa rola a página ou quando um link do menu recebe foco*/
+    .js .cabecalho.cabecalho-visivel {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    /*cabeçalho aberto mede 61,4px (23px em cima, linha de 22,4px dos links, 16px embaixo)*/
+    html {
+        scroll-padding-top: 62px;
+    }
+
+    /*menu flutuando sobre o conteúdo (o cabeçalho não tem fundo); 23px em cima para caber o enfeite
+    e deixar 12px entre a linha e o topo das letras*/
+    .cabecalho {
+        padding-top: 23px;
+    }
+
+    /*sombra escura em volta das letras, para lerem bem por cima de caixas e imagens
+    (quatro camadas: as menores deixam o contorno mais escuro, as maiores espalham)*/
+    .menu a {
+        text-shadow: 0 0 2px #0D1117, 0 0 4px #0D1117, 0 0 8px #0D1117, 0 0 16px #0D1117;
+    }
+
+    /*enfeite em forma de ⊥: linha horizontal de 120px a 14px do topo...*/
+    .cabecalho::before {
+        content: "";
+        position: absolute;
+        top: 14px;
+        left: 0;
+        right: 0;
+        width: 120px;
+        height: 2px;
+        margin: 0 auto;
+        background-color: #C9D1D9;
+        transform-origin: center;
+    }
+
+    /*...e tracinho de 5px saindo do meio dela para cima (de 9px a 14px do topo,
+    6px abaixo da barra de progresso, que vai de 0 a 3px)*/
+    .cabecalho::after {
+        content: "";
+        position: absolute;
+        top: 9px;
+        left: 0;
+        right: 0;
+        width: 2px;
+        height: 5px;
+        margin: 0 auto;
+        background-color: #C9D1D9;
+        transform-origin: bottom;
+    }
+}
+
+/*tela cheia: cabeçalho fixo por cima da primeira tela*/
+@media (min-width: 1024px) and (min-height: 640px) {
+
+    /*sem scroll-padding: cada seção já tem o próprio espaço em cima.
+    Sem scroll-snap: a roda já vai de seção em seção pelo script.js, e o encaixe puxava de volta a rolagem dentro da Formação*/
+    html {
+        scroll-padding-top: 0;
+    }
+
+    /*cabeçalho fixo: não ocupa espaço no alto da página, então a primeira tela começa colada no topo*/
+    .cabecalho {
+        position: fixed;
+        left: 0;
+        right: 0;
+    }
+
+    /*foco pelo teclado nunca fica atrás do cabeçalho*/
+    main a,
+    main button {
+        scroll-margin-top: 80px;
+    }
+}
+
+/*cabeçalho e sublinhado do menu com movimento*/
+@media (prefers-reduced-motion: no-preference) {
+
+    /*sublinhado do menu cresce da esquerda para a direita*/
+    .menu a::after {
+        transition: transform 0.2s ease-out;
+    }
+
+    /*cabeçalho desce e aparece suave (só muda de estado de 1024px para cima)*/
+    .cabecalho {
+        transition: transform 300ms ease-out, opacity 300ms ease-out;
+    }
+
+    /*quando o cabeçalho aparece, a linha se desenha do centro para os lados e depois o tracinho cresce para cima.
+    O backwards deixa os dois encolhidos durante o atraso (os enfeites só existem de 1024px para cima)*/
+    .js .cabecalho.cabecalho-visivel::before {
+        animation: cabecalho-linha-desenhar 300ms ease-out 150ms backwards;
+    }
+
+    .js .cabecalho.cabecalho-visivel::after {
+        animation: cabecalho-tracinho-crescer 150ms ease-out 400ms backwards;
+    }
+}
+
+/* ===== INÍCIO ===== */
+
 /*o início ocupa a tela inteira em todas as larguras, com o conteúdo no centro (na vertical pelo flex, na horizontal pelo text-align).
 100svh logo depois de 100vh: quem entende svh usa ele. É min-height: se o conteúdo for mais alto que a tela, a seção cresce*/
-
 #inicio {
     display: flex;
     flex-direction: column;
@@ -373,7 +737,6 @@ main > section {
     padding-bottom: 128px;
     text-align: center;
 }
-
 
 #inicio h1 {
     font-size: 56px;
@@ -469,15 +832,41 @@ O word-spacing tira 0,3em: sobra um espaço normal, do tamanho do espaço do Int
     color: #C9D1D9;
 }
 
+/*Baixar currículo: botão azul cheio com a mesma altura dos ícones, texto no meio e ícone de download à direita*/
+.inicio-botao-curriculo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #0D1117;
+    background-color: #7CC4FF;
+    border: 1px solid #7CC4FF;
+    border-radius: 8px;
+    padding: 0 20px;
+    transition: border-color 0.2s ease-out, background-color 0.2s ease-out;
+}
+
+/*ícone de download do Baixar currículo, um pouco maior que as logos*/
+.inicio-botao-curriculo-icone {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    -webkit-mask-image: url(../img/icones/download.svg);
+    mask-image: url(../img/icones/download.svg);
+}
+
 /*foco pelo teclado: borda e ícone azuis, contorno 2px afastado 2px (vale também para o Baixar currículo)*/
 .inicio-icone:focus-visible,
-.botao:focus-visible {
+.inicio-botao-curriculo:focus-visible {
     border-color: #7CC4FF;
     outline-offset: 2px;
 }
 
 /*Baixar currículo no foco: fundo clareia como no hover*/
-.botao:focus-visible {
+.inicio-botao-curriculo:focus-visible {
     background-color: #A5D6FF;
 }
 
@@ -485,40 +874,414 @@ O word-spacing tira 0,3em: sobra um espaço normal, do tamanho do espaço do Int
     color: #7CC4FF;
 }
 
-/*balãozinho com o nome, escondido acima do botão (o leitor de tela usa o texto oculto)*/
-.inicio-icone-rotulo {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-bottom: 8px;
-    font-size: 12px;
-    line-height: 1.4;
-    white-space: nowrap;
-    color: #E6EDF3;
-    background-color: #0D1117;
-    border: 1px solid #30363D;
-    border-radius: 6px;
-    padding: 4px 8px;
-    pointer-events: none;
-    opacity: 0;
-}
-
 /*balãozinho aparece no foco pelo teclado*/
 .inicio-icone:focus-visible .inicio-icone-rotulo {
     opacity: 1;
 }
 
-/*currículo com a mesma altura dos ícones, texto no meio e ícone de download à direita*/
-.inicio-botoes .botao {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    height: 48px;
-    padding: 0 20px;
+/*golpe do machado (a cada 3s, pelo cicloTopo do script.js): puxa para trás, golpeia aos 55% (330ms), quica e volta*/
+@keyframes marca-golpe {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    30% {
+        transform: rotate(-45deg);
+    }
+
+    55% {
+        transform: rotate(22deg);
+    }
+
+    70% {
+        transform: rotate(-6deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
-/*projetos*/
+/*tremida do sobrenome no impacto do golpe*/
+@keyframes marca-tremida {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-3px);
+    }
+
+    40% {
+        transform: translateX(3px);
+    }
+
+    60% {
+        transform: translateX(-2px);
+    }
+
+    80% {
+        transform: translateX(2px);
+    }
+}
+
+/*tarja da palavra cresce até cobrir a caixa inteira*/
+@keyframes inicio-tarja-cobrir {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/*tarja encolhe até sumir*/
+@keyframes inicio-tarja-descobrir {
+    from {
+        transform: scaleX(1);
+    }
+
+    to {
+        transform: scaleX(0);
+    }
+}
+
+/*Início no tablet e no celular: nome menor e menos respiro*/
+@media (max-width: 899px) {
+
+    #inicio {
+        padding-top: 96px;
+        padding-bottom: 96px;
+    }
+
+    #inicio h1 {
+        font-size: 44px;
+    }
+}
+
+/*Início no celular*/
+@media (max-width: 599px) {
+
+    #inicio {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    #inicio h1 {
+        font-size: 34px;
+    }
+
+    .inicio-cargo {
+        font-size: 14px;
+    }
+
+    /*a lista parada (sem JavaScript) quebra em duas linhas; a palavra que rola continua com 36px pelo line-height*/
+    .inicio-tecnologias {
+        height: auto;
+    }
+}
+
+/*botões do Início ficam embaixo dos ícones no celular e no tablet*/
+@media (max-width: 1023px) {
+
+    /*sempre em duas linhas: os 3 ícones em cima e o Baixar currículo embaixo.
+    O ::after é uma peça invisível de largura toda entre os dois (order 1): ele quebra a linha depois dos ícones.
+    Ele forma uma linha de altura 0, então o row-gap vira 0 e o espaço de 12px fica na margem do botão*/
+    .inicio-botoes {
+        row-gap: 0;
+    }
+
+    .inicio-botoes::after {
+        content: "";
+        flex-basis: 100%;
+        order: 1;
+    }
+
+    .inicio-botao-curriculo {
+        order: 2;
+        margin-top: 12px;
+    }
+}
+
+/*Início na tela cheia: o mesmo espaço das outras seções (o #inicio de cima vence o main > section)*/
+@media (min-width: 1024px) and (min-height: 640px) {
+
+    #inicio {
+        padding-top: 62px;
+        padding-bottom: 80px;
+    }
+}
+
+/*Início com movimento*/
+@media (prefers-reduced-motion: no-preference) {
+
+    /*Baixar currículo: borda, fundo e a subida do hover mudam suave*/
+    .inicio-botao-curriculo {
+        transition: border-color 0.2s ease-out, background-color 0.2s ease-out, transform 0.2s ease-out;
+    }
+
+    /*botões de ícone sobem 2px no hover e no foco; o ícone e o balãozinho mudam suave*/
+    .inicio-icone {
+        transition: border-color 0.2s ease-out, transform 0.2s ease-out;
+    }
+
+    .inicio-icone .logo-rede {
+        transition: color 0.2s ease-out;
+    }
+
+    .inicio-icone-rotulo {
+        transition: opacity 0.2s ease-out;
+    }
+
+    .inicio-icone:focus-visible,
+    .inicio-botao-curriculo:focus-visible {
+        transform: translateY(-2px);
+    }
+
+    /*machado gira pelo cabo (canto de baixo à esquerda)*/
+    .inicio-sobrenome .logo-machado {
+        transform-origin: left bottom;
+    }
+
+    /*golpe do machado e tremida do sobrenome: classes colocadas e tiradas pelo cicloTopo do script.js*/
+    .inicio-sobrenome .logo-machado.golpeando {
+        animation: marca-golpe 600ms ease-in-out;
+    }
+
+    .inicio-sobrenome.tremendo {
+        animation: marca-tremida 300ms;
+    }
+
+    /*cor do sobrenome muda suave no hover*/
+    .inicio-sobrenome {
+        transition: color 0.2s ease-out;
+    }
+
+    /*tarja azul sobre a palavra, começa encolhida na esquerda*/
+    .inicio-palavra-caixa::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: #7CC4FF;
+        transform: scaleX(0);
+        transform-origin: left center;
+    }
+
+    /*cobrindo: cresce da esquerda para a direita (classe colocada pelo script.js)*/
+    .inicio-palavra-caixa.cobrindo::after {
+        animation: inicio-tarja-cobrir 300ms ease-in forwards;
+    }
+
+    /*descobrindo: encolhe em direção à direita, revelando a palavra nova*/
+    .inicio-palavra-caixa.descobrindo::after {
+        transform-origin: right center;
+        animation: inicio-tarja-descobrir 300ms ease-out forwards;
+    }
+}
+
+/*Início com mouse*/
+@media (hover: hover) {
+
+    /*botões de ícone do topo: borda e ícone azuis, balãozinho aparece*/
+    .inicio-icone:hover {
+        border-color: #7CC4FF;
+    }
+
+    .inicio-icone:hover .logo-rede {
+        color: #7CC4FF;
+    }
+
+    .inicio-icone:hover .inicio-icone-rotulo {
+        opacity: 1;
+    }
+
+    /*Baixar currículo: fundo clareia (a cor do texto repete a do botão para o a:hover não trocar)*/
+    .inicio-botao-curriculo:hover {
+        color: #0D1117;
+        background-color: #A5D6FF;
+    }
+
+    /*mouse no sobrenome: fica branco (o ícone acompanha pelo currentColor)*/
+    .inicio-sobrenome:hover {
+        color: #E6EDF3;
+    }
+}
+
+/*Início com mouse e movimento: botões de ícone e o Baixar currículo sobem 2px*/
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+
+    .inicio-icone:hover,
+    .inicio-botao-curriculo:hover {
+        transform: translateY(-2px);
+    }
+}
+
+/*botões do Início afundam no clique: 1px para baixo e 3% menores, em 80ms (ao soltar, voltam com a transição normal).
+Fica depois do bloco do mouse: com a mesma especificidade, o :active vence o translateY do hover*/
+@media (prefers-reduced-motion: no-preference) {
+
+    .inicio-botao-curriculo:active,
+    .inicio-icone:active {
+        transform: translateY(1px) scale(0.97);
+        transition: transform 80ms ease-out;
+    }
+}
+
+/* ===== SOBRE MIM ===== */
+
+/*abaixo de 900px tudo numa coluna: título, cartão e parágrafos. De 900px para cima, ver o fim deste bloco*/
+
+/*cartão horizontal: foto à esquerda e Local e Formação à direita, centralizados na vertical entre si.
+Largura do conteúdo, até 420px (a folga fica igual dos dois lados), alinhado à esquerda como o texto, 32px até os parágrafos.
+Mesma moldura das caixas de Tecnologias (mais grossa embaixo e à direita), sem fundo*/
+.sobre-cartao {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: fit-content;
+    max-width: 420px;
+    margin-bottom: 32px;
+    border: 1px solid #30363D;
+    border-right: 3px solid #1A3350;
+    border-bottom: 3px solid #1A3350;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+/*foto redonda de 80px; flex-shrink 0 não deixa ela encolher quando o texto aperta*/
+.sobre-foto {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 1px solid #30363D;
+    border-radius: 50%;
+}
+
+/*Local e Formação um embaixo do outro, alinhados à esquerda, 12px entre eles*/
+.sobre-cartao dl {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/*rótulos (LOCAL, FORMAÇÃO) e valores*/
+#sobre dt {
+    font-family: jetbrains, ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8B96A5;
+    margin-bottom: 4px;
+}
+
+#sobre dd {
+    font-size: 15px;
+    color: #E6EDF3;
+}
+
+/*parágrafos sobre mim, com largura confortável de leitura*/
+#sobre > div p {
+    max-width: 65ch;
+    margin-bottom: 20px;
+}
+
+#sobre > div p:last-child {
+    margin-bottom: 0;
+}
+
+/*Sobre mim no tablet e no celular: 32px do título até o cartão*/
+@media (max-width: 899px) {
+
+    #sobre h2 + p {
+        margin-bottom: 32px;
+    }
+}
+
+/*Sobre mim no celular: parágrafos justificados, com hifenização*/
+@media (max-width: 599px) {
+
+    #sobre > div p {
+        text-align: justify;
+        hyphens: auto;
+    }
+}
+
+/*de 900px para cima: sobre mim em duas colunas, como a Experiência*/
+@media (min-width: 900px) {
+
+    /*título em cima e, embaixo, cartão (280px) à esquerda e parágrafos à direita, 48px entre eles.
+    O align-content centraliza o bloco na vertical quando a seção ocupa a tela cheia*/
+    #sobre {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        column-gap: 48px;
+        align-content: center;
+    }
+
+    /*rótulo e título na largura toda*/
+    #sobre h2,
+    #sobre h2 + p {
+        grid-column: 1 / 3;
+    }
+
+    /*cartão vertical: foto em cima, Local e Formação embaixo, tudo no centro.
+    Estica até a altura dos parágrafos (stretch da grade) e o conteúdo fica no meio dele*/
+    .sobre-cartao {
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+        width: auto;
+        max-width: none;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    .sobre-foto {
+        width: 112px;
+        height: 112px;
+    }
+
+    /*textos do cartão vertical maiores e 22px entre Local e Formação
+    (no celular continuam menores: com 17px "Engenharia da Computação" quebra em 393px e 375px)*/
+    .sobre-cartao dl {
+        gap: 22px;
+    }
+
+    #sobre dt {
+        font-size: 12px;
+    }
+
+    #sobre dd {
+        font-size: 17px;
+    }
+}
+
+/*Sobre mim na tela cheia: parágrafos com até 80ch (com o cartão ao lado, a coluna deles já é mais estreita que isso)*/
+@media (min-width: 1024px) and (min-height: 640px) {
+
+    #sobre > div p {
+        max-width: 80ch;
+    }
+}
+
+/*Sobre mim com mouse: moldura de baixo e da direita do cartão fica azul*/
+@media (hover: hover) {
+
+    .sobre-cartao {
+        transition: border-color 0.2s ease-out;
+    }
+
+    .sobre-cartao:hover {
+        border-right-color: #7CC4FF;
+        border-bottom-color: #7CC4FF;
+    }
+}
+
+/* ===== PROJETOS ===== */
+
 /*a linha dos contadores fica colada no título; o espaço até os cartões vem dela*/
 #projetos h2 + p {
     margin-bottom: 0;
@@ -539,7 +1302,7 @@ O word-spacing tira 0,3em: sobra um espaço normal, do tamanho do espaço do Int
 
 /*grade de 3 colunas: três projetos por linha; com mais projetos, eles quebram para uma nova linha.
 minmax(0, 1fr): as três colunas ficam sempre com a mesma largura, mesmo com um texto comprido*/
-.feed {
+.projetos-lista {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
@@ -561,7 +1324,6 @@ Coluna flex: as pílulas descem para a base e ficam alinhadas entre os cartões 
 /*imagem (ou o bloco no lugar dela) sempre em 16 por 10, cortando o que sobrar*/
 .projeto-imagem,
 .projeto-sem-imagem {
-    display: block;
     width: 100%;
     height: auto;
     aspect-ratio: 16 / 10;
@@ -572,7 +1334,7 @@ Coluna flex: as pílulas descem para a base e ficam alinhadas entre os cartões 
 
 /*moldura da imagem: sombra embaixo e um pouco mais escura*/
 .projeto-imagem {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 8px 24px #00000059;
     filter: brightness(0.92);
 }
 
@@ -643,7 +1405,6 @@ Coluna flex: as pílulas descem para a base e ficam alinhadas entre os cartões 
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 12px;
     color: #7CC4FF;
-    background-color: transparent;
     border: 1px solid #7CC4FF;
     border-radius: 999px;
     padding: 4px 12px;
@@ -695,92 +1456,149 @@ pointer-events none no bloco: o clique na parte escura passa para o cartão; só
     color: #7CC4FF;
 }
 
-/*balãozinho com "Ver site" ou "Ver código" acima do botão, escondido (o leitor de tela usa o aria-label)*/
-.projeto-acao-rotulo {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-bottom: 8px;
-    font-size: 12px;
-    line-height: 1.4;
-    white-space: nowrap;
-    color: #E6EDF3;
-    background-color: #0D1117;
-    border: 1px solid #30363D;
-    border-radius: 6px;
-    padding: 4px 8px;
-    pointer-events: none;
-    opacity: 0;
+/*Projetos no tablet e no celular: 32px entre a linha dos contadores e a lista*/
+@media (max-width: 899px) {
+
+    .projetos-contadores {
+        margin-bottom: 32px;
+    }
 }
 
-/*sobre mim*/
+/*Projetos no celular e no tablet: uma coluna no centro*/
+@media (max-width: 1023px) {
 
-/*abaixo de 900px tudo numa coluna: título, cartão e parágrafos. De 900px para cima, ver o fim do arquivo*/
+    /*rótulo, título e contadores dos projetos no centro*/
+    #projetos h2,
+    #projetos h2 + p,
+    .projetos-contadores {
+        text-align: center;
+    }
 
-/*cartão horizontal: foto à esquerda e Local e Formação à direita, centralizados na vertical entre si.
-Largura do conteúdo, até 420px (a folga fica igual dos dois lados), alinhado à esquerda como o texto, 32px até os parágrafos.
-Mesma moldura das caixas de Tecnologias (mais grossa embaixo e à direita), sem fundo*/
-.sobre-cartao {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    width: fit-content;
-    max-width: 420px;
-    margin-bottom: 32px;
-    background-color: transparent;
-    border: 1px solid #30363D;
-    border-right: 3px solid #1A3350;
-    border-bottom: 3px solid #1A3350;
-    border-radius: 12px;
-    padding: 20px;
+    /*projetos um embaixo do outro: uma coluna de até 560px no centro, 64px entre um projeto e o seguinte*/
+    .projetos-lista {
+        grid-template-columns: minmax(0, 560px);
+        justify-content: center;
+        gap: 64px;
+    }
+
+    /*texto de cada cartão no centro (a imagem continua na largura toda do cartão)*/
+    .projeto-titulo,
+    .projeto-origem,
+    .projeto-descricao {
+        text-align: center;
+    }
+
+    .projeto-tags {
+        justify-content: center;
+    }
 }
 
-/*foto redonda de 80px; flex-shrink 0 não deixa ela encolher quando o texto aperta*/
-.sobre-foto {
-    display: block;
-    flex-shrink: 0;
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border: 1px solid #30363D;
-    border-radius: 50%;
+/*Projetos no computador: 48px entre a linha dos contadores e a grade*/
+@media (min-width: 1024px) {
+
+    .projetos-contadores {
+        margin-bottom: 48px;
+    }
 }
 
-/*Local e Formação um embaixo do outro, alinhados à esquerda, 12px entre eles*/
-.sobre-cartao dl {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+/*computador largo: de 1280px para cima os projetos usam uma coluna de até 1200px*/
+@media (min-width: 1280px) {
+
+    /*só a seção Projetos fica mais larga (as outras continuam com até 1040px):
+    o que passar de 1200px vira padding, metade de cada lado*/
+    #projetos {
+        padding-left: max(32px, calc((100% - 1200px) / 2));
+        padding-right: max(32px, calc((100% - 1200px) / 2));
+    }
+
+    /*40px entre os cartões, nas duas direções*/
+    .projetos-lista {
+        gap: 40px;
+    }
 }
 
-/*rótulos (LOCAL, FORMAÇÃO) e valores*/
-#sobre dt {
-    font-family: jetbrains, ui-monospace, monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #8B96A5;
-    margin-bottom: 4px;
+/*Projetos com movimento*/
+@media (prefers-reduced-motion: no-preference) {
+
+    /*botões dos projetos aparecem e somem suave*/
+    .projeto-acoes,
+    .projeto-acao-rotulo {
+        transition: opacity 0.2s ease-out;
+    }
+
+    /*botões afundam no clique: 1px para baixo e 3% menores, em 80ms, e voltam suave ao soltar*/
+    .projeto-acao {
+        transition: transform 80ms ease-out;
+    }
+
+    .projeto-acao:active {
+        transform: translateY(1px) scale(0.97);
+        transition: transform 80ms ease-out;
+    }
 }
 
-#sobre dd {
-    font-size: 15px;
-    color: #E6EDF3;
+/*Projetos com mouse*/
+@media (hover: hover) {
+
+    /*mouse no cartão ou foco dentro dele mostra os botões sobre a imagem (e eles passam a receber clique)*/
+    .projeto:hover .projeto-acoes,
+    .projeto:focus-within .projeto-acoes {
+        opacity: 1;
+    }
+
+    .projeto:hover .projeto-acao,
+    .projeto:focus-within .projeto-acao {
+        pointer-events: auto;
+    }
+
+    /*botão com o mouse em cima: borda e ícone azuis*/
+    .projeto-acao:hover {
+        border-color: #7CC4FF;
+    }
+
+    .projeto-acao:hover .logo-rede {
+        color: #7CC4FF;
+    }
+
+    /*balãozinho "Ver site" / "Ver código" no hover ou no foco do botão*/
+    .projeto-acao:hover .projeto-acao-rotulo,
+    .projeto-acao:focus-visible .projeto-acao-rotulo {
+        opacity: 1;
+    }
+
+    /*cartão com página: título azul no hover (sem página o título não tem link)*/
+    .projeto:hover .projeto-link {
+        color: #7CC4FF;
+    }
 }
 
-/*parágrafos sobre mim, com largura confortável de leitura*/
-#sobre > div p {
-    max-width: 65ch;
-    margin-bottom: 20px;
+/*Projetos sem mouse (toque): nada fica escondido esperando hover*/
+@media (hover: none) {
+
+    /*botões dos projetos sempre visíveis, no canto de baixo à direita da imagem, sem escurecer a imagem*/
+    .projeto-acoes {
+        justify-content: flex-end;
+        align-items: flex-end;
+        gap: 8px;
+        padding: 12px;
+        background-color: transparent;
+        opacity: 1;
+    }
+
+    /*botões menores e clicáveis; sem balãozinho (o aria-label já diz o que cada um faz)*/
+    .projeto-acao {
+        width: 40px;
+        height: 40px;
+        pointer-events: auto;
+    }
+
+    .projeto-acao-rotulo {
+        display: none;
+    }
 }
 
-#sobre > div p:last-child {
-    margin-bottom: 0;
-}
+/* ===== TECNOLOGIAS ===== */
 
-
-/*tecnologias*/
 /*rótulo, título e caixas na mesma coluna de até 720px, no centro: o título começa na borda das caixas.
 Só margem dos lados, para manter a de baixo de cada texto.
 width 100%: na tela cheia a seção é flex, e o margin auto sozinho encolheria cada bloco*/
@@ -830,39 +1648,99 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
     gap: 20px;
 }
 
-/*relative para o balãozinho do nome se posicionar em cima do logo (também nos logos do rodapé)*/
-.tecnologias-item,
-.rodape-pequeno {
+/*relative para o balãozinho do nome se posicionar em cima do logo*/
+.tecnologias-item {
     position: relative;
 }
 
 .tecnologias-icone {
-    display: block;
     width: 48px;
     height: 48px;
 }
 
-/*nome da tecnologia: invisível, mas o leitor de tela lê; vira balãozinho acima do logo no hover
-(usado nos logos da seção e nos do rodapé)*/
-.tecnologias-nome {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-bottom: 8px;
-    font-size: 12px;
-    line-height: 1.4;
-    white-space: nowrap;
-    color: #E6EDF3;
-    background-color: #0D1117;
-    border: 1px solid #30363D;
-    border-radius: 6px;
-    padding: 4px 8px;
-    pointer-events: none;
-    opacity: 0;
+/*logos das tecnologias sobem 16px enquanto aparecem*/
+@keyframes tecnologias-aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/*experiência*/
+/*Tecnologias no celular e no tablet: rótulo em cima e logos embaixo*/
+@media (max-width: 899px) {
+
+    .tecnologias-grupo {
+        display: block;
+    }
+
+    .tecnologias-rotulo {
+        margin-bottom: 16px;
+    }
+}
+
+/*Tecnologias com movimento*/
+@media (prefers-reduced-motion: no-preference) {
+
+    /*o bloco dos logos só aparece, sem subir, porque os logos dentro já sobem (senão o movimento soma)*/
+    .js #tecnologias:not(.visivel) > .tecnologias-grupos {
+        transform: none;
+    }
+
+    .js #tecnologias.visivel > .tecnologias-grupos {
+        animation-name: revelar-aparecer;
+    }
+
+    /*logos começam escondidos e mais baixos*/
+    .tecnologias-item {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    /*quando a seção aparece, cada logo sobe no seu tempo (o animation-delay vem do style de cada li)*/
+    #tecnologias.visivel .tecnologias-item {
+        animation-name: tecnologias-aparecer;
+        animation-duration: 400ms;
+        animation-timing-function: ease-out;
+        animation-fill-mode: forwards;
+    }
+}
+
+/*Tecnologias com mouse: moldura da caixa fica azul e o nome aparece acima do logo*/
+@media (hover: hover) {
+
+    .tecnologias-grupo {
+        transition: border-color 0.2s ease-out;
+    }
+
+    .tecnologias-grupo:hover {
+        border-right-color: #7CC4FF;
+        border-bottom-color: #7CC4FF;
+    }
+
+    .tecnologias-item:hover .tecnologias-nome {
+        opacity: 1;
+    }
+}
+
+/*Tecnologias com mouse e movimento: logo sobe 4px*/
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+
+    .tecnologias-icone {
+        transition: transform 0.2s ease-out;
+    }
+
+    .tecnologias-item:hover .tecnologias-icone {
+        transform: translateY(-4px);
+    }
+}
+
+/* ===== EXPERIÊNCIA ===== */
+
 /*linha embaixo de "Trajetória profissional."*/
 #experiencia h2 + p {
     border-bottom: 1px solid #30363D;
@@ -920,8 +1798,52 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
     margin-bottom: 6px;
 }
 
+/*Experiência no tablet e no celular: vira uma coluna, com os logos em cima*/
+@media (max-width: 899px) {
 
-/*formação*/
+    #experiencia article {
+        grid-template-columns: 1fr;
+        row-gap: 24px;
+    }
+
+    /*logos da bf e fruta, alinhados à esquerda com o texto*/
+    .experiencia-logos {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 16px 32px;
+    }
+}
+
+/*Experiência no celular*/
+@media (max-width: 599px) {
+
+    /*parágrafos justificados, com hifenização*/
+    .experiencia-texto p {
+        text-align: justify;
+        hyphens: auto;
+    }
+
+    /*logos no centro*/
+    .experiencia-logos {
+        justify-content: center;
+    }
+}
+
+/*Experiência com mouse e movimento: logos sobem 2px*/
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+
+    .experiencia-logos a {
+        transition: transform 0.2s ease-out;
+    }
+
+    .experiencia-logos a:hover {
+        transform: translateY(-2px);
+    }
+}
+
+/* ===== FORMAÇÃO ===== */
+
 /*graduação: logo do CESUPA ao lado do curso e da instituição*/
 #formacao article {
     display: flex;
@@ -939,7 +1861,7 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
     border-radius: 15%;
 }
 
-.graduacao-periodo {
+.formacao-periodo {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 12px;
     letter-spacing: 0.08em;
@@ -953,20 +1875,20 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
     margin: 4px 0;
 }
 
-.graduacao-instituicao {
+.formacao-instituicao {
     font-size: 15px;
     color: #8B96A5;
 }
 
 /*cursos em duas colunas (rótulo "CURSOS" à esquerda e lista à direita)*/
-.cursos {
+.formacao-cursos {
     display: grid;
     grid-template-columns: 140px 1fr;
     column-gap: 24px;
     padding-top: 24px;
 }
 
-.cursos-rotulo {
+.formacao-cursos-rotulo {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 12px;
     letter-spacing: 0.08em;
@@ -1007,15 +1929,41 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
     font-size: 14px;
 }
 
-/*contato*/
+/*Formação no tablet e no celular: o rótulo "CURSOS" sobe para cima da lista*/
+@media (max-width: 899px) {
+
+    .formacao-cursos {
+        grid-template-columns: 1fr;
+        row-gap: 8px;
+    }
+}
+
+/*Formação no celular: cada curso vira uma coluna*/
+@media (max-width: 599px) {
+
+    #formacao li {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    /*certificado desce para baixo do nome do curso, com 44px de altura para o toque*/
+    #formacao li a {
+        grid-column: 1;
+        grid-row: 3;
+        justify-self: start;
+        padding: 11px 0;
+        margin: -11px 0;
+    }
+}
+
+/* ===== CONTATO ===== */
+
 /*cartão de contato em duas colunas (texto à esquerda e lista à direita).
 Mesma moldura do cartão do Sobre mim (mais grossa embaixo e à direita), sem fundo*/
-
 .contato-cartao {
     display: grid;
     grid-template-columns: 1fr 1.4fr;
     column-gap: 48px;
-    background-color: transparent;
     border: 1px solid #30363D;
     border-right: 3px solid #1A3350;
     border-bottom: 3px solid #1A3350;
@@ -1124,23 +2072,9 @@ A margem de -12px em cima e embaixo devolve o espaço: a linha do e-mail não fi
     mask-image: url(../img/icones/ui-check.svg);
 }
 
-/*balãozinho "Copiar" acima do ícone, escondido (o leitor de tela usa o aria-label)*/
+/*balãozinho "Copiar" (o resto do visual está nas regras gerais): o botão não herda a fonte do site*/
 .contato-dica {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
     font-family: inter, system-ui, sans-serif;
-    font-size: 12px;
-    line-height: 1.4;
-    white-space: nowrap;
-    color: #E6EDF3;
-    background-color: #0D1117;
-    border: 1px solid #30363D;
-    border-radius: 6px;
-    padding: 4px 8px;
-    pointer-events: none;
-    opacity: 0;
 }
 
 /*balãozinho aparece no foco pelo teclado e quando a cópia falha ("Não copiou", mesmo sem hover)*/
@@ -1149,55 +2083,97 @@ A margem de -12px em cima e embaixo devolve o espaço: a linha do e-mail não fi
     opacity: 1;
 }
 
-/*rótulo "próxima seção" (montado pelo script.js): nome da seção em maiúsculas com uma linha fina embaixo.
-Escondido aqui; só aparece no computador em tela cheia, ver o fim do arquivo.
-O "Voltar ao topo" usa o mesmo estilo, mas está no index.html*/
-.proxima {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    width: fit-content;
-    font-family: inter, system-ui, sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #C9D1D9;
-    border-radius: 6px;
-    padding: 0 12px;
+/*check do botão de copiar cresce de 80% até o tamanho normal*/
+@keyframes contato-check-pulo {
+    from {
+        transform: scale(0.8);
+    }
+
+    to {
+        transform: scale(1);
+    }
 }
 
-/*linha vertical fina embaixo do nome, no centro*/
-.proxima::after {
-    content: "";
-    width: 2px;
-    height: 28px;
-    margin-top: 8px;
-    background-color: #C9D1D9;
+/*Contato no tablet e no celular: o cartão vira uma coluna*/
+@media (max-width: 899px) {
+
+    .contato-cartao {
+        grid-template-columns: 1fr;
+        row-gap: 32px;
+    }
+
+    /*links do contato com 44px de altura, sem mudar o espaço entre as linhas*/
+    #contato li a {
+        padding: 9px 0;
+        margin: -9px 0;
+    }
 }
 
-.proxima:focus-visible {
-    color: #7CC4FF;
+/*Contato no celular: rótulo em cima do link e cartão com menos respiro*/
+@media (max-width: 599px) {
+
+    #contato li {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .contato-cartao {
+        padding: 32px 24px;
+    }
 }
 
-/*"Voltar ao topo" (último rótulo): aparece em todas as larguras, no fim do contato, com a linha em cima do texto*/
-.proxima-topo {
-    display: flex;
-    margin: 32px auto 0;
+/*Contato na tela cheia: contato e rodapé formam a última tela, então o contato desconta os 63px de altura do rodapé*/
+@media (min-width: 1024px) and (min-height: 640px) {
+
+    #contato {
+        min-height: calc(100vh - 63px);
+        min-height: calc(100svh - 63px);
+    }
 }
 
-.proxima-topo::after {
-    content: none;
+/*Contato com movimento*/
+@media (prefers-reduced-motion: no-preference) {
+
+    /*check do e-mail copiado entra com um pulinho*/
+    .contato-copiar-ok .logo-rede {
+        animation: contato-check-pulo 150ms ease-out;
+    }
+
+    /*botão de copiar afunda no clique: 1px para baixo e 3% menor, em 80ms, e volta suave ao soltar*/
+    .contato-copiar {
+        transition: color 0.2s, transform 80ms ease-out;
+    }
+
+    .contato-copiar:active {
+        transform: translateY(1px) scale(0.97);
+        transition: transform 80ms ease-out;
+    }
 }
 
-.proxima-topo::before {
-    content: "";
-    width: 2px;
-    height: 28px;
-    margin-bottom: 8px;
-    background-color: #C9D1D9;
+/*Contato com mouse*/
+@media (hover: hover) {
+
+    /*botão copiar e-mail: ícone azul e balãozinho "Copiar"*/
+    .contato-copiar:hover {
+        color: #7CC4FF;
+    }
+
+    .contato-copiar:hover .contato-dica {
+        opacity: 1;
+    }
+
+    /*moldura de baixo e da direita do cartão fica azul*/
+    .contato-cartao {
+        transition: border-color 0.2s ease-out;
+    }
+
+    .contato-cartao:hover {
+        border-right-color: #7CC4FF;
+        border-bottom-color: #7CC4FF;
+    }
 }
+
+/* ===== RODAPÉ ===== */
 
 /*rodapé numa linha só: nome à esquerda e "Construído com" com os logos à direita*/
 .rodape {
@@ -1234,977 +2210,40 @@ O "Voltar ao topo" usa o mesmo estilo, mas está no index.html*/
     gap: 12px;
 }
 
-.rodape-pequeno img {
-    display: block;
+/*relative para o balãozinho do nome se posicionar em cima do logo*/
+.rodape-construido-item {
+    position: relative;
+}
+
+.rodape-construido-item img {
     width: 20px;
     height: 20px;
 }
 
-/*                    animações               */
-/*conteúdo das seções começa invisível (só com JavaScript ligado). A seção fica parada para o menu acertar a parada*/
-.js .revelar:not(.visivel) > * {
-    opacity: 0;
-}
-
-/*conteúdo aparece quando o JavaScript coloca a classe visivel na seção.
-É animação, e não transição, para não brigar com o hover dos cartões depois de terminar*/
-.js .revelar.visivel > * {
-    animation: revelar-aparecer 0.5s ease-out;
-}
-
-@keyframes revelar-aparecer {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-/*partículas sobem uma tela inteira; no fim, a cópia de baixo está onde a de cima começou*/
-@keyframes fundo-subir {
-    from {
-        transform: translateY(0);
-    }
-
-    to {
-        transform: translateY(-100vh);
-    }
-}
-
-/*golpe do machado (a cada 3s, pelo cicloTopo do script.js): puxa para trás, golpeia aos 55% (330ms), quica e volta*/
-@keyframes marca-golpe {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    30% {
-        transform: rotate(-45deg);
-    }
-
-    55% {
-        transform: rotate(22deg);
-    }
-
-    70% {
-        transform: rotate(-6deg);
-    }
-
-    100% {
-        transform: rotate(0deg);
-    }
-}
-
-/*tremida do sobrenome no impacto do golpe*/
-@keyframes marca-tremida {
-    0%,
-    100% {
-        transform: translateX(0);
-    }
-
-    20% {
-        transform: translateX(-3px);
-    }
-
-    40% {
-        transform: translateX(3px);
-    }
-
-    60% {
-        transform: translateX(-2px);
-    }
-
-    80% {
-        transform: translateX(2px);
-    }
-}
-
-/*tarja da palavra cresce até cobrir a caixa inteira*/
-@keyframes inicio-tarja-cobrir {
-    from {
-        transform: scaleX(0);
-    }
-
-    to {
-        transform: scaleX(1);
-    }
-}
-
-/*tarja encolhe até sumir*/
-@keyframes inicio-tarja-descobrir {
-    from {
-        transform: scaleX(1);
-    }
-
-    to {
-        transform: scaleX(0);
-    }
-}
-
-/*check do botão de copiar cresce de 80% até o tamanho normal*/
-@keyframes contato-check-pulo {
-    from {
-        transform: scale(0.8);
-    }
-
-    to {
-        transform: scale(1);
-    }
-}
-
-/*linha do rótulo da próxima seção cresce até o tamanho todo e volta*/
-@keyframes proxima-linha {
-    0%,
-    100% {
-        transform: scaleY(0.4);
-    }
-
-    50% {
-        transform: scaleY(1);
-    }
-}
-
-/*linha do enfeite do cabeçalho se desenha (de largura 0 até a largura toda)*/
-@keyframes cabecalho-linha-desenhar {
-    from {
-        transform: scaleX(0);
-    }
-
-    to {
-        transform: scaleX(1);
-    }
-}
-
-/*tracinho do enfeite cresce de baixo para cima*/
-@keyframes cabecalho-tracinho-crescer {
-    from {
-        transform: scaleY(0);
-    }
-
-    to {
-        transform: scaleY(1);
-    }
-}
-
-/*logos das tecnologias sobem 16px enquanto aparecem*/
-@keyframes tecnologias-aparecer {
-    from {
-        opacity: 0;
-        transform: translateY(16px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/*mesma animação subindo 24px (usada só no bloco de movimento)*/
-@keyframes revelar-subir {
-    from {
-        opacity: 0;
-        transform: translateY(24px);
-    }
-
-    to {
-        opacity: 1;
-        transform: none;
-    }
-}
-
-/*  TABLET: de 899px para baixo       */
-
+/*rodapé no tablet e no celular: 32px dos lados (no celular, o bloco de baixo troca para 20px)*/
 @media (max-width: 899px) {
-
-    /*respiro vertical menor nas seções*/
-    main > section {
-        padding: 48px 32px;
-    }
-
-    #inicio {
-        padding-top: 96px;
-        padding-bottom: 96px;
-    }
-
-    #inicio h1 {
-        font-size: 44px;
-    }
-
-    /*32px do título até o primeiro bloco (nos projetos, o espaço vem da linha dos contadores)*/
-    #sobre h2 + p {
-        margin-bottom: 32px;
-    }
-
-    .projetos-contadores {
-        margin-bottom: 32px;
-    }
-
-    /*caixas das tecnologias: rótulo em cima e logos embaixo*/
-    .tecnologias-grupo {
-        display: block;
-    }
-
-    .tecnologias-rotulo {
-        margin-bottom: 16px;
-    }
-
-    /*experiência, formação e contato viram uma coluna*/
-    #experiencia article {
-        grid-template-columns: 1fr;
-        row-gap: 24px;
-    }
-
-    /*logos da bf e fruta, alinhados à esquerda com o texto*/
-    .experiencia-logos {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 16px 32px;
-    }
-
-    .cursos {
-        grid-template-columns: 1fr;
-        row-gap: 8px;
-    }
-
-    .contato-cartao {
-        grid-template-columns: 1fr;
-        row-gap: 32px;
-    }
-
-    /*links do contato com 44px de altura, sem mudar o espaço entre as linhas*/
-    #contato li a {
-        padding: 9px 0;
-        margin: -9px 0;
-    }
 
     .rodape {
         padding: 20px 32px;
     }
 }
 
-
-
-
-
-/*  CELULAR: de 599px para baixo       */
-
+/*rodapé no celular: empilhado e centralizado, 12px entre as duas partes*/
 @media (max-width: 599px) {
 
-    main > section {
-        padding: 32px 20px;
-    }
-
-    #inicio {
-        padding-top: 50px;
-        padding-bottom: 50px;
-    }
-
-    #inicio h1 {
-        font-size: 34px;
-        
-    }
-
-    .inicio-cargo {
-        font-size: 14px;
-    }
-
-    /*a lista parada (sem JavaScript) quebra em duas linhas; a palavra que rola continua com 36px pelo line-height*/
-    .inicio-tecnologias {
-        height: auto;
-    }
-
-    /*parágrafos do sobre mim e da experiência justificados, com hifenização*/
-    #sobre > div p,
-    .experiencia-texto p {
-        text-align: justify;
-        hyphens: auto;
-    }
-
-    /*logos da experiência no centro*/
-    .experiencia-logos {
-        justify-content: center;
-    }
-
-    /*listas pequenas viram uma coluna*/
-    #formacao li {
-        grid-template-columns: 1fr;
-        gap: 4px;
-    }
-
-    /*certificado desce para baixo do nome do curso, com 44px de altura para o toque*/
-    #formacao li a {
-        grid-column: 1;
-        grid-row: 3;
-        justify-self: start;
-        padding: 11px 0;
-        margin: -11px 0;
-    }
-
-    #contato li {
-        grid-template-columns: 1fr;
-        gap: 4px;
-    }
-
-    .contato-cartao {
-        padding: 32px 24px;
-    }
-
-    /*rodapé empilhado e centralizado, 12px entre as duas partes*/
     .rodape {
         flex-direction: column;
         align-items: center;
         text-align: center;
         gap: 12px;
-        padding: 20px 20px;
+        padding: 20px;
     }
 }
 
-/*  CELULAR E TABLET: de 1023px para baixo não existe cabeçalho nem menu  */
-
-@media (max-width: 1023px) {
-
-    /*sem menu nessas larguras: a navegação é pela rolagem (a barra de progresso e o "Pular para o conteúdo" continuam)*/
-    .cabecalho {
-        display: none;
-    }
-
-    /*botões do início sempre em duas linhas: os 3 ícones em cima e o Baixar currículo embaixo.
-    O ::after é uma peça invisível de largura toda entre os dois (order 1): ele quebra a linha depois dos ícones.
-    Ele forma uma linha de altura 0, então o row-gap vira 0 e o espaço de 12px fica na margem do botão*/
-    .inicio-botoes {
-        row-gap: 0;
-    }
-
-    .inicio-botoes::after {
-        content: "";
-        flex-basis: 100%;
-        order: 1;
-    }
-
-    .inicio-botoes .botao {
-        order: 2;
-        margin-top: 12px;
-    }
-
-    /*rótulo, título e contadores dos projetos no centro*/
-    #projetos h2,
-    #projetos h2 + p,
-    .projetos-contadores {
-        text-align: center;
-    }
-
-    /*projetos um embaixo do outro: uma coluna de até 560px no centro, 64px entre um projeto e o seguinte*/
-    .feed {
-        grid-template-columns: minmax(0, 560px);
-        justify-content: center;
-        gap: 64px;
-    }
-
-    /*texto de cada cartão no centro (a imagem continua na largura toda do cartão)*/
-    .projeto-titulo,
-    .projeto-origem,
-    .projeto-descricao {
-        text-align: center;
-    }
-
-    .projeto-tags {
-        justify-content: center;
-    }
-}
-
-/*  DE 900px PARA CIMA: sobre mim em duas colunas, como a Experiência  */
-
-@media (min-width: 900px) {
-
-    /*título em cima e, embaixo, cartão (280px) à esquerda e parágrafos à direita, 48px entre eles.
-    O align-content centraliza o bloco na vertical quando a seção ocupa a tela cheia*/
-    #sobre {
-        display: grid;
-        grid-template-columns: 280px 1fr;
-        column-gap: 48px;
-        align-content: center;
-    }
-
-    /*rótulo e título na largura toda*/
-    #sobre h2,
-    #sobre h2 + p {
-        grid-column: 1 / 3;
-    }
-
-    /*cartão vertical: foto em cima, Local e Formação embaixo, tudo no centro.
-    Estica até a altura dos parágrafos (stretch da grade) e o conteúdo fica no meio dele*/
-    .sobre-cartao {
-        flex-direction: column;
-        justify-content: center;
-        gap: 24px;
-        width: auto;
-        max-width: none;
-        margin-bottom: 0;
-        text-align: center;
-    }
-
-    .sobre-foto {
-        width: 112px;
-        height: 112px;
-    }
-
-    /*textos do cartão vertical maiores e 22px entre Local e Formação
-    (no celular continuam menores: com 17px "Engenharia da Computação" quebra em 393px e 375px)*/
-    .sobre-cartao dl {
-        gap: 22px;
-    }
-
-    #sobre dt {
-        font-size: 12px;
-    }
-
-    #sobre dd {
-        font-size: 17px;
-    }
-}
-
-/*  COMPUTADOR GRANDE: de 1024px para cima o cabeçalho esconde no topo da página  */
-
-@media (min-width: 1024px) {
-
-    /*começa escondido acima da tela (só com JavaScript, pela classe .js no html).
-    Continua no lugar e focável: o Tab ainda chega nos links*/
-    .js .cabecalho {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-
-    /*desce quando a pessoa rola a página ou quando um link do menu recebe foco*/
-    .js .cabecalho.cabecalho-visivel {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    /*cabeçalho aberto mede 61,4px (23px em cima, linha de 22,4px dos links, 16px embaixo)*/
-    html {
-        scroll-padding-top: 62px;
-    }
-
-    /*menu flutuando sobre o conteúdo (o cabeçalho não tem fundo); 23px em cima para caber o enfeite
-    e deixar 12px entre a linha e o topo das letras*/
-    .cabecalho {
-        padding-top: 23px;
-    }
-
-    /*sombra escura em volta das letras, para lerem bem por cima de caixas e imagens
-    (quatro camadas: as menores deixam o contorno mais escuro, as maiores espalham)*/
-    .menu a {
-        text-shadow: 0 0 2px #0D1117, 0 0 4px #0D1117, 0 0 8px #0D1117, 0 0 16px #0D1117;
-    }
-
-    /*enfeite em forma de ⊥: linha horizontal de 120px a 14px do topo...*/
-    .cabecalho::before {
-        content: "";
-        position: absolute;
-        top: 14px;
-        left: 0;
-        right: 0;
-        width: 120px;
-        height: 2px;
-        margin: 0 auto;
-        background-color: #C9D1D9;
-        transform-origin: center;
-    }
-
-    /*...e tracinho de 5px saindo do meio dela para cima (de 9px a 14px do topo,
-    6px abaixo da barra de progresso, que vai de 0 a 3px)*/
-    .cabecalho::after {
-        content: "";
-        position: absolute;
-        top: 9px;
-        left: 0;
-        right: 0;
-        width: 2px;
-        height: 5px;
-        margin: 0 auto;
-        background-color: #C9D1D9;
-        transform-origin: bottom;
-    }
-
-    /*48px entre a linha dos contadores e a grade de projetos*/
-    .projetos-contadores {
-        margin-bottom: 48px;
-    }
-}
-
-/*  COMPUTADOR LARGO: de 1280px para cima os projetos usam uma coluna de até 1200px  */
-
-@media (min-width: 1280px) {
-
-    /*só a seção Projetos fica mais larga (as outras continuam com até 1040px):
-    o que passar de 1200px vira padding, metade de cada lado*/
-    #projetos {
-        padding-left: max(32px, calc((100% - 1200px) / 2));
-        padding-right: max(32px, calc((100% - 1200px) / 2));
-    }
-
-    /*40px entre os cartões, nas duas direções*/
-    .feed {
-        gap: 40px;
-    }
-}
-
-/*  TELA CHEIA: computador com janela de pelo menos 640px de altura, uma seção por tela  */
-
-@media (min-width: 1024px) and (min-height: 640px) {
-
-    /*sem scroll-padding: cada seção já tem o próprio espaço em cima.
-    Sem scroll-snap: a roda já vai de seção em seção pelo script.js, e o encaixe puxava de volta a rolagem dentro da Formação*/
-    html {
-        scroll-padding-top: 0;
-    }
-
-    /*cabeçalho fixo: não ocupa espaço no alto da página, então a primeira tela começa colada no topo*/
-    .cabecalho {
-        position: fixed;
-        left: 0;
-        right: 0;
-    }
-
-    /*cada seção ocupa no mínimo uma tela, com o conteúdo centralizado na vertical.
-    62px em cima (altura do cabeçalho aberto) e 80px embaixo (espaço do link da próxima seção).
-    100svh logo depois de 100vh: quem entende svh usa ele, quem não entende fica com o vh.
-    Se o conteúdo for mais alto que a tela, a seção cresce e nada é cortado*/
-    main > section {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        min-height: 100vh;
-        min-height: 100svh;
-        padding-top: 62px;
-        padding-bottom: 80px;
-    }
-
-    #inicio {
-        padding-top: 62px;
-        padding-bottom: 80px;
-    }
-
-    /*parágrafos do sobre mim com até 80ch (com o cartão ao lado, a coluna deles já é mais estreita que isso)*/
-    #sobre > div p {
-        max-width: 80ch;
-    }
-
-    /*contato e rodapé formam a última tela: o contato desconta os 63px de altura do rodapé*/
-    #contato {
-        min-height: calc(100vh - 63px);
-        min-height: calc(100svh - 63px);
-    }
-
-    /*foco pelo teclado nunca fica atrás do cabeçalho*/
-    main a,
-    main button {
-        scroll-margin-top: 80px;
-    }
-
-    /*rótulo da próxima seção no pé de cada seção, centralizado (margin auto com left e right 0).
-    Mede 55px (texto de 19px, 8px e a linha de 28px): cabe nos 80px de baixo da seção*/
-    .proxima {
-        position: absolute;
-        bottom: 24px;
-        left: 0;
-        right: 0;
-        display: flex;
-        margin: 0 auto;
-    }
-}
-
-/*  MOVIMENTO: só para quem não pediu menos movimento  */
-
-@media (prefers-reduced-motion: no-preference) {
-
-    /*links do menu e rolagem por seção deslizam até a seção (com movimento reduzido, vão direto)*/
-    html {
-        scroll-behavior: smooth;
-    }
-
-    /*conteúdo das seções sobe um pouco enquanto aparece*/
-    .js .revelar:not(.visivel) > * {
-        transform: translateY(24px);
-    }
-
-    .js .revelar.visivel > * {
-        animation-name: revelar-subir;
-    }
-
-    /*nas tecnologias o bloco dos logos só aparece, sem subir, porque os logos dentro já sobem (senão o movimento soma)*/
-    .js #tecnologias:not(.visivel) > .tecnologias-grupos {
-        transform: none;
-    }
-
-    .js #tecnologias.visivel > .tecnologias-grupos {
-        animation-name: revelar-aparecer;
-    }
-
-    /*logos começam escondidos e mais baixos*/
-    .tecnologias-item {
-        opacity: 0;
-        transform: translateY(16px);
-    }
-
-    /*quando a seção aparece, cada logo sobe no seu tempo (o animation-delay vem do style de cada li)*/
-    #tecnologias.visivel .tecnologias-item {
-        animation-name: tecnologias-aparecer;
-        animation-duration: 400ms;
-        animation-timing-function: ease-out;
-        animation-fill-mode: forwards;
-    }
-
-    /*partículas do fundo sobem sem parar, cada camada numa velocidade*/
-    .fundo-camada-1 {
-        animation: fundo-subir 60s linear infinite;
-    }
-
-    .fundo-camada-2 {
-        animation: fundo-subir 90s linear infinite;
-    }
-
-    .fundo-camada-3 {
-        animation: fundo-subir 120s linear infinite;
-    }
-
-    /*sublinhado do menu cresce da esquerda para a direita*/
-    .menu a::after {
-        transition: transform 0.2s ease-out;
-    }
-
-    /*linha dos rótulos da próxima seção pulsa, crescendo a partir do texto:
-    de cima para baixo e, no "Voltar ao topo", de baixo para cima*/
-    .proxima::after {
-        transform-origin: top;
-        animation: proxima-linha 2s ease-in-out infinite;
-    }
-
-    .proxima-topo::before {
-        transform-origin: bottom;
-        animation: proxima-linha 2s ease-in-out infinite;
-    }
-
-    /*check do e-mail copiado entra com um pulinho*/
-    .contato-copiar-ok .logo-rede {
-        animation: contato-check-pulo 150ms ease-out;
-    }
-
-    /*botões dos projetos aparecem e somem suave*/
-    .projeto-acoes,
-    .projeto-acao-rotulo {
-        transition: opacity 0.2s ease-out;
-    }
-
-    /*cabeçalho desce e aparece suave (só muda de estado de 1024px para cima)*/
-    .cabecalho {
-        transition: transform 300ms ease-out, opacity 300ms ease-out;
-    }
-
-    /*quando o cabeçalho aparece, a linha se desenha do centro para os lados e depois o tracinho cresce para cima.
-    O backwards deixa os dois encolhidos durante o atraso (os enfeites só existem de 1024px para cima)*/
-    .js .cabecalho.cabecalho-visivel::before {
-        animation: cabecalho-linha-desenhar 300ms ease-out 150ms backwards;
-    }
-
-    .js .cabecalho.cabecalho-visivel::after {
-        animation: cabecalho-tracinho-crescer 150ms ease-out 400ms backwards;
-    }
-
-    /*Baixar currículo: borda, fundo e a subida do hover mudam suave*/
-    .botao {
-        transition: border-color 0.2s ease-out, background-color 0.2s ease-out, transform 0.2s ease-out;
-    }
-
-    /*botões sem transform no hover: voltam suave depois de afundar no clique (ver o bloco BOTÕES PRESSIONADOS)*/
-    .contato-copiar {
-        transition: color 0.2s, transform 80ms ease-out;
-    }
-
-    .projeto-acao,
-    .pular-conteudo {
-        transition: transform 80ms ease-out;
-    }
-
-    /*botões de ícone sobem 2px no hover e no foco; o ícone e o balãozinho mudam suave*/
-    .inicio-icone {
-        transition: border-color 0.2s ease-out, transform 0.2s ease-out;
-    }
-
-    .inicio-icone .logo-rede {
-        transition: color 0.2s ease-out;
-    }
-
-    .inicio-icone-rotulo {
-        transition: opacity 0.2s ease-out;
-    }
-
-    .inicio-icone:focus-visible,
-    .botao:focus-visible {
-        transform: translateY(-2px);
-    }
-
-    /*machado gira pelo cabo (canto de baixo à esquerda)*/
-    .inicio-sobrenome .logo-machado {
-        transform-origin: left bottom;
-    }
-
-    /*golpe do machado e tremida do sobrenome: classes colocadas e tiradas pelo cicloTopo do script.js*/
-    .inicio-sobrenome .logo-machado.golpeando {
-        animation: marca-golpe 600ms ease-in-out;
-    }
-
-    .inicio-sobrenome.tremendo {
-        animation: marca-tremida 300ms;
-    }
-
-    /*cor do sobrenome muda suave no hover*/
-    .inicio-sobrenome {
-        transition: color 0.2s ease-out;
-    }
-
-    /*tarja azul sobre a palavra, começa encolhida na esquerda*/
-    .inicio-palavra-caixa::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-color: #7CC4FF;
-        transform: scaleX(0);
-        transform-origin: left center;
-    }
-
-    /*cobrindo: cresce da esquerda para a direita (classe colocada pelo script.js)*/
-    .inicio-palavra-caixa.cobrindo::after {
-        animation: inicio-tarja-cobrir 300ms ease-in forwards;
-    }
-
-    /*descobrindo: encolhe em direção à direita, revelando a palavra nova*/
-    .inicio-palavra-caixa.descobrindo::after {
-        transform-origin: right center;
-        animation: inicio-tarja-descobrir 300ms ease-out forwards;
-    }
-}
-
-/*  MOUSE: hover dos cartões só em aparelhos com mouse  */
-
+/*rodapé com mouse: nome da tecnologia aparece acima do logo*/
 @media (hover: hover) {
 
-    /*link da próxima seção fica azul*/
-    .proxima:hover {
-        color: #7CC4FF;
-    }
-
-    /*botão copiar e-mail: ícone azul e balãozinho "Copiar"*/
-    .contato-copiar:hover {
-        color: #7CC4FF;
-    }
-
-    .contato-copiar:hover .contato-dica {
+    .rodape-construido-item:hover .tecnologias-nome {
         opacity: 1;
     }
-
-    /*projetos: mouse no cartão ou foco dentro dele mostra os botões sobre a imagem (e eles passam a receber clique)*/
-    .projeto:hover .projeto-acoes,
-    .projeto:focus-within .projeto-acoes {
-        opacity: 1;
-    }
-
-    .projeto:hover .projeto-acao,
-    .projeto:focus-within .projeto-acao {
-        pointer-events: auto;
-    }
-
-    /*botão com o mouse em cima: borda e ícone azuis*/
-    .projeto-acao:hover {
-        border-color: #7CC4FF;
-    }
-
-    .projeto-acao:hover .logo-rede {
-        color: #7CC4FF;
-    }
-
-    /*balãozinho "Ver site" / "Ver código" no hover ou no foco do botão*/
-    .projeto-acao:hover .projeto-acao-rotulo,
-    .projeto-acao:focus-visible .projeto-acao-rotulo {
-        opacity: 1;
-    }
-
-    /*cartão com página: título azul no hover (sem página o título não tem link)*/
-    .projeto:hover .projeto-link {
-        color: #7CC4FF;
-    }
-
-    /*botões de ícone do topo: borda e ícone azuis, balãozinho aparece*/
-    .inicio-icone:hover {
-        border-color: #7CC4FF;
-    }
-
-    .inicio-icone:hover .logo-rede {
-        color: #7CC4FF;
-    }
-
-    .inicio-icone:hover .inicio-icone-rotulo {
-        opacity: 1;
-    }
-
-    /*Baixar currículo: fundo clareia, borda continua azul (o ícone acompanha a cor do texto)*/
-    .botao:hover {
-        color: #0D1117;
-        background-color: #A5D6FF;
-        border-color: #7CC4FF;
-    }
-
-    /*mouse no sobrenome: fica branco (o ícone acompanha pelo currentColor)*/
-    .inicio-sobrenome:hover {
-        color: #E6EDF3;
-    }
-
-    /*caixas das tecnologias, cartão do sobre mim e cartão do contato: moldura de baixo e da direita fica azul*/
-    .tecnologias-grupo,
-    .sobre-cartao,
-    .contato-cartao {
-        transition: border-color 0.2s ease-out;
-    }
-
-    .tecnologias-grupo:hover,
-    .sobre-cartao:hover,
-    .contato-cartao:hover {
-        border-right-color: #7CC4FF;
-        border-bottom-color: #7CC4FF;
-    }
-
-    /*nome da tecnologia aparece acima do logo (na seção e no rodapé)*/
-    .tecnologias-item:hover .tecnologias-nome,
-    .rodape-pequeno:hover .tecnologias-nome {
-        opacity: 1;
-    }
-}
-
-/*  SEM MOUSE (toque): nada fica escondido esperando hover  */
-
-@media (hover: none) {
-
-    /*botões dos projetos sempre visíveis, no canto de baixo à direita da imagem, sem escurecer a imagem*/
-    .projeto-acoes {
-        justify-content: flex-end;
-        align-items: flex-end;
-        gap: 8px;
-        padding: 12px;
-        background-color: transparent;
-        opacity: 1;
-    }
-
-    /*botões menores e clicáveis; sem balãozinho (o aria-label já diz o que cada um faz)*/
-    .projeto-acao {
-        width: 40px;
-        height: 40px;
-        pointer-events: auto;
-    }
-
-    .projeto-acao-rotulo {
-        display: none;
-    }
-}
-
-/*  MOUSE E MOVIMENTO: só com mouse e para quem não pediu menos movimento  */
-
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-
-    /*logos da experiência sobem 2px*/
-    .experiencia-logos a {
-        transition: transform 0.2s ease-out;
-    }
-
-    .experiencia-logos a:hover {
-        transform: translateY(-2px);
-    }
-
-    /*botões de ícone do topo e o Baixar currículo sobem 2px*/
-    .inicio-icone:hover,
-    .botao:hover {
-        transform: translateY(-2px);
-    }
-
-    /*logo das tecnologias sobe 4px*/
-    .tecnologias-icone {
-        transition: transform 0.2s ease-out;
-    }
-
-    .tecnologias-item:hover .tecnologias-icone {
-        transform: translateY(-4px);
-    }
-}
-
-/*  BOTÕES PRESSIONADOS: só para quem não pediu menos movimento.
-Fica depois do bloco do mouse: com a mesma especificidade, o :active vence o translateY do hover  */
-
-@media (prefers-reduced-motion: no-preference) {
-
-    /*botões afundam no clique: 1px para baixo e 3% menores, em 80ms
-    (ao soltar, voltam com a transição normal de cada botão)*/
-    .botao:active,
-    .inicio-icone:active,
-    .contato-copiar:active,
-    .projeto-acao:active,
-    .pular-conteudo:active,
-    .filtro:active {
-        transform: translateY(1px) scale(0.97);
-        transition: transform 80ms ease-out;
-    }
-}
-
-/*  Filtro de projetos: desativado até ter uns 6 projetos. O JavaScript está em js/filtro-projetos.js  */
-
-/*filtros por tecnologia: escondidos sem JavaScript*/
-.filtros,
-.filtro-resultado {
-    display: none;
-}
-
-/*botões do filtro lado a lado, quebrando linha quando não cabem*/
-.js .filtros {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-/*botão do filtro (mesmo visual do botão fantasma, com 44px de altura para o toque)*/
-.filtro {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    font-family: inter, system-ui, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: #7CC4FF;
-    background-color: transparent;
-    border: none;
-    border-radius: 6px;
-    padding: 6px 12px;
-    cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
-}
-
-/*hover do botão do filtro*/
-.filtro:hover {
-    background-color: #132235;
-    color: #A5D6FF;
-}
-
-/*filtro ativo com a cor de destaque*/
-.filtro.ativo {
-    background-color: #7CC4FF;
-    color: #0D1117;
-}
-
-/*texto "Mostrando X de Y projetos"*/
-.js .filtro-resultado {
-    display: block;
-    font-size: 14px;
-    color: #8B96A5;
-    margin: 12px 0 24px 0;
 }
