@@ -43,7 +43,7 @@ function copiarEmail() {
     //sem a área de transferência (por exemplo, site aberto sem https) já é falha
     if (navigator.clipboard) {
         //writeText devolve uma promessa: a primeira function roda se copiou, a segunda se deu erro
-        navigator.clipboard.writeText('marcoantoniomachado1010@gmail.com').then(function () {
+        navigator.clipboard.writeText('marcoamachado.dev@gmail.com').then(function () {
             mostrarResultadoCopia(true);
         }, function () {
             mostrarResultadoCopia(false);
