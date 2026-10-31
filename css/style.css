@@ -1280,6 +1280,18 @@ Mesma moldura das caixas de Tecnologias (mais grossa embaixo e à direita), sem 
     }
 }
 
+/*Sobre mim com mouse e movimento: cartão sobe 4px*/
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+
+    .sobre-cartao {
+        transition: border-color 0.2s ease-out, transform 0.2s ease-out;
+    }
+
+    .sobre-cartao:hover {
+        transform: translateY(-4px);
+    }
+}
+
 /* ===== PROJETOS ===== */
 
 /*a linha dos contadores fica colada no título; o espaço até os cartões vem dela*/
@@ -1570,6 +1582,29 @@ pointer-events none no bloco: o clique na parte escura passa para o cartão; só
     .projeto:hover .projeto-link {
         color: #7CC4FF;
     }
+
+    /*mouse no cartão: borda da imagem fica azul*/
+    .projeto-imagem,
+    .projeto-sem-imagem {
+        transition: border-color 0.2s ease-out;
+    }
+
+    .projeto:hover .projeto-imagem,
+    .projeto:hover .projeto-sem-imagem {
+        border-color: #7CC4FF;
+    }
+}
+
+/*Projetos com mouse e movimento: cartão sobe 4px*/
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+
+    .projeto {
+        transition: transform 0.2s ease-out;
+    }
+
+    .projeto:hover {
+        transform: translateY(-4px);
+    }
 }
 
 /*Projetos sem mouse (toque): nada fica escondido esperando hover*/
@@ -1727,8 +1762,16 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
     }
 }
 
-/*Tecnologias com mouse e movimento: logo sobe 4px*/
+/*Tecnologias com mouse e movimento: caixa e logo sobem 4px*/
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+
+    .tecnologias-grupo {
+        transition: border-color 0.2s ease-out, transform 0.2s ease-out;
+    }
+
+    .tecnologias-grupo:hover {
+        transform: translateY(-4px);
+    }
 
     .tecnologias-icone {
         transition: transform 0.2s ease-out;
@@ -2170,6 +2213,18 @@ A margem de -12px em cima e embaixo devolve o espaço: a linha do e-mail não fi
     .contato-cartao:hover {
         border-right-color: #7CC4FF;
         border-bottom-color: #7CC4FF;
+    }
+}
+
+/*Contato com mouse e movimento: cartão sobe 4px*/
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+
+    .contato-cartao {
+        transition: border-color 0.2s ease-out, transform 0.2s ease-out;
+    }
+
+    .contato-cartao:hover {
+        transform: translateY(-4px);
     }
 }
 
