@@ -71,7 +71,7 @@ const projetos = [
         origem: 'TCC · 2026',
         status: 'Em desenvolvimento',
         descricao: 'Lixeira IoT, do Amazon Hacking ao TCC.',
-        tecnologias: ['ESP32', 'C++', 'React', 'JavaScript', 'Firebase'],
+        tecnologias: ['ESP32', 'C++', 'React', 'Firebase'],
         imagemDesktop: 'img/projeto-teko-lixeira.png',
         imagemMobile: 'img/projeto-teko-lixeira.png',
         alt: 'Dashboard do Teko Lixeira mostrando o peso de lixo coletado no mês e o status da lixeira',
