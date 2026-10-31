@@ -281,11 +281,12 @@ main h2 + p {
     margin-bottom: 40px;
 }
 
-/*balãozinho com o nome, escondido acima do botão ou do logo (Início, Projetos, Tecnologias, Contato e rodapé).
+/*balãozinho com o nome, escondido acima do botão ou do logo (Início, Projetos, Tecnologias, Experiência, Contato e rodapé).
 O leitor de tela usa o texto oculto ou o aria-label de cada botão*/
 .inicio-icone-rotulo,
 .projeto-acao-rotulo,
 .tecnologias-nome,
+.experiencia-logo-rotulo,
 .contato-dica {
     position: absolute;
     bottom: 100%;
@@ -306,7 +307,8 @@ O leitor de tela usa o texto oculto ou o aria-label de cada botão*/
 /*8px entre o balãozinho e o botão (no Contato ele fica colado, porque o botão de copiar já é maior que o ícone)*/
 .inicio-icone-rotulo,
 .projeto-acao-rotulo,
-.tecnologias-nome {
+.tecnologias-nome,
+.experiencia-logo-rotulo {
     margin-bottom: 8px;
 }
 
@@ -1807,6 +1809,20 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
     gap: 40px;
 }
 
+/*relative para o balãozinho do LinkedIn se posicionar em cima da logo; z-index 5 deixa ele acima do que estiver perto*/
+.experiencia-logos a {
+    position: relative;
+}
+
+.experiencia-logo-rotulo {
+    z-index: 5;
+}
+
+/*balãozinho aparece no foco pelo teclado*/
+.experiencia-logos a:focus-visible .experiencia-logo-rotulo {
+    opacity: 1;
+}
+
 #experiencia img {
     width: auto;
     height: auto;
@@ -1870,6 +1886,22 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
     /*logos no centro*/
     .experiencia-logos {
         justify-content: center;
+    }
+}
+
+/*Experiência com mouse: balãozinho do LinkedIn aparece no hover da logo*/
+@media (hover: hover) {
+
+    .experiencia-logos a:hover .experiencia-logo-rotulo {
+        opacity: 1;
+    }
+}
+
+/*Experiência com movimento: balãozinho aparece e some suave*/
+@media (prefers-reduced-motion: no-preference) {
+
+    .experiencia-logo-rotulo {
+        transition: opacity 0.2s ease-out;
     }
 }
 
