@@ -261,7 +261,8 @@ const gruposTecnologias = [
         titulo: 'Backend',
         itens: [
             { nome: 'Firebase', arquivo: 'img/icones/tec-firebase.svg' },
-            { nome: 'ESP32', arquivo: 'img/icones/tec-esp32.svg' }
+            { nome: 'Python', arquivo: 'img/icones/tec-python.svg' },
+            { nome: 'C++', arquivo: 'img/icones/tec-cplusplus.svg' }
         ]
     },
     {
@@ -270,8 +271,7 @@ const gruposTecnologias = [
             { nome: 'Git', arquivo: 'img/icones/tec-git.svg' },
             { nome: 'GitHub', arquivo: 'img/icones/tec-github.svg' },
             { nome: 'VS Code', arquivo: 'img/icones/tec-vscode.svg' },
-            { nome: 'Python', arquivo: 'img/icones/tec-python.svg' },
-            { nome: 'C++', arquivo: 'img/icones/tec-cplusplus.svg' }
+            { nome: 'ESP32', arquivo: 'img/icones/tec-esp32.svg' }
         ]
     }
 ];
