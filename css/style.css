@@ -214,16 +214,6 @@ main h2 + p {
 }
 
 
-/*etiquetas azuis sem borda (competências da experiência)*/
-.etiquetas li {
-    font-family: jetbrains, ui-monospace, monospace;
-    font-size: 12px;
-    color: #7CC4FF;
-    background-color: #132235;
-    border-radius: 6px;
-    padding: 4px 10px;
-}
-
 /*botão azul cheio (baixar currículo do topo)*/
 .botao {
     display: inline-block;
@@ -544,9 +534,12 @@ minmax(0, 1fr): as três colunas ficam sempre com a mesma largura, mesmo com um 
     gap: 24px;
 }
 
-/*cartão de projeto: sem caixa nem fundo; relative para o link do título poder cobrir o cartão*/
+/*cartão de projeto: sem caixa nem fundo; relative para o link do título poder cobrir o cartão.
+Coluna flex: as pílulas descem para a base e ficam alinhadas entre os cartões da mesma linha*/
 .projeto {
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 /*caixa da imagem: os botões de Ver site e Ver código ficam por cima dela*/
@@ -564,6 +557,12 @@ minmax(0, 1fr): as três colunas ficam sempre com a mesma largura, mesmo com um 
     object-fit: cover;
     border: 1px solid #30363D;
     border-radius: 12px;
+}
+
+/*moldura da imagem: sombra embaixo e um pouco mais escura*/
+.projeto-imagem {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    filter: brightness(0.92);
 }
 
 /*projeto sem imagem: fundo escuro com o nome no centro*/
@@ -613,18 +612,20 @@ minmax(0, 1fr): as três colunas ficam sempre com a mesma largura, mesmo com um 
     margin-top: 4px;
 }
 
+/*os 16px até as pílulas ficam aqui: o margin-top delas é auto*/
 .projeto-descricao {
     font-size: 14px;
     color: #C9D1D9;
     margin-top: 8px;
+    margin-bottom: 16px;
 }
 
-/*pílulas das tecnologias, com contorno azul*/
+/*pílulas das tecnologias, com contorno azul, empurradas para a base do cartão*/
 .projeto-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: 16px;
+    margin-top: auto;
 }
 
 .projeto-tag {
@@ -906,14 +907,6 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
     color: #8B96A5;
     max-width: none;
     margin-bottom: 6px;
-}
-
-/*etiquetas das competências lado a lado*/
-#experiencia .etiquetas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
 }
 
 
@@ -1984,7 +1977,7 @@ O "Voltar ao topo" usa o mesmo estilo, mas está no index.html*/
     }
 }
 
-/*  MOUSE: hover dos cartões e das etiquetas só em aparelhos com mouse  */
+/*  MOUSE: hover dos cartões só em aparelhos com mouse  */
 
 @media (hover: hover) {
 
@@ -2000,16 +1993,6 @@ O "Voltar ao topo" usa o mesmo estilo, mas está no index.html*/
 
     .contato-copiar:hover .contato-dica {
         opacity: 1;
-    }
-
-    /*etiquetas: azul mais claro*/
-    .etiquetas li {
-        transition: background-color 0.2s ease-out, color 0.2s ease-out;
-    }
-
-    .etiquetas li:hover {
-        background-color: #1A3350;
-        color: #A5D6FF;
     }
 
     /*projetos: mouse no cartão ou foco dentro dele mostra os botões sobre a imagem (e eles passam a receber clique)*/
@@ -2118,15 +2101,6 @@ O "Voltar ao topo" usa o mesmo estilo, mas está no index.html*/
     }
 
     .experiencia-logos a:hover {
-        transform: translateY(-2px);
-    }
-
-    /*etiquetas sobem 2px, sem crescer*/
-    .etiquetas li {
-        transition: background-color 0.2s ease-out, color 0.2s ease-out, transform 0.2s ease-out;
-    }
-
-    .etiquetas li:hover {
         transform: translateY(-2px);
     }
 
