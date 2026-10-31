@@ -104,7 +104,7 @@ const projetos = [
         ano: 2026,
         origem: 'Curso Alura · 2026',
         status: 'Concluído',
-        descricao: 'Do layout do Figma a uma landing page de monitoramento.',
+        descricao: 'Do layout do Figma a uma landing page.',
         tecnologias: ['HTML', 'CSS'],
         imagemDesktop: 'img/projeto-tecboard.png',
         imagemMobile: 'img/projeto-tecboard.png',
