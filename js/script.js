@@ -71,7 +71,7 @@ const projetos = [
         origem: 'TCC · 2026',
         status: 'Em desenvolvimento',
         descricao: 'Lixeira IoT, do Amazon Hacking ao TCC.',
-        tecnologias: ['ESP32', 'React', 'JavaScript', 'Firebase'],
+        tecnologias: ['ESP32', 'C++', 'React', 'JavaScript', 'Firebase'],
         imagemDesktop: 'img/projeto-teko-lixeira.png',
         imagemMobile: 'img/projeto-teko-lixeira.png',
         alt: 'Dashboard do Teko Lixeira mostrando o peso de lixo coletado no mês e o status da lixeira',
@@ -269,7 +269,9 @@ const gruposTecnologias = [
         itens: [
             { nome: 'Git', arquivo: 'img/icones/tec-git.svg' },
             { nome: 'GitHub', arquivo: 'img/icones/tec-github.svg' },
-            { nome: 'VS Code', arquivo: 'img/icones/tec-vscode.svg' }
+            { nome: 'VS Code', arquivo: 'img/icones/tec-vscode.svg' },
+            { nome: 'Python', arquivo: 'img/icones/tec-python.svg' },
+            { nome: 'C++', arquivo: 'img/icones/tec-cplusplus.svg' }
         ]
     }
 ];
