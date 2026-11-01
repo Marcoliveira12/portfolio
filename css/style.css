@@ -1282,15 +1282,28 @@ Mesma moldura das caixas de Tecnologias (mais grossa embaixo e à direita), sem 
     }
 }
 
-/*Sobre mim com mouse e movimento: cartão sobe 4px*/
+/*Sobre mim com mouse e movimento: cartão sobe 1px*/
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
 
     .sobre-cartao {
         transition: border-color 0.2s ease-out, transform 0.2s ease-out;
     }
 
+    /*relative só no hover, para a faixa invisível de baixo (fora do hover a caixa fica como antes)*/
     .sobre-cartao:hover {
-        transform: translateY(-4px);
+        position: relative;
+        transform: translateY(-1px);
+    }
+
+    /*faixa invisível de 1px embaixo do cartão, logo depois da borda de 3px: cobre o espaço que ele sobe,
+    para o hover não ligar e desligar sem parar com o mouse na beirada de baixo*/
+    .sobre-cartao:hover::after {
+        content: "";
+        position: absolute;
+        top: calc(100% + 3px);
+        left: 0;
+        right: 0;
+        height: 1px;
     }
 }
 
@@ -1322,10 +1335,8 @@ minmax(0, 1fr): as três colunas ficam sempre com a mesma largura, mesmo com um 
     gap: 24px;
 }
 
-/*cartão de projeto: sem caixa nem fundo; relative para o link do título poder cobrir o cartão.
-Coluna flex: as pílulas descem para a base e ficam alinhadas entre os cartões da mesma linha*/
+/*cartão de projeto: sem caixa nem fundo. Os cartões da mesma linha têm a mesma altura e o espaço que sobra fica embaixo*/
 .projeto {
-    position: relative;
     display: flex;
     flex-direction: column;
 }
@@ -1333,6 +1344,11 @@ Coluna flex: as pílulas descem para a base e ficam alinhadas entre os cartões 
 /*caixa da imagem: os botões de Ver site e Ver código ficam por cima dela*/
 .projeto-midia {
     position: relative;
+}
+
+/*link da imagem para a página do projeto (só nos projetos com página)*/
+.projeto-imagem-link {
+    display: block;
 }
 
 /*imagem (ou o bloco no lugar dela) sempre em 16 por 10, cortando o que sobrar*/
@@ -1369,50 +1385,50 @@ Coluna flex: as pílulas descem para a base e ficam alinhadas entre os cartões 
     margin-top: 16px;
 }
 
-/*título com link (só quando o projeto tem página): o ::after cobre o cartão inteiro*/
+/*título com link (só quando o projeto tem página): nome à esquerda e aviso "Ver detalhes" à direita, na mesma linha de base*/
 .projeto-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
     color: inherit;
     text-decoration: none;
 }
 
-.projeto-link::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 12px;
+/*aviso "Ver detalhes →"; flex-shrink 0 não deixa ele quebrar quando o nome é comprido*/
+.projeto-detalhes {
+    flex-shrink: 0;
+    font-family: jetbrains, ui-monospace, monospace;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: #8B96A5;
 }
 
-/*foco pelo teclado: o contorno vai no cartão inteiro, não só no título*/
-.projeto-link:focus-visible {
-    outline: none;
+/*inline-block para a seta poder andar no hover*/
+.projeto-detalhes-seta {
+    display: inline-block;
 }
 
-.projeto-link:focus-visible::after {
-    outline: 2px solid #7CC4FF;
-    outline-offset: 2px;
-}
-
-/*tipo e ano (ex: Projeto pessoal · 2026)*/
+/*origem do projeto (ex: Projeto pessoal · 2026)*/
 .projeto-origem {
     font-size: 14px;
     color: #8B96A5;
     margin-top: 4px;
 }
 
-/*os 16px até as pílulas ficam aqui: o margin-top delas é auto*/
 .projeto-descricao {
     font-size: 14px;
     color: #C9D1D9;
     margin-top: 8px;
-    margin-bottom: 16px;
 }
 
-/*pílulas das tecnologias, com contorno azul, empurradas para a base do cartão*/
+/*pílulas das tecnologias, com contorno azul, 14px abaixo da descrição (também usadas nas páginas de projeto)*/
 .projeto-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: auto;
+    margin-top: 14px;
 }
 
 .projeto-tag {
@@ -1425,8 +1441,8 @@ Coluna flex: as pílulas descem para a base e ficam alinhadas entre os cartões 
 }
 
 /*botões Ver site e Ver código por cima da imagem, com fundo escuro (#0D1117 com 0.72 de opacidade).
-Escondidos até o mouse ou o foco chegar no cartão; z-index 1 deixa eles acima do link do cartão.
-pointer-events none no bloco: o clique na parte escura passa para o cartão; só os botões recebem clique*/
+Escondidos até o mouse ou o foco chegar na imagem; z-index 1 deixa eles acima do link da imagem.
+pointer-events none no bloco: o clique na parte escura passa para o link da imagem; só os botões recebem clique*/
 .projeto-acoes {
     position: absolute;
     inset: 0;
@@ -1502,6 +1518,8 @@ pointer-events none no bloco: o clique na parte escura passa para o cartão; só
         text-align: center;
     }
 
+    /*nome e aviso "Ver detalhes" juntos no centro, o aviso à direita do nome*/
+    .projeto-link,
     .projeto-tags {
         justify-content: center;
     }
@@ -1554,14 +1572,14 @@ pointer-events none no bloco: o clique na parte escura passa para o cartão; só
 /*Projetos com mouse*/
 @media (hover: hover) {
 
-    /*mouse no cartão ou foco dentro dele mostra os botões sobre a imagem (e eles passam a receber clique)*/
-    .projeto:hover .projeto-acoes,
-    .projeto:focus-within .projeto-acoes {
+    /*mouse na imagem ou foco num dos botões mostra os botões sobre a imagem (e eles passam a receber clique)*/
+    .projeto-midia:hover .projeto-acoes,
+    .projeto-midia:focus-within .projeto-acoes {
         opacity: 1;
     }
 
-    .projeto:hover .projeto-acao,
-    .projeto:focus-within .projeto-acao {
+    .projeto-midia:hover .projeto-acao,
+    .projeto-midia:focus-within .projeto-acao {
         pointer-events: auto;
     }
 
@@ -1580,32 +1598,57 @@ pointer-events none no bloco: o clique na parte escura passa para o cartão; só
         opacity: 1;
     }
 
-    /*cartão com página: título azul no hover (sem página o título não tem link)*/
-    .projeto:hover .projeto-link {
+    /*mouse no título com página: nome e aviso "Ver detalhes" ficam azuis (sem página o título não tem link)*/
+    .projeto-link,
+    .projeto-detalhes {
+        transition: color 0.2s ease-out;
+    }
+
+    .projeto-link:hover,
+    .projeto-link:hover .projeto-detalhes {
         color: #7CC4FF;
     }
 
-    /*mouse no cartão: borda da imagem fica azul*/
+    /*mouse na imagem: a borda dela fica azul*/
     .projeto-imagem,
     .projeto-sem-imagem {
         transition: border-color 0.2s ease-out;
     }
 
-    .projeto:hover .projeto-imagem,
-    .projeto:hover .projeto-sem-imagem {
+    .projeto-midia:hover .projeto-imagem,
+    .projeto-midia:hover .projeto-sem-imagem {
         border-color: #7CC4FF;
     }
 }
 
-/*Projetos com mouse e movimento: cartão sobe 4px*/
+/*Projetos com mouse e movimento: só a imagem sobe 4px (com os botões por cima) e a seta do aviso anda 4px*/
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
 
-    .projeto {
+    .projeto-midia {
         transition: transform 0.2s ease-out;
     }
 
-    .projeto:hover {
+    .projeto-midia:hover {
         transform: translateY(-4px);
+    }
+
+    /*faixa invisível de 4px embaixo da imagem: cobre o espaço que ela sobe, para o hover não ligar e desligar
+    sem parar com o mouse na beirada de baixo*/
+    .projeto-midia:hover::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        height: 4px;
+    }
+
+    .projeto-detalhes-seta {
+        transition: transform 0.2s ease-out;
+    }
+
+    .projeto-link:hover .projeto-detalhes-seta {
+        transform: translateX(4px);
     }
 }
 
@@ -1764,15 +1807,27 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
     }
 }
 
-/*Tecnologias com mouse e movimento: caixa e logo sobem 4px*/
+/*Tecnologias com mouse e movimento: caixa sobe 1px e logo sobe 4px*/
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
 
     .tecnologias-grupo {
         transition: border-color 0.2s ease-out, transform 0.2s ease-out;
     }
 
+    /*relative só no hover, para a faixa invisível de baixo (fora do hover a caixa fica como antes)*/
     .tecnologias-grupo:hover {
-        transform: translateY(-4px);
+        position: relative;
+        transform: translateY(-1px);
+    }
+
+    /*faixa invisível de 1px embaixo da caixa, logo depois da borda de 3px: evita o tremor na beirada de baixo*/
+    .tecnologias-grupo:hover::after {
+        content: "";
+        position: absolute;
+        top: calc(100% + 3px);
+        left: 0;
+        right: 0;
+        height: 1px;
     }
 
     .tecnologias-icone {
@@ -1871,6 +1926,12 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
         flex-wrap: wrap;
         justify-content: flex-start;
         gap: 16px 32px;
+    }
+
+    /*balãozinho começa na borda esquerda da logo, para o da Agência Fruta não sair da tela*/
+    .experiencia-logo-rotulo {
+        left: 0;
+        transform: none;
     }
 }
 
@@ -2248,15 +2309,27 @@ A margem de -12px em cima e embaixo devolve o espaço: a linha do e-mail não fi
     }
 }
 
-/*Contato com mouse e movimento: cartão sobe 4px*/
+/*Contato com mouse e movimento: cartão sobe 1px*/
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
 
     .contato-cartao {
         transition: border-color 0.2s ease-out, transform 0.2s ease-out;
     }
 
+    /*relative só no hover, para a faixa invisível de baixo (fora do hover a caixa fica como antes)*/
     .contato-cartao:hover {
-        transform: translateY(-4px);
+        position: relative;
+        transform: translateY(-1px);
+    }
+
+    /*faixa invisível de 1px embaixo do cartão, logo depois da borda de 3px: evita o tremor na beirada de baixo*/
+    .contato-cartao:hover::after {
+        content: "";
+        position: absolute;
+        top: calc(100% + 3px);
+        left: 0;
+        right: 0;
+        height: 1px;
     }
 }
 
@@ -2332,5 +2405,158 @@ A margem de -12px em cima e embaixo devolve o espaço: a linha do e-mail não fi
 
     .rodape-construido-item:hover .tecnologias-nome {
         opacity: 1;
+    }
+}
+
+/* ===== PÁGINA DE PROJETO ===== */
+
+/*páginas da pasta projetos/: uma coluna de leitura de até 720px no centro, sem menu e sem rolagem por seção.
+O que passar de 720px vira padding, metade de cada lado*/
+.pagina {
+    padding: 64px max(32px, calc((100% - 720px) / 2));
+}
+
+/*link "← Voltar aos projetos", no começo e no fim da página (o padding deixa o toque mais fácil)*/
+.pagina-voltar {
+    display: inline-block;
+    font-family: jetbrains, ui-monospace, monospace;
+    font-size: 13px;
+    color: #8B96A5;
+    text-decoration: none;
+    padding: 8px 0;
+}
+
+/*o link do fim fica 40px abaixo do último bloco*/
+.pagina article + .pagina-voltar {
+    margin-top: 40px;
+}
+
+.pagina h1 {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-top: 32px;
+}
+
+.pagina-resumo {
+    font-size: 18px;
+    margin-top: 12px;
+}
+
+/*pílulas alinhadas à esquerda com o texto (nos cartões do index elas ficam no centro abaixo de 1024px)*/
+.pagina .projeto-tags {
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+/*botões Ver site e Ver código (os mesmos dos cartões) lado a lado*/
+.pagina-acoes {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/*imagem grande do projeto: a moldura vem do .projeto-imagem dos cartões*/
+.pagina-imagem {
+    margin-top: 40px;
+}
+
+/*cada bloco de texto, separado do anterior por uma linha*/
+.pagina-bloco {
+    border-top: 1px solid #30363D;
+    padding-top: 32px;
+    margin-top: 40px;
+}
+
+.pagina-bloco-texto p + p {
+    margin-top: 16px;
+}
+
+/*listas de tecnologias e da equipe: uma linha cada*/
+.pagina-bloco-texto li + li {
+    margin-top: 8px;
+}
+
+/*nome da tecnologia em destaque*/
+.pagina-bloco-texto strong {
+    font-weight: 600;
+    color: #E6EDF3;
+}
+
+/*galeria de imagens: uma coluna (duas a partir de 720px, ver o fim deste bloco)*/
+.pagina-galeria {
+    display: grid;
+    gap: 24px;
+}
+
+/*imagens inteiras, sem corte, com a mesma borda e sombra das imagens dos cartões*/
+.pagina-galeria img {
+    width: 100%;
+    height: auto;
+    border: 1px solid #30363D;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px #00000059;
+}
+
+.pagina-galeria figcaption,
+.pagina-nota {
+    font-size: 13px;
+    color: #8B96A5;
+}
+
+.pagina-galeria figcaption {
+    margin-top: 8px;
+}
+
+/*linha do crédito do layout do Tecboard*/
+.pagina-nota {
+    margin-top: 20px;
+}
+
+/*página de projeto no celular: menos respiro e título menor*/
+@media (max-width: 599px) {
+
+    .pagina {
+        padding: 32px 20px;
+    }
+
+    .pagina h1 {
+        font-size: 32px;
+    }
+}
+
+/*galeria em duas colunas a partir de 720px; minmax(0, 1fr) deixa as duas sempre com a mesma largura*/
+@media (min-width: 720px) {
+
+    .pagina-galeria {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/*de 900px para cima: rótulo do bloco à esquerda e texto à direita, na mesma linha de base.
+Os blocos de imagens continuam com o rótulo em cima, para as imagens usarem a largura toda*/
+@media (min-width: 900px) {
+
+    .pagina-bloco {
+        display: grid;
+        grid-template-columns: 160px minmax(0, 1fr);
+        column-gap: 32px;
+        align-items: baseline;
+    }
+
+    .pagina-bloco-galeria {
+        display: block;
+    }
+}
+
+/*página de projeto com mouse: link de voltar fica azul*/
+@media (hover: hover) {
+
+    .pagina-voltar {
+        transition: color 0.2s ease-out;
+    }
+
+    .pagina-voltar:hover {
+        color: #7CC4FF;
     }
 }

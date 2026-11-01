@@ -6,53 +6,44 @@
 const projetos = [
     {
         titulo: 'Teko Lixeira',
-        tipo: 'TCC',
-        ano: 2026,
         origem: 'TCC · 2026',
         status: 'Em desenvolvimento',
         descricao: 'Lixeira IoT, do Amazon Hacking ao TCC.',
-        tecnologias: ['ESP32', 'C++', 'React', 'Firebase'],
-        imagemDesktop: 'img/projeto-teko-lixeira.png',
-        imagemMobile: 'img/projeto-teko-lixeira.png',
+        tecnologias: ['C++', 'JavaScript', 'HTML', 'CSS', 'React', 'Firebase', 'ESP32'],
+        imagemDesktop: 'img/projetos/teko/teko-card.png',
+        imagemMobile: 'img/projetos/teko/teko-card.png',
         alt: 'Dashboard do Teko Lixeira mostrando o peso de lixo coletado no mês e o status da lixeira',
-        //TODO: ainda não tem repositório público nem site no ar
-        codigo: '',
+        codigo: 'https://github.com/Marcoliveira12/teko-lixeira',
+        //o Teko não tem site
         site: '',
-        //o prompt 8 preenche a página do projeto (ex: 'projetos/teko-lixeira.html')
-        pagina: ''
+        pagina: 'projetos/teko-lixeira.html'
     },
     {
         titulo: 'Este portfólio',
-        tipo: 'Projeto pessoal',
-        ano: 2026,
         origem: 'Projeto pessoal · 2026',
         status: 'Em desenvolvimento',
         descricao: 'Meu site pessoal.',
         tecnologias: ['HTML', 'CSS', 'JavaScript', 'Git'],
-        imagemDesktop: 'img/projeto-portfolio.png',
-        imagemMobile: 'img/projeto-portfolio.png',
+        imagemDesktop: 'img/projetos/portfolio/portfolio-card.png',
+        imagemMobile: 'img/projetos/portfolio/portfolio-card.png',
         alt: 'Página inicial deste portfólio',
         codigo: 'https://github.com/Marcoliveira12/portfolio',
         //TODO: link do site no ar quando o portfólio for publicado
         site: '',
-        //o prompt 8 preenche a página do projeto (ex: 'projetos/portfolio.html')
-        pagina: ''
+        pagina: 'projetos/este-portfolio.html'
     },
     {
         titulo: 'Tecboard',
-        tipo: 'Curso Alura',
-        ano: 2026,
         origem: 'Curso Alura · 2026',
         status: 'Concluído',
         descricao: 'Do layout do Figma a uma landing page.',
         tecnologias: ['HTML', 'CSS'],
-        imagemDesktop: 'img/projeto-tecboard.png',
-        imagemMobile: 'img/projeto-tecboard.png',
+        imagemDesktop: 'img/projetos/tecboard/tecboard-card.png',
+        imagemMobile: 'img/projetos/tecboard/tecboard-card.png',
         alt: 'Topo da landing page Tecboard, com o título Fique de olho no que importa, o botão Testar versão demo e celulares mostrando o aplicativo',
         codigo: 'https://github.com/Marcoliveira12/tecboard',
         site: 'https://marcoliveira12.github.io/tecboard/',
-        //o prompt 8 preenche a página do projeto (ex: 'projetos/tecboard.html')
-        pagina: ''
+        pagina: 'projetos/tecboard.html'
     }
 ];
 
@@ -519,6 +510,11 @@ function montarProjetos(lista) {
             midia = `<div class="projeto-sem-imagem">${projeto.titulo}</div>`;
         }
 
+        //com página, a imagem também leva até ela; o link fica fora do Tab e do leitor de tela, que param só no título
+        if (projeto.pagina !== '') {
+            midia = `<a class="projeto-imagem-link" href="${projeto.pagina}" tabindex="-1" aria-hidden="true">${midia}</a>`;
+        }
+
         //botões sobre a imagem: só os que têm link
         let acoes = '';
 
@@ -547,11 +543,12 @@ function montarProjetos(lista) {
             blocoAcoes = `<div class="projeto-acoes">${acoes}</div>`;
         }
 
-        //com página, o título vira link e o cartão inteiro clica; sem página, o título é só texto
+        //com página, o título vira link com o aviso "Ver detalhes" à direita; sem página, o título é só texto.
+        //o aviso é só visual: o leitor de tela lê apenas o nome do projeto
         let titulo = projeto.titulo;
 
         if (projeto.pagina !== '') {
-            titulo = `<a class="projeto-link" href="${projeto.pagina}">${projeto.titulo}</a>`;
+            titulo = `<a class="projeto-link" href="${projeto.pagina}">${projeto.titulo}<span class="projeto-detalhes" aria-hidden="true">Ver detalhes <span class="projeto-detalhes-seta">→</span></span></a>`;
         }
 
         //uma pílula de texto para cada tecnologia

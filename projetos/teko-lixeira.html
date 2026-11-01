@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teko Lixeira | Marco Antônio Machado</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <meta name="description" content="Lixeira IoT, do Amazon Hacking ao TCC.">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <!-- fundo de partículas, o mesmo do index -->
+    <div class="fundo" aria-hidden="true">
+        <span class="fundo-camada fundo-camada-1"></span>
+        <span class="fundo-camada fundo-camada-2"></span>
+        <span class="fundo-camada fundo-camada-3"></span>
+    </div>
+
+    <main class="pagina">
+
+        <a class="pagina-voltar" href="../index.html#projetos"><span aria-hidden="true">←</span> Voltar aos projetos</a>
+
+        <article>
+
+            <!-- TOPO: título, resumo, pílulas e botões -->
+            <h1>Teko Lixeira</h1>
+            <p class="pagina-resumo">Lixeira IoT, do Amazon Hacking ao TCC.</p>
+
+            <ul class="projeto-tags" aria-label="Tecnologias usadas">
+                <li class="projeto-tag">C++</li>
+                <li class="projeto-tag">JavaScript</li>
+                <li class="projeto-tag">HTML</li>
+                <li class="projeto-tag">CSS</li>
+                <li class="projeto-tag">React</li>
+                <li class="projeto-tag">Firebase</li>
+                <li class="projeto-tag">ESP32</li>
+            </ul>
+
+            <div class="pagina-acoes">
+                <a class="projeto-acao" href="https://github.com/Marcoliveira12/teko-lixeira" target="_blank" rel="noopener noreferrer" aria-label="Ver código de Teko Lixeira no GitHub (abre em nova aba)">
+                    <span class="logo-rede logo-github" aria-hidden="true"></span>
+                    <span class="projeto-acao-rotulo" aria-hidden="true">Ver código</span>
+                </a>
+            </div>
+
+            <!-- IMAGEM -->
+            <img class="projeto-imagem pagina-imagem" src="../img/projetos/teko/teko-card.png"
+                alt="Dashboard do Teko Lixeira mostrando o peso de lixo coletado no mês e o status da lixeira" width="1280"
+                height="800">
+
+            <!-- CONTEXTO -->
+            <section class="pagina-bloco">
+                <h2>Contexto</h2>
+                <div class="pagina-bloco-texto">
+                    <p>O Teko Lixeira nasceu no Amazon Hacking 2025, um programa de extensão do CESUPA que reúne alunos de
+                        vários cursos, professores, empresas e a comunidade para criar soluções com impacto social e
+                        ambiental, com o apoio de empresas como a Vale e a Accenture. A ideia foi criada em conjunto pela
+                        equipe, formada por alunos de Ciência da Computação e de Engenharia da Computação. O protótipo foi
+                        exposto em um estande na COP 30, em Belém, onde a equipe apresentou o projeto aos visitantes em um
+                        pitch. Depois, o projeto virou tema de dois TCCs.</p>
+                </div>
+            </section>
+
+            <!-- DESAFIO -->
+            <section class="pagina-bloco">
+                <h2>Desafio</h2>
+                <div class="pagina-bloco-texto">
+                    <p>Em Belém, a coleta de lixo enfrenta dificuldades, principalmente onde falta monitoramento.
+                        Caminhões e coletores seguem rotas fixas, sem saber quanto lixo há em cada lixeira, e empresas e
+                        órgãos públicos têm dificuldade de medir quanto resíduo produzem. Sem esses dados, não existem
+                        indicadores de sustentabilidade, e fica mais difícil tomar boas decisões.</p>
+                </div>
+            </section>
+
+            <!-- SOLUÇÃO -->
+            <section class="pagina-bloco">
+                <h2>Solução</h2>
+                <div class="pagina-bloco-texto">
+                    <p>Uma lixeira inteligente que pesa o lixo, avisa quando está cheia e envia os dados por Wi-Fi para a
+                        nuvem. Um painel web mostra tudo em tempo real: o peso ao longo do dia, o total coletado no mês e
+                        o aviso de lixeira cheia. A ideia é dar a quem cuida dos resíduos dados confiáveis para planejar a
+                        coleta e acompanhar o descarte, começando por condomínios, prédios corporativos e órgãos
+                        públicos.</p>
+                </div>
+            </section>
+
+            <!-- TECNOLOGIAS -->
+            <section class="pagina-bloco">
+                <h2>Tecnologias</h2>
+                <ul class="pagina-bloco-texto">
+                    <li><strong>C++:</strong> firmware do ESP32, que lê os sensores e envia os dados.</li>
+                    <li><strong>JavaScript, HTML e CSS:</strong> o painel web.</li>
+                    <li><strong>React:</strong> telas e atualização em tempo real.</li>
+                    <li><strong>Firebase:</strong> banco de dados em tempo real.</li>
+                    <li><strong>ESP32:</strong> microcontrolador com Wi-Fi que controla a lixeira.</li>
+                </ul>
+            </section>
+
+            <!-- GALERIA -->
+            <section class="pagina-bloco pagina-bloco-galeria">
+                <h2>Galeria</h2>
+                <div class="pagina-galeria">
+                    <figure>
+                        <img src="../img/projetos/teko/teko-diagrama-sistema.png"
+                            alt="Diagrama do Teko Lixeira: sensor de nível na tampa, sensor de abertura e movimento na lateral e sensor de carga na base, ligados ao ESP32, que envia os dados por Wi-Fi para a nuvem e para o sistema de monitoramento"
+                            width="1104" height="786" loading="lazy">
+                        <figcaption>Diagrama do sistema: sensores, ESP32, Wi-Fi, nuvem e painel.</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../img/projetos/teko/teko-base-sensor.png"
+                            alt="Base preta com o sensor de carga no centro e quatro rodas laranja, virada para cima sobre a lixeira"
+                            width="535" height="555" loading="lazy">
+                        <figcaption>Base com o sensor de carga e as rodas, fixada sob a lixeira.</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../img/projetos/teko/teko-painel-grafico-peso-por-hora.png"
+                            alt="Gráfico de linha Peso do Lixo por Hora, com o peso em kg de 00:00 a 23:00 e picos às 11:00 e às 17:00"
+                            width="1126" height="360" loading="lazy">
+                        <figcaption>Primeira versão do painel, com dados de teste: peso por hora.</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../img/projetos/teko/teko-painel-lixeira-cheia.png"
+                            alt="Painel com o aviso A lixeira está cheia em vermelho e, abaixo, os cartões com o peso do mês passado e deste mês"
+                            width="1119" height="425" loading="lazy">
+                        <figcaption>Primeira versão do painel, com dados de teste: aviso de lixeira cheia.</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../img/projetos/teko/teko-painel-cartoes-mes.png"
+                            alt="Painel com os cartões do peso do mês passado, do peso deste mês e da diferença entre os dois"
+                            width="1307" height="583" loading="lazy">
+                        <figcaption>Primeira versão do painel, com dados de teste: totais do mês.</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../img/projetos/teko/teko-firebase-historico.png"
+                            alt="Banco de dados do Firebase com o histórico de 10/11/2025, cada medição com a hora e o peso"
+                            width="311" height="196" loading="lazy">
+                        <figcaption>Firebase recebendo o peso e a hora de cada medição.</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- EQUIPE -->
+            <section class="pagina-bloco">
+                <h2>Equipe</h2>
+                <ul class="pagina-bloco-texto">
+                    <li>Igor Rafael Carvalho Gonçalves</li>
+                    <li>Marco Antônio Oliveira Machado</li>
+                    <li>Rafael Ponciano Vasconcelos Silva</li>
+                    <li>Lucas Alves Rodrigues</li>
+                    <li>Raissa Sousa de Oliveira</li>
+                </ul>
+            </section>
+
+        </article>
+
+        <a class="pagina-voltar" href="../index.html#projetos"><span aria-hidden="true">←</span> Voltar aos projetos</a>
+
+    </main>
+
+</body>
+
+</html>

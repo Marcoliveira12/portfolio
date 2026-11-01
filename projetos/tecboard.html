@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecboard | Marco Antônio Machado</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <meta name="description"
+        content="Projeto do curso da Alura em que construí, em HTML e CSS, uma landing page a partir de um layout feito no Figma.">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <!-- fundo de partículas, o mesmo do index -->
+    <div class="fundo" aria-hidden="true">
+        <span class="fundo-camada fundo-camada-1"></span>
+        <span class="fundo-camada fundo-camada-2"></span>
+        <span class="fundo-camada fundo-camada-3"></span>
+    </div>
+
+    <main class="pagina">
+
+        <a class="pagina-voltar" href="../index.html#projetos"><span aria-hidden="true">←</span> Voltar aos projetos</a>
+
+        <article>
+
+            <!-- TOPO: título, resumo, pílulas e botões -->
+            <h1>Tecboard</h1>
+            <p class="pagina-resumo">Projeto do curso da Alura em que construí, em HTML e CSS, uma landing page a partir de
+                um layout feito no Figma.</p>
+
+            <ul class="projeto-tags" aria-label="Tecnologias usadas">
+                <li class="projeto-tag">HTML</li>
+                <li class="projeto-tag">CSS</li>
+            </ul>
+
+            <div class="pagina-acoes">
+                <a class="projeto-acao" href="https://marcoliveira12.github.io/tecboard/" target="_blank" rel="noopener noreferrer" aria-label="Ver site de Tecboard (abre em nova aba)">
+                    <span class="logo-rede logo-site" aria-hidden="true"></span>
+                    <span class="projeto-acao-rotulo" aria-hidden="true">Ver site</span>
+                </a>
+                <a class="projeto-acao" href="https://github.com/Marcoliveira12/tecboard" target="_blank" rel="noopener noreferrer" aria-label="Ver código de Tecboard no GitHub (abre em nova aba)">
+                    <span class="logo-rede logo-github" aria-hidden="true"></span>
+                    <span class="projeto-acao-rotulo" aria-hidden="true">Ver código</span>
+                </a>
+            </div>
+
+            <!-- IMAGEM -->
+            <img class="projeto-imagem pagina-imagem" src="../img/projetos/tecboard/tecboard-card.png"
+                alt="Topo da landing page Tecboard, com o título Fique de olho no que importa, o botão Testar versão demo e celulares mostrando o aplicativo"
+                width="1280" height="800">
+
+            <!-- SOBRE O PROJETO -->
+            <section class="pagina-bloco">
+                <h2>Sobre o projeto</h2>
+                <div class="pagina-bloco-texto">
+                    <p>O Tecboard é uma landing page de um produto de monitoramento em tempo real, com alertas para
+                        aplicações. O layout foi feito no Figma e disponibilizado pela instrutora do curso, e o meu
+                        trabalho foi transformar esse design em uma página em HTML e CSS. Desenvolvi o site para ganhar
+                        experiência em HTML e CSS, responsividade e outras práticas de front-end, partindo de um design
+                        pronto. O botão da página é só visual e não executa nenhuma ação.</p>
+                </div>
+            </section>
+
+            <!-- LAYOUT E RESULTADO -->
+            <section class="pagina-bloco pagina-bloco-galeria">
+                <h2>Layout e resultado</h2>
+                <div class="pagina-galeria">
+                    <figure>
+                        <img src="../img/projetos/tecboard/tecboard-figma-desktop-dark.png"
+                            alt="Layout do Tecboard no Figma, versão escura para computador: logo, título Fique de olho no que importa, botão Testar versão demo e dois celulares"
+                            width="1920" height="1102" loading="lazy">
+                        <figcaption>Layout no Figma</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../img/projetos/tecboard/tecboard-card.png"
+                            alt="Página do Tecboard construída em HTML e CSS, com o mesmo título, o botão Testar versão demo e os celulares do layout"
+                            width="3840" height="2160" loading="lazy">
+                        <figcaption>Página que construí a partir dele</figcaption>
+                    </figure>
+                </div>
+
+                <!-- TODO: nome do autor do layout e licença -->
+                <p class="pagina-nota">Layout original do curso, disponibilizado no <a
+                    href="https://www.figma.com/design/zeSJRq70wbhZpy2hqtX2Nm/" target="_blank"
+                    rel="noopener noreferrer">Figma Community<span class="visualmente-oculto"> (abre em nova aba)</span></a></p>
+            </section>
+
+            <!-- TECNOLOGIAS -->
+            <section class="pagina-bloco">
+                <h2>Tecnologias</h2>
+                <ul class="pagina-bloco-texto">
+                    <li><strong>HTML:</strong> estrutura da página.</li>
+                    <li><strong>CSS:</strong> layout e responsividade, seguindo o Figma.</li>
+                    <li><strong>Figma:</strong> o layout de referência, disponibilizado no curso.</li>
+                </ul>
+            </section>
+
+        </article>
+
+        <a class="pagina-voltar" href="../index.html#projetos"><span aria-hidden="true">←</span> Voltar aos projetos</a>
+
+    </main>
+
+</body>
+
+</html>

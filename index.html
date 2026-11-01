@@ -129,12 +129,94 @@
                 <!-- os cartões são montados pelo js/script.js a partir da lista de projetos: grade de 3 colunas no computador, uma coluna no celular e no tablet -->
             </div>
 
+            <!-- sem JavaScript: os mesmos cartões, escritos à mão (ao mudar um projeto no script.js, mude aqui também) -->
             <noscript>
-                <ul>
-                    <li>Teko Lixeira</li>
-                    <li>Este portfólio · <a href="https://github.com/Marcoliveira12/portfolio" target="_blank" rel="noopener">Ver código<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
-                    <li>Tecboard · <a href="https://github.com/Marcoliveira12/tecboard" target="_blank" rel="noopener">Ver código<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
-                </ul>
+                <div class="projetos-lista">
+                    <article class="projeto">
+                        <div class="projeto-midia">
+                            <a class="projeto-imagem-link" href="projetos/teko-lixeira.html" tabindex="-1" aria-hidden="true"><img
+                                class="projeto-imagem" src="img/projetos/teko/teko-card.png"
+                                alt="Dashboard do Teko Lixeira mostrando o peso de lixo coletado no mês e o status da lixeira"
+                                width="1280" height="800" loading="lazy"></a>
+                            <div class="projeto-acoes">
+                                <a class="projeto-acao" href="https://github.com/Marcoliveira12/teko-lixeira" target="_blank" rel="noopener noreferrer" aria-label="Ver código de Teko Lixeira no GitHub (abre em nova aba)">
+                                    <span class="logo-rede logo-github" aria-hidden="true"></span>
+                                    <span class="projeto-acao-rotulo" aria-hidden="true">Ver código</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <h3 class="projeto-titulo"><a class="projeto-link" href="projetos/teko-lixeira.html">Teko Lixeira<span
+                            class="projeto-detalhes" aria-hidden="true">Ver detalhes <span class="projeto-detalhes-seta">→</span></span></a></h3>
+                        <p class="projeto-origem">TCC · 2026</p>
+                        <p class="projeto-descricao">Lixeira IoT, do Amazon Hacking ao TCC.</p>
+
+                        <ul class="projeto-tags" aria-label="Tecnologias usadas">
+                            <li class="projeto-tag">C++</li>
+                            <li class="projeto-tag">JavaScript</li>
+                            <li class="projeto-tag">HTML</li>
+                            <li class="projeto-tag">CSS</li>
+                            <li class="projeto-tag">React</li>
+                            <li class="projeto-tag">Firebase</li>
+                            <li class="projeto-tag">ESP32</li>
+                        </ul>
+                    </article>
+
+                    <article class="projeto">
+                        <div class="projeto-midia">
+                            <a class="projeto-imagem-link" href="projetos/este-portfolio.html" tabindex="-1" aria-hidden="true"><img
+                                class="projeto-imagem" src="img/projetos/portfolio/portfolio-card.png"
+                                alt="Página inicial deste portfólio" width="1280" height="800" loading="lazy"></a>
+                            <div class="projeto-acoes">
+                                <a class="projeto-acao" href="https://github.com/Marcoliveira12/portfolio" target="_blank" rel="noopener noreferrer" aria-label="Ver código de Este portfólio no GitHub (abre em nova aba)">
+                                    <span class="logo-rede logo-github" aria-hidden="true"></span>
+                                    <span class="projeto-acao-rotulo" aria-hidden="true">Ver código</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <h3 class="projeto-titulo"><a class="projeto-link" href="projetos/este-portfolio.html">Este portfólio<span
+                            class="projeto-detalhes" aria-hidden="true">Ver detalhes <span class="projeto-detalhes-seta">→</span></span></a></h3>
+                        <p class="projeto-origem">Projeto pessoal · 2026</p>
+                        <p class="projeto-descricao">Meu site pessoal.</p>
+
+                        <ul class="projeto-tags" aria-label="Tecnologias usadas">
+                            <li class="projeto-tag">HTML</li>
+                            <li class="projeto-tag">CSS</li>
+                            <li class="projeto-tag">JavaScript</li>
+                            <li class="projeto-tag">Git</li>
+                        </ul>
+                    </article>
+
+                    <article class="projeto">
+                        <div class="projeto-midia">
+                            <a class="projeto-imagem-link" href="projetos/tecboard.html" tabindex="-1" aria-hidden="true"><img
+                                class="projeto-imagem" src="img/projetos/tecboard/tecboard-card.png"
+                                alt="Topo da landing page Tecboard, com o título Fique de olho no que importa, o botão Testar versão demo e celulares mostrando o aplicativo"
+                                width="1280" height="800" loading="lazy"></a>
+                            <div class="projeto-acoes">
+                                <a class="projeto-acao" href="https://marcoliveira12.github.io/tecboard/" target="_blank" rel="noopener noreferrer" aria-label="Ver site de Tecboard (abre em nova aba)">
+                                    <span class="logo-rede logo-site" aria-hidden="true"></span>
+                                    <span class="projeto-acao-rotulo" aria-hidden="true">Ver site</span>
+                                </a>
+                                <a class="projeto-acao" href="https://github.com/Marcoliveira12/tecboard" target="_blank" rel="noopener noreferrer" aria-label="Ver código de Tecboard no GitHub (abre em nova aba)">
+                                    <span class="logo-rede logo-github" aria-hidden="true"></span>
+                                    <span class="projeto-acao-rotulo" aria-hidden="true">Ver código</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <h3 class="projeto-titulo"><a class="projeto-link" href="projetos/tecboard.html">Tecboard<span
+                            class="projeto-detalhes" aria-hidden="true">Ver detalhes <span class="projeto-detalhes-seta">→</span></span></a></h3>
+                        <p class="projeto-origem">Curso Alura · 2026</p>
+                        <p class="projeto-descricao">Do layout do Figma a uma landing page.</p>
+
+                        <ul class="projeto-tags" aria-label="Tecnologias usadas">
+                            <li class="projeto-tag">HTML</li>
+                            <li class="projeto-tag">CSS</li>
+                        </ul>
+                    </article>
+                </div>
             </noscript>
         </section>
 
