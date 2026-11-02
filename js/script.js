@@ -77,10 +77,6 @@ const gruposTecnologias = [
     }
 ];
 
-//tecnologias deste portfólio que aparecem no rodapé: só as linguagens e o Git
-//(os nomes precisam ser iguais aos da lista de cima, porque o logo vem de lá)
-const construidoCom = ['HTML', 'CSS', 'JavaScript', 'Git'];
-
 //palavras que se revezam no topo
 //em 15/12/2026 o 'Java' entra no fim da lista (e no comentário do index.html)
 const tecnologiasTopo = ['HTML', 'CSS', 'JavaScript', 'Git', 'GitHub'];
@@ -632,23 +628,6 @@ if (contadoresProjetos) {
 
 const blocoGrupos = document.querySelector('.tecnologias-grupos');
 
-//procura nos grupos o arquivo do logo da tecnologia com esse nome (se não achar, devolve texto vazio)
-function buscarArquivo(nome) {
-    let arquivo = '';
-
-    for (let i = 0; i < gruposTecnologias.length; i++) {
-        const itens = gruposTecnologias[i].itens;
-
-        for (let j = 0; j < itens.length; j++) {
-            if (itens[j].nome === nome) {
-                arquivo = itens[j].arquivo;
-            }
-        }
-    }
-
-    return arquivo;
-}
-
 //monta uma caixa para cada grupo, com um item (logo e nome) para cada tecnologia
 function montarGrupos(lista) {
     let html = '';
@@ -746,39 +725,10 @@ if (botaoCopiarEmail && dicaCopiarEmail && avisoEmail) {
 const elementoAno = document.querySelector('.rodape-ano');
 elementoAno.textContent = new Date().getFullYear();
 
-const blocoConstruido = document.querySelector('.rodape-construido');
-
-//monta a parte direita do rodapé: "Construído com" e os logos pequenos, na mesma linha
-function montarConstruido() {
-    let itens = '';
-
-    for (let i = 0; i < construidoCom.length; i++) {
-        const nome = construidoCom[i];
-
-        itens += `
-            <li class="rodape-construido-item">
-                <img src="${buscarArquivo(nome)}" alt="" width="20" height="20">
-                <span class="tecnologias-nome">${nome}</span>
-            </li>
-        `;
-    }
-
-    const html = `
-        <p class="rodape-construido-titulo">Construído com</p>
-        <ul>${itens}</ul>
-    `;
-
-    return html;
-}
-
-if (blocoConstruido) {
-    blocoConstruido.innerHTML = montarConstruido();
-}
-
 
 // ===== PRIMEIRA MEDIDA =====
 
-//fica no fim porque mede a página, que só fica completa depois de montar a palavra do topo, os cartões, as tecnologias e o rodapé.
+//fica no fim porque mede a página, que só fica completa depois de montar a palavra do topo, os cartões e as tecnologias.
 //a página pode abrir já rolada (ao recarregar, o navegador volta para onde estava)
 
 //a página abriu com uma âncora (ex: #projetos, vindo do "Voltar aos projetos" ou de um F5): vai direto para a seção, sem animação

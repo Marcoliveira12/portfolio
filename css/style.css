@@ -2313,7 +2313,7 @@ A margem de -12px em cima e embaixo devolve o espaço: a linha do e-mail não fi
 
 /* ===== RODAPÉ ===== */
 
-/*rodapé numa linha só: nome à esquerda e "Construído com" com os logos à direita*/
+/*rodapé numa linha só: nome à esquerda e os logos à direita*/
 .rodape {
     display: flex;
     align-items: center;
@@ -2330,22 +2330,11 @@ A margem de -12px em cima e embaixo devolve o espaço: a linha do e-mail não fi
     color: #E6EDF3;
 }
 
-/*"Construído com" e os logos pequenos na mesma linha, alinhados ao centro na vertical*/
-.rodape-construido {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.rodape-construido-titulo {
-    font-family: jetbrains, ui-monospace, monospace;
-    font-size: 12px;
-    color: #8B96A5;
-}
-
+/*logos pequenos na mesma linha, alinhados ao centro na vertical, 16px entre eles*/
 .rodape-construido ul {
     display: flex;
-    gap: 12px;
+    align-items: center;
+    gap: 16px;
 }
 
 /*relative para o balãozinho do nome se posicionar em cima do logo*/
@@ -2353,7 +2342,9 @@ A margem de -12px em cima e embaixo devolve o espaço: a linha do e-mail não fi
     position: relative;
 }
 
+/*block para o item ter só os 20px do logo, sem o espaço da linha de texto embaixo*/
 .rodape-construido-item img {
+    display: block;
     width: 20px;
     height: 20px;
 }
@@ -2378,11 +2369,43 @@ A margem de -12px em cima e embaixo devolve o espaço: a linha do e-mail não fi
     }
 }
 
-/*rodapé com mouse: nome da tecnologia aparece acima do logo*/
+/*rodapé com mouse: logos cinza e apagados, ganham a cor e o nome aparece acima no hover*/
 @media (hover: hover) {
+
+    .rodape-construido-item img {
+        filter: grayscale(1);
+        opacity: 0.55;
+        transition: filter 0.2s ease-out, opacity 0.2s ease-out;
+    }
+
+    .rodape-construido-item:hover img {
+        filter: grayscale(0);
+        opacity: 1;
+    }
 
     .rodape-construido-item:hover .tecnologias-nome {
         opacity: 1;
+    }
+}
+
+/*rodapé sem mouse (toque): logos cinza, um pouco mais visíveis, e sem balãozinho*/
+@media (hover: none) {
+
+    .rodape-construido-item img {
+        filter: grayscale(1);
+        opacity: 0.8;
+    }
+
+    .rodape-construido-item .tecnologias-nome {
+        display: none;
+    }
+}
+
+/*rodapé com movimento: balãozinho aparece e some suave, no mesmo tempo dos botões dos projetos*/
+@media (prefers-reduced-motion: no-preference) {
+
+    .rodape-construido-item .tecnologias-nome {
+        transition: opacity 0.2s ease-out;
     }
 }
 

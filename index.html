@@ -388,11 +388,27 @@
     <!-- RODAPÉ -->
     <footer class="rodape">
         <p class="rodape-nome">Marco Antônio Machado · © <span class="rodape-ano">2026</span></p>
-        <!-- montado pelo js/script.js; sem JavaScript, aparece o texto do noscript -->
+        <!-- o leitor de tela lê só o texto oculto; os logos e os balõezinhos ficam escondidos dele -->
         <div class="rodape-construido">
-            <noscript>
-                <p>Construído com HTML, CSS, JavaScript e Git.</p>
-            </noscript>
+            <span class="visualmente-oculto">Construído com HTML, CSS, JavaScript e Git</span>
+            <ul aria-hidden="true">
+                <li class="rodape-construido-item">
+                    <img src="img/icones/tec-html.svg" alt="" width="20" height="20">
+                    <span class="tecnologias-nome">HTML</span>
+                </li>
+                <li class="rodape-construido-item">
+                    <img src="img/icones/tec-css.svg" alt="" width="20" height="20">
+                    <span class="tecnologias-nome">CSS</span>
+                </li>
+                <li class="rodape-construido-item">
+                    <img src="img/icones/tec-javascript.svg" alt="" width="20" height="20">
+                    <span class="tecnologias-nome">JavaScript</span>
+                </li>
+                <li class="rodape-construido-item">
+                    <img src="img/icones/tec-git.svg" alt="" width="20" height="20">
+                    <span class="tecnologias-nome">Git</span>
+                </li>
+            </ul>
         </div>
     </footer>
 
