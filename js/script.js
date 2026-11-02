@@ -10,8 +10,8 @@ const projetos = [
         status: 'Em desenvolvimento',
         descricao: 'Lixeira IoT, do Amazon Hacking ao TCC.',
         tecnologias: ['C++', 'JavaScript', 'HTML', 'CSS', 'React', 'Firebase', 'ESP32'],
-        imagemDesktop: 'img/projetos/teko/teko-card.png',
-        imagemMobile: 'img/projetos/teko/teko-card.png',
+        imagemDesktop: 'img/projetos/teko/teko-card.webp',
+        imagemMobile: 'img/projetos/teko/teko-card.webp',
         alt: 'Dashboard do Teko Lixeira mostrando o peso de lixo coletado no mês e o status da lixeira',
         codigo: 'https://github.com/Marcoliveira12/teko-lixeira',
         //o Teko não tem site
@@ -24,8 +24,8 @@ const projetos = [
         status: 'Em desenvolvimento',
         descricao: 'Meu site pessoal.',
         tecnologias: ['HTML', 'CSS', 'JavaScript', 'Git'],
-        imagemDesktop: 'img/projetos/portfolio/portfolio-card.png',
-        imagemMobile: 'img/projetos/portfolio/portfolio-card.png',
+        imagemDesktop: 'img/projetos/portfolio/portfolio-card.webp',
+        imagemMobile: 'img/projetos/portfolio/portfolio-card.webp',
         alt: 'Página inicial deste portfólio',
         codigo: 'https://github.com/Marcoliveira12/portfolio',
         //TODO: link do site no ar quando o portfólio for publicado
@@ -38,8 +38,8 @@ const projetos = [
         status: 'Concluído',
         descricao: 'Do layout do Figma a uma landing page.',
         tecnologias: ['HTML', 'CSS'],
-        imagemDesktop: 'img/projetos/tecboard/tecboard-card.png',
-        imagemMobile: 'img/projetos/tecboard/tecboard-card.png',
+        imagemDesktop: 'img/projetos/tecboard/tecboard-card.webp',
+        imagemMobile: 'img/projetos/tecboard/tecboard-card.webp',
         alt: 'Topo da landing page Tecboard, com o título Fique de olho no que importa, o botão Testar versão demo e celulares mostrando o aplicativo',
         codigo: 'https://github.com/Marcoliveira12/tecboard',
         site: 'https://marcoliveira12.github.io/tecboard/',
@@ -502,7 +502,7 @@ function montarProjetos(lista) {
             midia = `
                 <picture>
                     <source media="(max-width: 599px)" srcset="${projeto.imagemMobile}">
-                    <img class="projeto-imagem" src="${projeto.imagemDesktop}" alt="${projeto.alt}" width="1280" height="800" loading="lazy">
+                    <img class="projeto-imagem" src="${projeto.imagemDesktop}" alt="${projeto.alt}" width="960" height="600" loading="lazy" decoding="async">
                 </picture>
             `;
         } else {
@@ -515,8 +515,17 @@ function montarProjetos(lista) {
             midia = `<a class="projeto-imagem-link" href="${projeto.pagina}" tabindex="-1" aria-hidden="true">${midia}</a>`;
         }
 
-        //botões sobre a imagem: só os que têm link
+        //botões sobre a imagem: só os que têm link. O de detalhes vem primeiro e abre na mesma aba
         let acoes = '';
+
+        if (projeto.pagina !== '') {
+            acoes += `
+                <a class="projeto-acao" href="${projeto.pagina}" aria-label="Ver detalhes do projeto ${projeto.titulo}">
+                    <span class="logo-rede logo-detalhes" aria-hidden="true"></span>
+                    <span class="projeto-acao-rotulo" aria-hidden="true">Ver detalhes</span>
+                </a>
+            `;
+        }
 
         if (projeto.site !== '') {
             acoes += `
@@ -543,12 +552,11 @@ function montarProjetos(lista) {
             blocoAcoes = `<div class="projeto-acoes">${acoes}</div>`;
         }
 
-        //com página, o título vira link com o aviso "Ver detalhes" à direita; sem página, o título é só texto.
-        //o aviso é só visual: o leitor de tela lê apenas o nome do projeto
+        //com página, o título vira link para ela; sem página, o título é só texto
         let titulo = projeto.titulo;
 
         if (projeto.pagina !== '') {
-            titulo = `<a class="projeto-link" href="${projeto.pagina}">${projeto.titulo}<span class="projeto-detalhes" aria-hidden="true">Ver detalhes <span class="projeto-detalhes-seta">→</span></span></a>`;
+            titulo = `<a class="projeto-link" href="${projeto.pagina}">${projeto.titulo}</a>`;
         }
 
         //uma pílula de texto para cada tecnologia
@@ -772,6 +780,16 @@ if (blocoConstruido) {
 
 //fica no fim porque mede a página, que só fica completa depois de montar a palavra do topo, os cartões, as tecnologias e o rodapé.
 //a página pode abrir já rolada (ao recarregar, o navegador volta para onde estava)
+
+//a página abriu com uma âncora (ex: #projetos, vindo do "Voltar aos projetos" ou de um F5): vai direto para a seção, sem animação
+const secaoDaAncora = document.getElementById(location.hash.slice(1));
+
+if (secaoDaAncora) {
+    //no F5, o navegador não volta para onde a página estava: fica a seção da âncora
+    history.scrollRestoration = 'manual';
+    secaoDaAncora.scrollIntoView({ behavior: 'instant' });
+}
+
 if (cabecalho) {
     atualizarCabecalho();
 }
@@ -781,3 +799,13 @@ if (barraProgresso) {
 }
 
 sincronizarSecao();
+
+//depois da carga, os links do menu e os rótulos voltam a deslizar até a seção (ver o html.rolagem-suave no CSS)
+window.addEventListener('load', function () {
+    //as fontes podem ter mudado a altura do que vem antes da seção: acerta a posição de novo, ainda sem animação
+    if (secaoDaAncora) {
+        secaoDaAncora.scrollIntoView({ behavior: 'instant' });
+    }
+
+    document.documentElement.classList.add('rolagem-suave');
+});

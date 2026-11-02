@@ -1,4 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
-    <rect x="1" y="1" width="62" height="62" rx="14" fill="#161B22" stroke="#30363D" stroke-width="2"/>
-    <text x="32" y="32" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-weight="bold" font-size="36" fill="#7CC4FF">M</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1254 1254" width="64" height="64">
+    <rect width="1254" height="1254" rx="235" fill="#0D1424"/>
+    <g fill="#1DAEFD" transform="translate(627 627) scale(1.22) translate(-627 -627)">
+        <polygon points="268,336 388,336 627,575 866,336 986,336 986,476 823,638 823,596 627,790 431,596 431,638 268,476"/>
+        <polygon points="268,527 431,689 431,917 268,917"/>
+        <polygon points="986,527 986,917 823,917 823,689"/>
+    </g>
 </svg>

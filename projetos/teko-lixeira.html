@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teko Lixeira | Marco Antônio Machado</title>
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="../favicon.ico" sizes="48x48">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
     <meta name="description" content="Lixeira IoT, do Amazon Hacking ao TCC.">
 
     <link rel="stylesheet" href="../css/style.css">
@@ -22,7 +24,9 @@
 
     <main class="pagina">
 
-        <a class="pagina-voltar" href="../index.html#projetos"><span aria-hidden="true">←</span> Voltar aos projetos</a>
+        <a class="pagina-voltar" href="../index.html#projetos"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /><path
+            d="M19 12H5" /></svg>Voltar aos projetos</a>
 
         <article>
 
@@ -48,20 +52,34 @@
             </div>
 
             <!-- IMAGEM -->
-            <img class="projeto-imagem pagina-imagem" src="../img/projetos/teko/teko-card.png"
-                alt="Dashboard do Teko Lixeira mostrando o peso de lixo coletado no mês e o status da lixeira" width="1280"
-                height="800">
+            <img class="projeto-imagem pagina-imagem" src="../img/projetos/teko/teko-card.webp"
+                alt="Dashboard do Teko Lixeira mostrando o peso de lixo coletado no mês e o status da lixeira" width="960"
+                height="600">
+
+            <!-- O AMAZON HACKING -->
+            <section class="pagina-bloco">
+                <h2>O Amazon Hacking</h2>
+                <div class="pagina-bloco-texto">
+                    <p>O Amazon Hacking é o programa de inovação e extensão do CESUPA, criado em 2022. Em vez de uma maratona
+                        de 24 a 48 horas, cada edição dura cerca de seis meses. Os alunos saem da sala de aula, visitam
+                        comunidades da Amazônia, ouvem os problemas dos moradores e transformam o que ouviram em soluções de
+                        software, hardware e robótica. O programa tem quatro fases: imersão e diagnóstico de campo, ideação
+                        com apoio de empresas e mentores, desenvolvimento com mentoria técnica e validação das soluções na
+                        Computação Amostra, o evento anual de tecnologia do CESUPA, com avaliação do público, de professores
+                        e da comunidade.</p>
+                </div>
+            </section>
 
             <!-- CONTEXTO -->
             <section class="pagina-bloco">
                 <h2>Contexto</h2>
                 <div class="pagina-bloco-texto">
-                    <p>O Teko Lixeira nasceu no Amazon Hacking 2025, um programa de extensão do CESUPA que reúne alunos de
-                        vários cursos, professores, empresas e a comunidade para criar soluções com impacto social e
-                        ambiental, com o apoio de empresas como a Vale e a Accenture. A ideia foi criada em conjunto pela
-                        equipe, formada por alunos de Ciência da Computação e de Engenharia da Computação. O protótipo foi
-                        exposto em um estande na COP 30, em Belém, onde a equipe apresentou o projeto aos visitantes em um
-                        pitch. Depois, o projeto virou tema de dois TCCs.</p>
+                    <p>O Teko Lixeira nasceu na edição de 2025 do Amazon Hacking, que teve como tema a Amazônia a caminho da
+                        COP 30 e desafios urbanos de Belém, como a gestão de resíduos. A edição contou com o apoio de
+                        empresas parceiras. A ideia foi criada em conjunto pela equipe, formada por alunos de Ciência da
+                        Computação e de Engenharia da Computação. O protótipo foi exposto em um estande na COP 30, em Belém,
+                        onde a equipe apresentou o projeto aos visitantes em um pitch. Depois, o projeto virou tema de dois
+                        TCCs.</p>
                 </div>
             </section>
 
@@ -69,10 +87,13 @@
             <section class="pagina-bloco">
                 <h2>Desafio</h2>
                 <div class="pagina-bloco-texto">
-                    <p>Em Belém, a coleta de lixo enfrenta dificuldades, principalmente onde falta monitoramento.
-                        Caminhões e coletores seguem rotas fixas, sem saber quanto lixo há em cada lixeira, e empresas e
-                        órgãos públicos têm dificuldade de medir quanto resíduo produzem. Sem esses dados, não existem
-                        indicadores de sustentabilidade, e fica mais difícil tomar boas decisões.</p>
+                    <p>Em Belém, a coleta de lixo enfrenta dificuldades, principalmente onde falta monitoramento. Hoje os
+                        caminhões seguem rotas fixas, com dias e horários marcados, sem saber quanto lixo há em cada lixeira.
+                        Em um ponto, o caminhão chega e a lixeira está quase vazia: combustível, tempo e esforço perdidos. Ao
+                        mesmo tempo, outra lixeira está completamente cheia e fica sem coleta, porque a rota daquele dia não
+                        passa por ali. Empresas e órgãos públicos também não conseguem medir quanto resíduo produzem. Sem
+                        esses dados, não há indicadores de sustentabilidade, e as decisões que dependem deles são tomadas no
+                        palpite.</p>
                 </div>
             </section>
 
@@ -80,11 +101,12 @@
             <section class="pagina-bloco">
                 <h2>Solução</h2>
                 <div class="pagina-bloco-texto">
-                    <p>Uma lixeira inteligente que pesa o lixo, avisa quando está cheia e envia os dados por Wi-Fi para a
-                        nuvem. Um painel web mostra tudo em tempo real: o peso ao longo do dia, o total coletado no mês e
-                        o aviso de lixeira cheia. A ideia é dar a quem cuida dos resíduos dados confiáveis para planejar a
-                        coleta e acompanhar o descarte, começando por condomínios, prédios corporativos e órgãos
-                        públicos.</p>
+                    <p>O Teko Lixeira é uma lixeira inteligente que faz a pesagem do lixo, informa quando está totalmente
+                        cheia e envia os dados por Wi-Fi para a nuvem. Um painel web mostra tudo em tempo real: o peso ao
+                        longo do dia, o total do mês e o aviso de lixeira cheia. Com essas informações, a equipe de coleta
+                        sabe qual lixeira precisa ser esvaziada hoje e qual ainda pode esperar. O caminhão pode ir direto aos
+                        pontos cheios, gastando menos combustível, tempo e esforço. Queremos começar por condomínios, prédios
+                        corporativos e órgãos públicos.</p>
                 </div>
             </section>
 
@@ -100,45 +122,58 @@
                 </ul>
             </section>
 
-            <!-- GALERIA -->
+            <!-- HARDWARE -->
             <section class="pagina-bloco pagina-bloco-galeria">
-                <h2>Galeria</h2>
-                <div class="pagina-galeria">
+                <h2>Hardware</h2>
+                <div class="pagina-galeria pagina-galeria-cartoes">
                     <figure>
                         <img src="../img/projetos/teko/teko-diagrama-sistema.png"
                             alt="Diagrama do Teko Lixeira: sensor de nível na tampa, sensor de abertura e movimento na lateral e sensor de carga na base, ligados ao ESP32, que envia os dados por Wi-Fi para a nuvem e para o sistema de monitoramento"
-                            width="1104" height="786" loading="lazy">
-                        <figcaption>Diagrama do sistema: sensores, ESP32, Wi-Fi, nuvem e painel.</figcaption>
+                            width="960" height="600" loading="lazy">
+                        <figcaption><strong>Como o sistema funciona</strong> Mostra o caminho do dado: os sensores na lixeira, o
+                            ESP32, o Wi-Fi, a nuvem e o sistema de monitoramento.</figcaption>
                     </figure>
                     <figure>
                         <img src="../img/projetos/teko/teko-base-sensor.png"
                             alt="Base preta com o sensor de carga no centro e quatro rodas laranja, virada para cima sobre a lixeira"
-                            width="535" height="555" loading="lazy">
-                        <figcaption>Base com o sensor de carga e as rodas, fixada sob a lixeira.</figcaption>
+                            width="960" height="600" loading="lazy">
+                        <figcaption><strong>Base de pesagem</strong> Base com sensor de carga e rodas, fixada sob a lixeira. É
+                            ela que mede o peso do lixo.</figcaption>
                     </figure>
+                </div>
+            </section>
+
+            <!-- PAINEL E DADOS -->
+            <section class="pagina-bloco pagina-bloco-galeria">
+                <h2>Painel e dados</h2>
+                <div class="pagina-galeria pagina-galeria-cartoes">
                     <figure>
                         <img src="../img/projetos/teko/teko-painel-grafico-peso-por-hora.png"
                             alt="Gráfico de linha Peso do Lixo por Hora, com o peso em kg de 00:00 a 23:00 e picos às 11:00 e às 17:00"
-                            width="1126" height="360" loading="lazy">
-                        <figcaption>Primeira versão do painel, com dados de teste: peso por hora.</figcaption>
+                            width="960" height="600" loading="lazy">
+                        <figcaption><strong>Peso por hora</strong> Gráfico do peso ao longo do dia, para ver em que horários a
+                            lixeira recebe mais lixo. Primeira versão do painel, com dados de teste.</figcaption>
                     </figure>
                     <figure>
                         <img src="../img/projetos/teko/teko-painel-lixeira-cheia.png"
                             alt="Painel com o aviso A lixeira está cheia em vermelho e, abaixo, os cartões com o peso do mês passado e deste mês"
-                            width="1119" height="425" loading="lazy">
-                        <figcaption>Primeira versão do painel, com dados de teste: aviso de lixeira cheia.</figcaption>
+                            width="960" height="600" loading="lazy">
+                        <figcaption><strong>Aviso de lixeira cheia</strong> Alerta no topo do painel quando a lixeira enche,
+                            para avisar quem faz a coleta. Primeira versão do painel, com dados de teste.</figcaption>
                     </figure>
                     <figure>
                         <img src="../img/projetos/teko/teko-painel-cartoes-mes.png"
                             alt="Painel com os cartões do peso do mês passado, do peso deste mês e da diferença entre os dois"
-                            width="1307" height="583" loading="lazy">
-                        <figcaption>Primeira versão do painel, com dados de teste: totais do mês.</figcaption>
+                            width="960" height="600" loading="lazy">
+                        <figcaption><strong>Totais do mês</strong> Quanto foi coletado no mês e a comparação com o mês passado.
+                            Primeira versão do painel, com dados de teste.</figcaption>
                     </figure>
                     <figure>
                         <img src="../img/projetos/teko/teko-firebase-historico.png"
                             alt="Banco de dados do Firebase com o histórico de 10/11/2025, cada medição com a hora e o peso"
-                            width="311" height="196" loading="lazy">
-                        <figcaption>Firebase recebendo o peso e a hora de cada medição.</figcaption>
+                            width="960" height="600" loading="lazy">
+                        <figcaption><strong>Banco de dados</strong> Registro no Firebase: cada medição guarda o peso e a hora. É
+                            desse banco que o painel lê os dados.</figcaption>
                     </figure>
                 </div>
             </section>
@@ -148,16 +183,18 @@
                 <h2>Equipe</h2>
                 <ul class="pagina-bloco-texto">
                     <li>Igor Rafael Carvalho Gonçalves</li>
+                    <li>Lucas Alves Rodrigues</li>
                     <li>Marco Antônio Oliveira Machado</li>
                     <li>Rafael Ponciano Vasconcelos Silva</li>
-                    <li>Lucas Alves Rodrigues</li>
                     <li>Raissa Sousa de Oliveira</li>
                 </ul>
             </section>
 
         </article>
 
-        <a class="pagina-voltar" href="../index.html#projetos"><span aria-hidden="true">←</span> Voltar aos projetos</a>
+        <a class="pagina-voltar" href="../index.html#projetos"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /><path
+            d="M19 12H5" /></svg>Voltar aos projetos</a>
 
     </main>
 

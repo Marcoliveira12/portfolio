@@ -210,7 +210,7 @@ a:hover {
     pointer-events: none;
 }
 
-/*logos e ícones (GitHub, LinkedIn, conversa, copiar, site, machado e o download do currículo):
+/*logos e ícones (GitHub, LinkedIn, conversa, copiar, site, detalhes, machado e o download do currículo):
 o arquivo vira máscara e pega a cor do texto*/
 .logo-rede,
 .inicio-botao-curriculo-icone {
@@ -248,6 +248,11 @@ o arquivo vira máscara e pega a cor do texto*/
 .logo-site {
     -webkit-mask-image: url(../img/icones/ui-site.svg);
     mask-image: url(../img/icones/ui-site.svg);
+}
+
+.logo-detalhes {
+    -webkit-mask-image: url(../img/icones/ui-detalhes.svg);
+    mask-image: url(../img/icones/ui-detalhes.svg);
 }
 
 .logo-machado {
@@ -469,8 +474,10 @@ Fica aqui, junto dos outros rótulos, porque a regra da tela cheia (no fim deste
 /*movimento: só para quem não pediu menos movimento*/
 @media (prefers-reduced-motion: no-preference) {
 
-    /*links do menu e rolagem por seção deslizam até a seção (com movimento reduzido, vão direto)*/
-    html {
+    /*links do menu e rótulos deslizam até a seção (com movimento reduzido, vão direto).
+    Só depois que a página carrega (classe rolagem-suave, colocada pelo script.js): assim, quem chega
+    por um link com âncora (#projetos) já abre na seção, sem deslizar desde o topo*/
+    html.rolagem-suave {
         scroll-behavior: smooth;
     }
 
@@ -1341,7 +1348,7 @@ minmax(0, 1fr): as três colunas ficam sempre com a mesma largura, mesmo com um 
     flex-direction: column;
 }
 
-/*caixa da imagem: os botões de Ver site e Ver código ficam por cima dela*/
+/*caixa da imagem: os botões Ver detalhes, Ver site e Ver código ficam por cima dela*/
 .projeto-midia {
     position: relative;
 }
@@ -1385,29 +1392,11 @@ minmax(0, 1fr): as três colunas ficam sempre com a mesma largura, mesmo com um 
     margin-top: 16px;
 }
 
-/*título com link (só quando o projeto tem página): nome à esquerda e aviso "Ver detalhes" à direita, na mesma linha de base*/
+/*título com link (só quando o projeto tem página): ocupa a linha toda, para o clique valer na largura do cartão*/
 .projeto-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 12px;
+    display: block;
     color: inherit;
     text-decoration: none;
-}
-
-/*aviso "Ver detalhes →"; flex-shrink 0 não deixa ele quebrar quando o nome é comprido*/
-.projeto-detalhes {
-    flex-shrink: 0;
-    font-family: jetbrains, ui-monospace, monospace;
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    color: #8B96A5;
-}
-
-/*inline-block para a seta poder andar no hover*/
-.projeto-detalhes-seta {
-    display: inline-block;
 }
 
 /*origem do projeto (ex: Projeto pessoal · 2026)*/
@@ -1440,7 +1429,7 @@ minmax(0, 1fr): as três colunas ficam sempre com a mesma largura, mesmo com um 
     padding: 4px 12px;
 }
 
-/*botões Ver site e Ver código por cima da imagem, com fundo escuro (#0D1117 com 0.72 de opacidade).
+/*botões Ver detalhes, Ver site e Ver código por cima da imagem, com fundo escuro (#0D1117 com 0.72 de opacidade).
 Escondidos até o mouse ou o foco chegar na imagem; z-index 1 deixa eles acima do link da imagem.
 pointer-events none no bloco: o clique na parte escura passa para o link da imagem; só os botões recebem clique*/
 .projeto-acoes {
@@ -1518,8 +1507,7 @@ pointer-events none no bloco: o clique na parte escura passa para o link da imag
         text-align: center;
     }
 
-    /*nome e aviso "Ver detalhes" juntos no centro, o aviso à direita do nome*/
-    .projeto-link,
+    /*pílulas no centro*/
     .projeto-tags {
         justify-content: center;
     }
@@ -1592,20 +1580,18 @@ pointer-events none no bloco: o clique na parte escura passa para o link da imag
         color: #7CC4FF;
     }
 
-    /*balãozinho "Ver site" / "Ver código" no hover ou no foco do botão*/
+    /*balãozinho "Ver detalhes" / "Ver site" / "Ver código" no hover ou no foco do botão*/
     .projeto-acao:hover .projeto-acao-rotulo,
     .projeto-acao:focus-visible .projeto-acao-rotulo {
         opacity: 1;
     }
 
-    /*mouse no título com página: nome e aviso "Ver detalhes" ficam azuis (sem página o título não tem link)*/
-    .projeto-link,
-    .projeto-detalhes {
+    /*mouse no título com página: o nome fica azul (sem página o título não tem link)*/
+    .projeto-link {
         transition: color 0.2s ease-out;
     }
 
-    .projeto-link:hover,
-    .projeto-link:hover .projeto-detalhes {
+    .projeto-link:hover {
         color: #7CC4FF;
     }
 
@@ -1621,7 +1607,7 @@ pointer-events none no bloco: o clique na parte escura passa para o link da imag
     }
 }
 
-/*Projetos com mouse e movimento: só a imagem sobe 4px (com os botões por cima) e a seta do aviso anda 4px*/
+/*Projetos com mouse e movimento: só a imagem sobe 4px (com os botões por cima)*/
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
 
     .projeto-midia {
@@ -1641,14 +1627,6 @@ pointer-events none no bloco: o clique na parte escura passa para o link da imag
         left: 0;
         right: 0;
         height: 4px;
-    }
-
-    .projeto-detalhes-seta {
-        transition: transform 0.2s ease-out;
-    }
-
-    .projeto-link:hover .projeto-detalhes-seta {
-        transform: translateX(4px);
     }
 }
 
@@ -2416,26 +2394,41 @@ O que passar de 720px vira padding, metade de cada lado*/
     padding: 64px max(32px, calc((100% - 720px) / 2));
 }
 
-/*link "← Voltar aos projetos", no começo e no fim da página (o padding deixa o toque mais fácil)*/
+/*botão em pílula "Voltar aos projetos", com a seta à esquerda, no começo e no fim da página.
+A borda é cinza para não parecer com as pílulas azuis das tecnologias*/
 .pagina-voltar {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px 8px 12px;
+    border: 1px solid #30363D;
+    border-radius: 999px;
+    background-color: #161B2299;
+    color: #8B96A5;
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 13px;
-    color: #8B96A5;
+    line-height: 1;
     text-decoration: none;
-    padding: 8px 0;
+    transition: color 0.2s ease-out, border-color 0.2s ease-out, background-color 0.2s ease-out;
 }
 
-/*o link do fim fica 40px abaixo do último bloco*/
+/*foco pelo teclado: texto, seta e borda azuis*/
+.pagina-voltar:focus-visible {
+    color: #7CC4FF;
+    border-color: #7CC4FF;
+    background-color: #7CC4FF14;
+}
+
+/*o botão do fim fica 80px abaixo do último bloco, mais do que o espaço entre os blocos (73px)*/
 .pagina article + .pagina-voltar {
-    margin-top: 40px;
+    margin-top: 80px;
 }
 
 .pagina h1 {
     font-size: 40px;
     font-weight: 700;
     letter-spacing: -0.01em;
-    margin-top: 32px;
+    margin-top: 40px;
 }
 
 .pagina-resumo {
@@ -2508,6 +2501,25 @@ O que passar de 720px vira padding, metade de cada lado*/
     margin-top: 8px;
 }
 
+/*cartões de imagem do Teko: todas as molduras do mesmo tamanho (16 por 10), com borda azul*/
+.pagina-galeria-cartoes img {
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-color: #7CC4FF;
+}
+
+/*título curto do cartão, em cima da descrição*/
+.pagina-galeria figcaption strong {
+    display: block;
+    font-family: jetbrains, ui-monospace, monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #E6EDF3;
+    margin-bottom: 4px;
+}
+
 /*linha do crédito do layout do Tecboard*/
 .pagina-nota {
     margin-top: 20px;
@@ -2517,11 +2529,19 @@ O que passar de 720px vira padding, metade de cada lado*/
 @media (max-width: 599px) {
 
     .pagina {
-        padding: 32px 20px;
+        padding: 32px 20px 48px;
     }
 
     .pagina h1 {
         font-size: 32px;
+    }
+}
+
+/*página de projeto no celular e no tablet: botão de voltar com 44px de altura, para o toque*/
+@media (max-width: 1023px) {
+
+    .pagina-voltar {
+        min-height: 44px;
     }
 }
 
@@ -2549,14 +2569,32 @@ Os blocos de imagens continuam com o rótulo em cima, para as imagens usarem a l
     }
 }
 
-/*página de projeto com mouse: link de voltar fica azul*/
-@media (hover: hover) {
+/*página de projeto com movimento: a seta do botão de voltar anda 3px para a esquerda no foco do teclado*/
+@media (prefers-reduced-motion: no-preference) {
 
-    .pagina-voltar {
-        transition: color 0.2s ease-out;
+    .pagina-voltar svg {
+        transition: transform 0.2s ease-out;
     }
+
+    .pagina-voltar:focus-visible svg {
+        transform: translateX(-3px);
+    }
+}
+
+/*página de projeto com mouse: botão de voltar fica azul*/
+@media (hover: hover) {
 
     .pagina-voltar:hover {
         color: #7CC4FF;
+        border-color: #7CC4FF;
+        background-color: #7CC4FF14;
+    }
+}
+
+/*página de projeto com mouse e movimento: a seta anda 3px para a esquerda*/
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+
+    .pagina-voltar:hover svg {
+        transform: translateX(-3px);
     }
 }
