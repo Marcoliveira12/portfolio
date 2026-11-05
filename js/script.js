@@ -2,13 +2,12 @@
 
 //para adicionar um projeto novo: copie um objeto inteiro (de { até },), cole na lista na posição em que ele deve aparecer
 //e troque os dados. Campos de link (site, codigo, pagina) ficam com '' quando não existem: o cartão só mostra o que tiver link.
-//as descrições abaixo são provisórias: eu escrevo as definitivas
 const projetos = [
     {
         titulo: 'Teko Lixeira',
         origem: 'TCC · 2026',
         status: 'Em desenvolvimento',
-        descricao: 'Lixeira IoT, do Amazon Hacking ao TCC.',
+        descricao: 'Lixeira IoT apresentada na COP 30.',
         tecnologias: ['C++', 'JavaScript', 'HTML', 'CSS', 'React', 'Firebase', 'ESP32'],
         imagemDesktop: 'img/projetos/teko/teko-card.webp',
         imagemMobile: 'img/projetos/teko/teko-card.webp',
@@ -40,7 +39,7 @@ const projetos = [
         tecnologias: ['HTML', 'CSS'],
         imagemDesktop: 'img/projetos/tecboard/tecboard-card.webp',
         imagemMobile: 'img/projetos/tecboard/tecboard-card.webp',
-        alt: 'Topo da landing page Tecboard, com o título Fique de olho no que importa, o botão Testar versão demo e celulares mostrando o aplicativo',
+        alt: 'Página inicial da landing page do Tecboard, com o título Fique de olho no que importa e o botão Testar versão demo',
         codigo: 'https://github.com/Marcoliveira12/tecboard',
         site: 'https://marcoliveira12.github.io/tecboard/',
         pagina: 'projetos/tecboard.html'

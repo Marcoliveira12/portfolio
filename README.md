@@ -1,31 +1,20 @@
-# Portfólio de Marco Machado
+# Portfólio de Marco Antônio Machado
 
-Site pessoal para reunir projetos, formação e contato. Feito em HTML, CSS e JavaScript puros, publicado no GitHub Pages.
+Meu site pessoal de desenvolvedor, feito em HTML, CSS e JavaScript.
 
-🔗 Site: _em breve_
+![Início do portfólio](img/projetos/portfolio/portfolio-card.webp)
 
-## Tecnologias
+## Créditos
 
-- HTML5
-- CSS3
-- JavaScript
+Os ícones e as fontes que uso no site são de outras pessoas, então deixo os créditos aqui:
 
-## Como rodar localmente
+* Ícones de interface: [Lucide](https://lucide.dev) (licença ISC) e [Tabler Icons](https://tabler.io/icons) (licença MIT).
+* Ícones das tecnologias: [Devicon](https://devicon.dev) (licença MIT) e [Simple Icons](https://simpleicons.org) (licença CC0).
+* Fontes: Inter e JetBrains Mono (licença SIL Open Font License).
 
-1. Clone este repositório
-2. Abra a pasta no VS Code
-3. Clique com o botão direito em `index.html` e escolha **Open with Live Server**
+## Contato
 
-## Definition of Done
+Fale comigo:
 
-Uma tarefa só está pronta quando:
-
-- Funciona no celular, no tablet e no desktop
-- Não gera erro no console do navegador
-- O código foi lido e pode ser explicado
-- Está commitado com mensagem clara
-- Está publicado no GitHub
-
-## Status
-
-🚧 Em desenvolvimento: HTML da página inicial pronto, visual (CSS) em andamento.
+* E-mail: marcoamachado.dev@gmail.com
+* LinkedIn: [linkedin.com/in/marcomachado-dev](https://www.linkedin.com/in/marcomachado-dev/)
