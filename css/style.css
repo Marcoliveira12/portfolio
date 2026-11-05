@@ -2524,7 +2524,7 @@ A borda é cinza para não parecer com as pílulas azuis das tecnologias*/
     margin-top: 8px;
 }
 
-/*cartões de imagem do Teko: todas as molduras do mesmo tamanho (16 por 10), com borda azul*/
+/*cartões de imagem da Teko Lixeira: todas as molduras do mesmo tamanho (16 por 10), com borda azul*/
 .pagina-galeria-cartoes img {
     aspect-ratio: 16 / 10;
     object-fit: cover;

@@ -12,9 +12,9 @@ const projetos = [
         tecnologias: ['C++', 'JavaScript', 'HTML', 'CSS', 'React', 'Firebase', 'ESP32'],
         imagemDesktop: 'img/projetos/teko/teko-card.webp',
         imagemMobile: 'img/projetos/teko/teko-card.webp',
-        alt: 'Dashboard do Teko Lixeira mostrando o peso de lixo coletado no mês e o status da lixeira',
+        alt: 'Dashboard da Teko Lixeira mostrando o peso de lixo coletado no mês e o status da lixeira',
         codigo: 'https://github.com/Marcoliveira12/teko-lixeira',
-        //o Teko não tem site
+        //a Teko Lixeira não tem site
         site: '',
         pagina: 'projetos/teko-lixeira.html'
     },
@@ -48,7 +48,6 @@ const projetos = [
 ];
 
 //para acrescentar uma tecnologia: copie um objeto { nome, arquivo } inteiro, cole no fim dos itens do grupo certo e troque os dados
-//Java e SQL entram no Backend a partir de 15/12/2026, é só acrescentar um objeto em itens
 const gruposTecnologias = [
     {
         titulo: 'Frontend',
@@ -78,7 +77,6 @@ const gruposTecnologias = [
 ];
 
 //palavras que se revezam no topo
-//em 15/12/2026 o 'Java' entra no fim da lista (e no comentário do index.html)
 const tecnologiasTopo = ['HTML', 'CSS', 'JavaScript', 'Git', 'GitHub'];
 
 
