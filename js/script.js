@@ -20,7 +20,7 @@ const projetos = [
     {
         titulo: 'Este portfólio',
         origem: 'Projeto pessoal · 2026',
-        status: 'Em desenvolvimento',
+        status: 'Concluído',
         descricao: 'Meu site pessoal.',
         tecnologias: ['HTML', 'CSS', 'JavaScript', 'Git'],
         imagemDesktop: 'img/projetos/portfolio/portfolio-card.webp',
@@ -35,7 +35,7 @@ const projetos = [
         titulo: 'Tecboard',
         origem: 'Curso Alura · 2026',
         status: 'Concluído',
-        descricao: 'Do layout do Figma a uma landing page.',
+        descricao: 'Do layout no Figma à landing page.',
         tecnologias: ['HTML', 'CSS'],
         imagemDesktop: 'img/projetos/tecboard/tecboard-card.webp',
         imagemMobile: 'img/projetos/tecboard/tecboard-card.webp',
@@ -552,6 +552,13 @@ function montarProjetos(lista) {
             titulo = `<a class="projeto-link" href="${projeto.pagina}">${projeto.titulo}</a>`;
         }
 
+        //linha de origem; projeto em desenvolvimento ganha o status no fim
+        let origem = projeto.origem;
+
+        if (projeto.status === 'Em desenvolvimento') {
+            origem = `${projeto.origem} · ${projeto.status}`;
+        }
+
         //uma pílula de texto para cada tecnologia
         let tags = '';
 
@@ -567,7 +574,7 @@ function montarProjetos(lista) {
                 </div>
 
                 <h3 class="projeto-titulo">${titulo}</h3>
-                <p class="projeto-origem">${projeto.origem}</p>
+                <p class="projeto-origem">${origem}</p>
                 <p class="projeto-descricao">${projeto.descricao}</p>
 
                 <ul class="projeto-tags" aria-label="Tecnologias usadas">${tags}</ul>
@@ -580,7 +587,7 @@ function montarProjetos(lista) {
 
 montarProjetos(projetos);
 
-//contadores da seção Projetos (total e em andamento), na linha abaixo do título
+//contadores da seção Projetos (total e em desenvolvimento), na linha abaixo do título
 const contadoresProjetos = document.querySelector('.projetos-contadores');
 
 //coloca o zero na frente dos números menores que 10 (3 vira 03)
@@ -594,11 +601,11 @@ function doisDigitos(numero) {
     return texto;
 }
 
-let projetosEmAndamento = 0;
+let projetosEmDesenvolvimento = 0;
 
 for (let i = 0; i < projetos.length; i++) {
     if (projetos[i].status === 'Em desenvolvimento') {
-        projetosEmAndamento++;
+        projetosEmDesenvolvimento++;
     }
 }
 
@@ -613,11 +620,11 @@ function singularOuPlural(quantidade, singular, plural) {
     return palavra;
 }
 
-//escreve "03 projetos · 02 em andamento", com os números num span para ficarem mais claros
+//escreve "03 projetos · 01 em desenvolvimento", com os números num span para ficarem mais claros
 if (contadoresProjetos) {
     const palavraProjetos = singularOuPlural(projetos.length, 'projeto', 'projetos');
 
-    contadoresProjetos.innerHTML = `<span class="projetos-numero">${doisDigitos(projetos.length)}</span> ${palavraProjetos} · <span class="projetos-numero">${doisDigitos(projetosEmAndamento)}</span> em andamento`;
+    contadoresProjetos.innerHTML = `<span class="projetos-numero">${doisDigitos(projetos.length)}</span> ${palavraProjetos} · <span class="projetos-numero">${doisDigitos(projetosEmDesenvolvimento)}</span> em desenvolvimento`;
 }
 
 

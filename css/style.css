@@ -286,12 +286,11 @@ main h2 + p {
     margin-bottom: 40px;
 }
 
-/*balãozinho com o nome, escondido acima do botão ou do logo (Início, Projetos, Tecnologias, Experiência, Contato e rodapé).
+/*balãozinho com o nome, escondido acima do botão ou do logo (Início, Projetos, Tecnologias, Contato e rodapé).
 O leitor de tela usa o texto oculto ou o aria-label de cada botão*/
 .inicio-icone-rotulo,
 .projeto-acao-rotulo,
 .tecnologias-nome,
-.experiencia-logo-rotulo,
 .contato-dica {
     position: absolute;
     bottom: 100%;
@@ -312,8 +311,7 @@ O leitor de tela usa o texto oculto ou o aria-label de cada botão*/
 /*8px entre o balãozinho e o botão (no Contato ele fica colado, porque o botão de copiar já é maior que o ícone)*/
 .inicio-icone-rotulo,
 .projeto-acao-rotulo,
-.tecnologias-nome,
-.experiencia-logo-rotulo {
+.tecnologias-nome {
     margin-bottom: 8px;
 }
 
@@ -1201,6 +1199,20 @@ Mesma moldura das caixas de Tecnologias (mais grossa embaixo e à direita), sem 
     margin-bottom: 0;
 }
 
+/*links da Agência Fruta e da Beauty Fair: cor do texto com sublinhado fino cinza*/
+#sobre > div p a {
+    color: inherit;
+    text-decoration-thickness: 1px;
+    text-decoration-color: #8B96A5;
+}
+
+/*no hover e no foco pelo teclado, texto e sublinhado ficam azuis*/
+#sobre > div p a:hover,
+#sobre > div p a:focus-visible {
+    color: #7CC4FF;
+    text-decoration-color: #7CC4FF;
+}
+
 /*Sobre mim no tablet e no celular: 32px do título até o cartão*/
 @media (max-width: 899px) {
 
@@ -1286,6 +1298,14 @@ Mesma moldura das caixas de Tecnologias (mais grossa embaixo e à direita), sem 
     .sobre-cartao:hover {
         border-right-color: #7CC4FF;
         border-bottom-color: #7CC4FF;
+    }
+}
+
+/*Sobre mim com movimento: links mudam de cor suave*/
+@media (prefers-reduced-motion: no-preference) {
+
+    #sobre > div p a {
+        transition: color 0.2s ease-out, text-decoration-color 0.2s ease-out;
     }
 }
 
@@ -1819,7 +1839,7 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
 
 /* ===== EXPERIÊNCIA ===== */
 
-/*linha embaixo de "Trajetória profissional."*/
+/*linha embaixo de "Trajetória profissional"*/
 #experiencia h2 + p {
     border-bottom: 1px solid #30363D;
     padding-bottom: 24px;
@@ -1842,26 +1862,15 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
     gap: 40px;
 }
 
-/*relative para o balãozinho do LinkedIn se posicionar em cima da logo; z-index 5 deixa ele acima do que estiver perto*/
-.experiencia-logos a {
-    position: relative;
-}
-
-.experiencia-logo-rotulo {
-    z-index: 5;
-}
-
-/*balãozinho aparece no foco pelo teclado*/
-.experiencia-logos a:focus-visible .experiencia-logo-rotulo {
-    opacity: 1;
-}
-
+/*cada logo num quadrado claro de 72px, com 10px de folga em volta*/
 #experiencia img {
-    width: auto;
-    height: auto;
-    max-width: 160px;
-    max-height: 72px;
+    width: 72px;
+    height: 72px;
+    box-sizing: border-box;
+    padding: 10px;
     object-fit: contain;
+    background-color: #E6EDF3;
+    border-radius: 15%;
 }
 
 /*textos do estágio: rótulo com a data, nome da empresa e parágrafos*/
@@ -1905,12 +1914,6 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
         justify-content: flex-start;
         gap: 16px 32px;
     }
-
-    /*balãozinho começa na borda esquerda da logo, para o da Agência Fruta não sair da tela*/
-    .experiencia-logo-rotulo {
-        left: 0;
-        transform: none;
-    }
 }
 
 /*Experiência no celular*/
@@ -1925,34 +1928,6 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
     /*logos no centro*/
     .experiencia-logos {
         justify-content: center;
-    }
-}
-
-/*Experiência com mouse: balãozinho do LinkedIn aparece no hover da logo*/
-@media (hover: hover) {
-
-    .experiencia-logos a:hover .experiencia-logo-rotulo {
-        opacity: 1;
-    }
-}
-
-/*Experiência com movimento: balãozinho aparece e some suave*/
-@media (prefers-reduced-motion: no-preference) {
-
-    .experiencia-logo-rotulo {
-        transition: opacity 0.2s ease-out;
-    }
-}
-
-/*Experiência com mouse e movimento: logos sobem 2px*/
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-
-    .experiencia-logos a {
-        transition: transform 0.2s ease-out;
-    }
-
-    .experiencia-logos a:hover {
-        transform: translateY(-2px);
     }
 }
 
@@ -1994,7 +1969,7 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
     color: #8B96A5;
 }
 
-/*cursos em duas colunas (rótulo "CURSOS" à esquerda e lista à direita)*/
+/*cursos em duas colunas (rótulo "CURSOS COMPLEMENTARES" à esquerda e lista à direita)*/
 .formacao-cursos {
     display: grid;
     grid-template-columns: 140px 1fr;
@@ -2043,7 +2018,7 @@ Vira uma faixa: rótulo à esquerda (140px) e logos à direita, centralizados na
     font-size: 14px;
 }
 
-/*Formação no tablet e no celular: o rótulo "CURSOS" sobe para cima da lista*/
+/*Formação no tablet e no celular: o rótulo "CURSOS COMPLEMENTARES" sobe para cima da lista*/
 @media (max-width: 899px) {
 
     .formacao-cursos {
