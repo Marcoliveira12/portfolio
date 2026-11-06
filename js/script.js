@@ -27,7 +27,7 @@ const projetos = [
         imagemMobile: 'img/projetos/portfolio/portfolio-card.webp',
         alt: 'Página inicial deste portfólio',
         codigo: 'https://github.com/Marcoliveira12/portfolio',
-        //TODO: link do site no ar quando o portfólio for publicado
+        //o portfólio é o próprio site, por isso fica sem o link Ver site
         site: '',
         pagina: 'projetos/este-portfolio.html'
     },

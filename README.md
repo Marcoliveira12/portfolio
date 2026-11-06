@@ -2,6 +2,8 @@
 
 Meu site pessoal de desenvolvedor, feito em HTML, CSS e JavaScript.
 
+Site: [marcomachado.dev.br](https://marcomachado.dev.br)
+
 ![Início do portfólio](img/projetos/portfolio/portfolio-card.webp)
 
 ## Créditos
