@@ -265,8 +265,9 @@ main > section {
     padding: 96px max(32px, calc((100% - 1040px) / 2));
 }
 
-/*rótulo(título) pequeno no inicio de cada seção (PROJETOS, SOBRE MIM...)*/
-main h2 {
+/*rótulo(título) pequeno no inicio de cada seção (PROJETOS, SOBRE MIM...) e o ERRO 404 da página de erro*/
+main h2,
+.pagina-rotulo {
     font-family: jetbrains, ui-monospace, monospace;
     font-size: 13px;
     font-weight: 500;
@@ -2432,6 +2433,31 @@ A borda é cinza para não parecer com as pílulas azuis das tecnologias*/
 .pagina-resumo {
     font-size: 18px;
     margin-top: 12px;
+}
+
+/*página 404: o rodapé fica sempre no pé da tela e o texto no centro, na vertical*/
+.pagina-erro {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
+}
+
+.pagina-erro .pagina {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/*página 404: título colado no rótulo ERRO 404 e botão de voltar abaixo do texto*/
+.pagina-rotulo + h1 {
+    margin-top: 0;
+}
+
+.pagina-resumo + .pagina-voltar {
+    margin-top: 32px;
 }
 
 /*pílulas alinhadas à esquerda com o texto (nos cartões do index elas ficam no centro abaixo de 1024px)*/

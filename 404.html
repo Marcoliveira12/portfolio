@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página não encontrada | Marco Antônio Machado</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<!-- caminhos absolutos (com / no começo) porque esta página aparece em qualquer endereço que não existe -->
+<body class="pagina-erro">
+
+    <!-- fundo de partículas, o mesmo do index -->
+    <div class="fundo" aria-hidden="true">
+        <span class="fundo-camada fundo-camada-1"></span>
+        <span class="fundo-camada fundo-camada-2"></span>
+        <span class="fundo-camada fundo-camada-3"></span>
+    </div>
+
+    <main class="pagina">
+
+        <p class="pagina-rotulo">Erro 404</p>
+        <h1>Página não encontrada</h1>
+        <p class="pagina-resumo">O endereço que você procurou não existe ou mudou de lugar.</p>
+
+        <a class="pagina-voltar" href="/"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /><path
+            d="M19 12H5" /></svg>Voltar ao início</a>
+
+    </main>
+
+    <!-- RODAPÉ, o mesmo do index -->
+    <footer class="rodape">
+        <p class="rodape-nome">Marco Antônio Machado · © <span class="rodape-ano">2026</span></p>
+        <!-- o leitor de tela lê só o texto oculto; os logos e os balõezinhos ficam escondidos dele -->
+        <div class="rodape-construido">
+            <span class="visualmente-oculto">Construído com HTML, CSS, JavaScript e Git</span>
+            <ul aria-hidden="true">
+                <li class="rodape-construido-item">
+                    <img src="/img/icones/tec-html.svg" alt="" width="20" height="20">
+                    <span class="tecnologias-nome">HTML</span>
+                </li>
+                <li class="rodape-construido-item">
+                    <img src="/img/icones/tec-css.svg" alt="" width="20" height="20">
+                    <span class="tecnologias-nome">CSS</span>
+                </li>
+                <li class="rodape-construido-item">
+                    <img src="/img/icones/tec-javascript.svg" alt="" width="20" height="20">
+                    <span class="tecnologias-nome">JavaScript</span>
+                </li>
+                <li class="rodape-construido-item">
+                    <img src="/img/icones/tec-git.svg" alt="" width="20" height="20">
+                    <span class="tecnologias-nome">Git</span>
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+</body>
+
+</html>
