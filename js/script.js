@@ -11,7 +11,7 @@ const projetos = [
         tecnologias: ['C++', 'JavaScript', 'HTML', 'CSS', 'React', 'Firebase', 'ESP32'],
         imagemDesktop: 'img/projetos/teko/teko-card.webp',
         imagemMobile: 'img/projetos/teko/teko-card.webp',
-        alt: 'Dashboard da Teko Lixeira mostrando o peso de lixo coletado no mês e o status da lixeira',
+        alt: 'Tekinho, o mascote verde da Teko Lixeira, com ondas de sinal acima da cabeça',
         codigo: 'https://github.com/Marcoliveira12/teko-lixeira',
         //a Teko Lixeira não tem site
         site: '',
